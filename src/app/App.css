@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Design system */
+@import "../design-system/colors.css";
+@import "../design-system/typography.css";
+
