@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Button as ShadButton } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { Icon, type IconName } from "@/components/atoms/icon";
+import { Button as ShadButton } from "@/shared/components/ui/button";
+import { cn } from "@/shared/lib/utils";
+import { Icon, type IconName } from "@/shared/components/atoms/icon";
 
 export type ButtonVariant = "default" | "secondary";
 

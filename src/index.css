@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* Design tokens */
-@import "./design-system/colors.css";
-@import "./design-system/typography.css";
+@import "./shared/design-system/colors.css";
+@import "./shared/design-system/typography.css";
 
 /* ========================= */
 /* Tailwind v4 Theme Config */

@@ -1,12 +1,12 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
+import { cn } from "@/shared/lib/utils"
 import {
     Select as ShadSelect,
     SelectTrigger,
     SelectContent,
     SelectValue,
     SelectItem,
-} from "@/components/ui/select"
+} from "@/shared/components/ui/select"
 
 type SelectVariant = "compact" | "default"
 type SelectColor = "default" | "secondary"
