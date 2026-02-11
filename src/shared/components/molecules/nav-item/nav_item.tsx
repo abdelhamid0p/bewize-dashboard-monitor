@@ -15,9 +15,9 @@ export const NavItem = ({ iconName, label, isActive = false, onClick }: NavItemP
       onClick={onClick}
       className={cn(
         "flex items-center justify-start gap-3 transition-colors",
-        "w-full h-[48px] px-5 rounded-[24px]", // taille fixe + border-radius
+        "w-[30vh] h-[8vh] px-5 rounded-[24px]", 
         isActive
-          ? "bg-purple-600 text-white" // état actif
+          ? "bg-purple-600 text-white" 
           : "text-gray-700 hover:bg-purple-50 hover:text-purple-700"
       )}
     >

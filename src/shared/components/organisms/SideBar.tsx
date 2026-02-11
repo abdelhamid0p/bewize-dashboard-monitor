@@ -20,7 +20,7 @@ export const Sidebar = ({ children, className }: SidebarProps) => {
       </div>
 
       {/* Navigation centrée verticalement */}
-      <nav className="flex-1 flex flex-col p-4 justify-center space-y-2 mb-[30vh] ">
+      <nav className="flex-1 flex flex-col p-4 justify-center space-y-2 mb-[10vh] ">
         {children}
       </nav>
     </aside>
