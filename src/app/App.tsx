@@ -6,7 +6,7 @@ import StaticDesignSystemShowcase from "@/shared/design-system/design-system-sho
 import DynamicDesignSystemShowcase from "@/shared/design-system/design-system-showcase/interactiveShowcase.tsx";
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { LoginPage } from '@/features/auth/pages/LoginPage';
+import { LoginPage } from '@/features/auth/pages/login_page';
 
 
 function App() {

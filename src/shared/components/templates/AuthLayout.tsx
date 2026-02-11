@@ -1,6 +1,6 @@
 import Logo from '@/assets/images/login_logo.svg';
-import LoginImage from '@/assets/images/login_image.jpg';
-import LoginForm from '../organisms/LoginForm';
+import LoginImage from '@/assets/images/login_image.png';
+import LoginForm from '@/features/auth/components/login_form';
 
 export const AuthTemplate = () => {
   return (
