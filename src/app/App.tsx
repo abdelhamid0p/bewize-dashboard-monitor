@@ -7,6 +7,7 @@ import DynamicDesignSystemShowcase from "@/shared/design-system/design-system-sh
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LoginPage } from '@/features/auth/pages/login_page';
+import { DashboardPage } from '@/features/stats/dashboard_home';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
                 <Route path="/static_showcase" element={<StaticDesignSystemShowcase />} />
                 <Route path="/dynamic_showcase" element={<DynamicDesignSystemShowcase />} />
                 <Route path="/auth" element={<LoginPage />} />
-                <Route path='/dashboard' element={<div>Dashboard Page (protected)</div>} />
+                <Route path='/dashboard' element={<DashboardPage />} />
 
 
             </Routes>
