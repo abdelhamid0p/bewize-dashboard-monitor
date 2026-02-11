@@ -8,13 +8,6 @@
    )
  }
 
- export const DashboardHome = () => {
-  return (
-    <div className="bg-white p-6 rounded-lg">
-      Dashboard Home (test)
-    </div>
-  )
-}
 
 export const StudentsPage = () => {
   return (
