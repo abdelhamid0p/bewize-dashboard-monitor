@@ -1,4 +1,4 @@
-import { NavigationSidebar } from "@/features/navigation/components/NavigationSideBar"
+import { NavigationSidebar } from "@/features/navigation/components/navigation_sidebar"
 import { Outlet, useLocation } from "react-router-dom"
 
 const pageTitles: Record<string, string> = {

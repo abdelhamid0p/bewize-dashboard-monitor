@@ -10,7 +10,7 @@ export const NavLabel = ({ children, isActive, className }: NavLabelProps) => {
   return (
     <span
       className={cn(
-        "text-sm font-medium transition-colors duration-200",
+        "text-xs font-medium transition-colors duration-200",
         isActive ? "text-neutral-100" : "text-neutral-1000",
         className
       )}
