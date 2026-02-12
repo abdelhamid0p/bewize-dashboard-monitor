@@ -48,7 +48,7 @@ export const DashboardNavbar = ({ userName }: DashboardNavbarProps) => {
         {/* Export Button */}
           <Button
               variant="default"
-              className="w-auto px-6"
+              className="w-auto px-6 h-9"
               icon={ICONS.upload}
               iconPosition="left"
           >

@@ -7,7 +7,7 @@ import DynamicDesignSystemShowcase from "@/shared/design-system/design-system-sh
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LoginPage } from '@/features/auth/pages/login_page';
 import { AbonnementsPage, CommandesPage, Dashboard, StudentsPage } from '@/features/navigation/pages/Dashboard';
-import { DashboardPage } from '@/features/stats/dashboard_home';
+import { DashboardPage } from '@/features/stats/pages/dashboard_home';
 
 
 function App() {
