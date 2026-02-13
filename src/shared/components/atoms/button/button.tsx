@@ -26,7 +26,7 @@ export const Button = ({
             className={cn(
                 /* ===== Figma base styles ===== */
                 "inline-flex items-center justify-center",
-                "min-h-11 px-4",
+                " px-4",
                 "px-3.75 py-2.75",
                 "gap-2.75",
                 "rounded-3xl",

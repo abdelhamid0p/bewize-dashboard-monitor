@@ -1,8 +1,8 @@
-import { StatsNumberCard } from "@/shared/components/organisms/cards/stats_number_card"
 import { statsCharts } from "@/features/stats/data/stats_data"
 import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard_navbar"
 import { StatsChartCard } from "@/shared/components/organisms/cards/stats_chart_card"
 import { useStats } from "../hooks/useStats"
+import { StatsNumberCardContainer } from "../components/stats_number_card_container"
 
 export const DashboardPage = () => {
 
@@ -21,7 +21,10 @@ export const DashboardPage = () => {
         key={stat.id}
         className="flex-1  "
       >
-        <StatsNumberCard {...stat} />
+        <StatsNumberCardContainer
+          {...stat}
+          />
+      
       </div>
     ))
   ) : (

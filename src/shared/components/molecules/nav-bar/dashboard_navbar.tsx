@@ -32,7 +32,7 @@ export const DashboardNavbar = ({ userName }: DashboardNavbarProps) => {
   return (
     <div className="flex items-center justify-between w-full px-6 py-4 bg-gray-50 ">
       {/* Left - Title */}
-      <Text variant="display" >
+      <Text variant="title" >
         {pageTitle}, {userName}
       </Text>
 

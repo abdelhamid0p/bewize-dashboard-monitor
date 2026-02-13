@@ -27,7 +27,7 @@ export const Text = ({
         "font-sans",
         {
           // DISPLAY
-          "text-2xl 2xl:text-3xl md:text-xl sm:text-lg font-semibold":
+          "text-xl 2xl:text-5xl md:text-4xl sm:text-lg font-semibold":
             variant === "display",
 
           // TITLE

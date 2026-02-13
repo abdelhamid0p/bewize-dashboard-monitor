@@ -42,6 +42,13 @@
   --color-secondary-800: var(--secondary-800);
   --color-secondary-900: var(--secondary-900);
 
+
+  --color-orange-card: var(--orange-card);
+
+  --color-blue-card: var(--blue-card);
+
+  --color-green-card: var(--green-card);
+
   /* -------- TYPOGRAPHY -------- */
   --font-sans: var(--font-family-sans);
 
