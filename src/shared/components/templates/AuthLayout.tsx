@@ -4,13 +4,13 @@ import LoginForm from '@/features/auth/components/login_form';
 
 export const AuthTemplate = () => {
   return (
-    <div className="flex flex-col lg:flex-row max-h-screen overflow-hidden">
+      <div className="flex min-h-screen flex-col lg:flex-row">
       
 
       {/* LEFT - Section Formulaire */}
       <div className="flex flex-1 flex-col items-center justify-center p-6 sm:p-8 lg:p-12 ">
        
-        <div className="w-full  flex flex-col items-center gap-8 sm:gap-10 lg:gap-12 ">
+        <div className="w-full  flex flex-col items-center gap-24  lg:ml-[20vh]">
          
           {/* Logo */}
           <div>
@@ -18,13 +18,13 @@ export const AuthTemplate = () => {
             <img 
               src={Logo} 
               alt="Bewize logo" 
-              className="h-6 sm:h-7 lg:h-8"
+              className="h-8 2xl:h-10 2xl:mb-[8vh]  "
             />
            
           </div>
 
           {/* Login Card */}
-          <div className=" w-full max-w-90.5">
+          <div className="w-full xl:max-w-sm 2xl:mb-[18vh] mb-[4vh]">
             <LoginForm />
           </div>
         </div>
@@ -32,12 +32,12 @@ export const AuthTemplate = () => {
       
       <div className="hidden lg:flex items-center justify-center ">
         
-        <div className="bg-black flex-1 max-w-2xl">
+        <div className="flex-1 max-w-2xl 2xl:max-w-5xl">
         
           <img
             src={LoginImage}
             alt="Dashboard Illustration"
-            className="object-contain bg-amber-950"
+            className="object-contain "
           />
          
         </div>

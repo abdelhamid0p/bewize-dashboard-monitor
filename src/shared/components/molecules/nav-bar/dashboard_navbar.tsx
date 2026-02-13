@@ -1,6 +1,7 @@
 import { Button } from "@/shared/components/atoms/button"
 import { Icon, ICONS } from "@/shared/components/atoms/icon"
 import { useLocation } from "react-router-dom"
+import { Text } from "@/shared/components/atoms/text/text"
 
 interface DashboardNavbarProps {
   userName: string
@@ -31,9 +32,9 @@ export const DashboardNavbar = ({ userName }: DashboardNavbarProps) => {
   return (
     <div className="flex items-center justify-between w-full px-6 py-4 bg-gray-50 ">
       {/* Left - Title */}
-      <h1 className="text-xl font-medium text-gray-900">
+      <Text variant="display" >
         {pageTitle}, {userName}
-      </h1>
+      </Text>
 
       {/* Right - Actions */}
       <div className="flex items-center gap-3">

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Input, type InputProps } from '@/shared/components/atoms/input/input';
+import { Input, type InputProps } from '@/shared/components/atoms/input/Input';
 import { Label } from '@/shared/components/atoms/label/label';
 import { cn } from '@/shared/lib/utils';
 

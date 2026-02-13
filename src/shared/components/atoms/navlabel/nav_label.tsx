@@ -1,21 +1,28 @@
-import { cn } from "@/shared/lib/utils"
+import { Text } from "@/shared/components/atoms/text/text";
+import { cn } from "@/shared/lib/utils";
 
 interface NavLabelProps {
-  children: React.ReactNode
-  isActive?: boolean
-  className?: string
+  children: React.ReactNode;
+  isActive?: boolean;
+  className?: string;
 }
 
-export const NavLabel = ({ children, isActive, className }: NavLabelProps) => {
+export const NavLabel = ({
+  children,
+  isActive,
+  className,
+}: NavLabelProps) => {
   return (
-    <span
+    <Text
+      as="span"
+      variant="subtitle"
       className={cn(
-        "text-xs font-medium transition-colors duration-200",
+        "font-medium transition-colors duration-200",
         isActive ? "text-neutral-100" : "text-neutral-1000",
         className
       )}
     >
       {children}
-    </span>
-  )
-}
+    </Text>
+  );
+};

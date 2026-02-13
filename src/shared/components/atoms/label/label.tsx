@@ -1,8 +1,9 @@
-import * as React from 'react';
-import { Label as ShadcnLabel } from '@/shared/components/ui/label';
-import { cn } from '@/shared/lib/utils';
+import * as React from "react";
+import { Label as ShadcnLabel } from "@/shared/components/ui/label";
+import { cn } from "@/shared/lib/utils";
 
-export interface LabelProps extends React.ComponentPropsWithoutRef<typeof ShadcnLabel> {
+export interface LabelProps
+  extends React.ComponentPropsWithoutRef<typeof ShadcnLabel> {
   required?: boolean;
 }
 
@@ -14,18 +15,28 @@ const Label = React.forwardRef<
     <ShadcnLabel
       ref={ref}
       className={cn(
-        'text-sm font-medium text-gray-700',
-        'mb-1.5 block',
+        // Typography (Desktop-first responsive)
+        "font-sans font-medium",
+        "text-sm md:text-md 2xl:text-lg",
+        
+        // Color from design tokens
+        "text-neutral-800",
+
+        // Spacing
+        "mb-1.5 ",
+
         className
       )}
       {...props}
     >
       {children}
-      {required && <span className="text-red-500 ml-1">*</span>}
+      {required && (
+        <span className="text-red-500 ml-1">*</span>
+      )}
     </ShadcnLabel>
   );
 });
 
-Label.displayName = 'Label';
+Label.displayName = "Label";
 
 export { Label };

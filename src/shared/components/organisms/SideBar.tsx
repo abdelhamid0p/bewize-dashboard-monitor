@@ -9,14 +9,18 @@ interface SidebarProps {
 export const Sidebar = ({ children, className }: SidebarProps) => {
   return (
     <aside
-      className={cn(
-        "w-64 min-h-screen bg-white flex flex-col ",
-        className
-      )}
-    >
+        className={cn(
+            "w-64 2xl:w-[30vh]",
+            "min-h-screen",
+            "bg-neutral-100",
+            "flex flex-col border-r border-neutral-200",
+            className
+          )}
+        >
+
       {/* Header avec logo */}
-      <div className="p-6 flex items-center justify-center ">
-        <img src={Logo} alt="Bewize Logo" className="h-7" />
+      <div className="p-6 2xl:p-10 flex items-center justify-center  ">
+        <img src={Logo} alt="Bewize Logo" className="h-7 2xl:h-10" />
       </div>
 
       {/* Navigation centrée verticalement */}
