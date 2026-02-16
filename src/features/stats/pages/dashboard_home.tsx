@@ -1,50 +1,29 @@
-import { statsCharts } from "@/features/stats/data/stats_data"
 import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard_navbar"
-import { StatsChartCard } from "@/shared/components/organisms/cards/stats_chart_card"
-import { useStats } from "../hooks/useStats"
+import { useDashboard } from "../hooks/useStats"
 import { StatsNumberCardContainer } from "../components/stats_number_card_container"
+import { StatsChartCardContainer } from "../components/stats_chart_card_container"
 
 export const DashboardPage = () => {
-
-    const stats = useStats();
+  const dashboard = useDashboard()
 
   return (
-    <div className="p-2">
+    <div className="p-6">
       {/* Dashboard Navbar */}
       <DashboardNavbar userName="Mohamed" />
 
       {/* Number Cards */}
-<div className="flex flex-wrap gap-6">
-  {stats.data ? (
-    stats.data.map((stat) => (
-      <div
-        key={stat.id}
-        className="flex-1  "
-      >
-        <StatsNumberCardContainer
-          {...stat}
-          />
-      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        {dashboard.data?.stats.map((stat) => (
+          <StatsNumberCardContainer key={stat.id} {...stat} />
+        ))}
       </div>
-    ))
-  ) : (
-    <p>Loading stats...</p>
-  )}
-</div>
 
-      {/* Charts Cards - 2x2 Grid */}
-      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {statsCharts.map((chart) => (
-          <StatsChartCard
-            key={chart.id}
-            id={chart.id}
-            title={chart.title}
-            data={chart.data}
-            labels={chart.labels}
-            iconName={chart.iconName}
-            showLegend={chart.showLegend}
-            legendItems={chart.legendItems || []}
-          />
+      {/* Charts Cards - Grid 2x2 responsive */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        {dashboard.data?.charts.map((chart) => (
+          <div key={chart.id} className="min-h-[400px]">
+            <StatsChartCardContainer {...chart} />
+          </div>
         ))}
       </div>
     </div>

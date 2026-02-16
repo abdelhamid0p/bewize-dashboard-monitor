@@ -1,26 +1,26 @@
 import { ICONS, type IconName } from "@/shared/components/atoms/icon"
 
 /**
- * On déclare les variants possibles UNE SEULE FOIS
+ * Variants avec couleurs hex pour les graphiques
  */
 export const VARIANT_STYLES = {
   orange: {
     bg: "bg-orange-100",
     text: "text-orange-card",
+    hex: "#FDB022", // ✅ Ajouté
   },
   blue: {
     bg: "bg-blue-100",
     text: "text-blue-card",
+    hex: "#53B1FD", // ✅ Ajouté
   },
   green: {
     bg: "bg-green-100",
     text: "text-green-card",
+    hex: "#32D583", // ✅ Ajouté
   },
 } as const
 
-/**
- * Variant est automatiquement dérivé des clés de VARIANT_STYLES
- */
 export type Variant = keyof typeof VARIANT_STYLES
 
 /**
@@ -44,7 +44,4 @@ export const STATS_CONFIG = {
   },
 } as const
 
-/**
- * Type des IDs
- */
 export type StatsId = keyof typeof STATS_CONFIG

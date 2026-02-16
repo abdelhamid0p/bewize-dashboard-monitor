@@ -1,15 +1,16 @@
 import type { IconName } from "@/shared/components/atoms/icon"
 
-// Ce que renvoie le backend
+export type StatsId = "students" | "orders" | "subscriptions"
+
 export interface DashboardStatResponse {
-  id: "students" | "orders" | "subscriptions"
+  id: StatsId
   value: number
-  growth: number // exemple : 1.4 ou -0.8
+  growth: number
 }
 
 // Type final utilisé par la UI
 export interface DashboardStatUI {
-  id: "students" | "orders" | "subscriptions"
+  id: StatsId
   title: string
   value: number
   growth: string
