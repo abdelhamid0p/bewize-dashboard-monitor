@@ -1,25 +1,25 @@
-
-import '@/design-system/colors.css'  // vos variables de couleurs
-import '@/design-system/typography.css' // vos variables de typo
-import '@/index.css'             // Tailwind
+import "@/design-system/colors.css"; // vos variables de couleurs
+import "@/design-system/typography.css"; // vos variables de typo
+import "@/index.css"; // Tailwind
 import StaticDesignSystemShowcase from "@/design-system/design-system-showcase/staticShowcase.tsx";
 import DynamicDesignSystemShowcase from "@/design-system/design-system-showcase/interactiveShowcase.tsx";
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { StudentsPage } from "@/features/students/pages/students_page";
 
 function App() {
-    return (
-        <BrowserRouter>
-
-            <Routes>
-                <Route path="/" element={<StaticDesignSystemShowcase />} />
-                <Route path="/dynamic_showcase" element={<DynamicDesignSystemShowcase />} />
-            </Routes>
-        </BrowserRouter>
-
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<StaticDesignSystemShowcase />} />
+        <Route
+          path="/dynamic_showcase"
+          element={<DynamicDesignSystemShowcase />}
+        />
+        <Route path="/students" element={<StudentsPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

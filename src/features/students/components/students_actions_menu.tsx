@@ -1,35 +1,21 @@
-import { Eye } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { Eye } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface StudentsActionsMenuProps {
-  studentId: string
+  studentId: string;
 }
 
-export const StudentsActionsMenu = ({ studentId }: StudentsActionsMenuProps) => {
+export const StudentsActionsMenu = ({
+  studentId,
+}: StudentsActionsMenuProps) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Eye className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => console.log("Voir", studentId)}>
-          Voir le profil
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => console.log("Modifier", studentId)}>
-          Modifier
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => console.log("Supprimer", studentId)}>
-          Supprimer
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-}
+    <Button
+      variant="ghost"
+      size="icon"
+      className="text-blue-100 rounded-full "
+      onClick={() => console.log("Voir", studentId)}
+    >
+      <Eye className="size-6 2xl:size-7" />
+    </Button>
+  );
+};

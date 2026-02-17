@@ -40,6 +40,24 @@
   --color-secondary-800: var(--secondary-800);
   --color-secondary-900: var(--secondary-900);
 
+  --color-accent-100: var(--accent-100);
+
+  --color-black-100: var(--black-100);
+  --color-black-200: var(--black-200);
+
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+
+  --color-green-100: var(--green-100);
+  --color-green-200: var(--green-200);
+
+  --color-orange-100: var(--orange-100);
+  --color-orange-200: var(--orange-200);
+
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  
   /* -------- TYPOGRAPHY -------- */
   --font-sans: var(--font-family-lexend);
 

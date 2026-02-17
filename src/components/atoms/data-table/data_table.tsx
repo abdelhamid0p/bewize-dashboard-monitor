@@ -5,35 +5,56 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import { cn } from "@/shared/lib/utils";
 
 interface Column {
-  key: string
-  label: string
+  key: string;
+  label: string;
 }
 
 interface DataTableProps {
-  columns: Column[]
-  data: any[]
-  renderCell?: (item: any, columnKey: string) => React.ReactNode
+  columns: Column[];
+  data: any[];
+  renderCell?: (item: any, columnKey: string) => React.ReactNode;
 }
 
 export const DataTable = ({ columns, data, renderCell }: DataTableProps) => {
   return (
-    <div className="rounded-lg border bg-white">
+    <div className=" bg-white overflow-hidden">
       <Table>
+        {/* Header avec fond primaire */}
         <TableHeader>
-          <TableRow>
-            {columns.map((column) => (
-              <TableHead key={column.key}>{column.label}</TableHead>
+          <TableRow className="border border-accent-100   bg-neutral-100 ">
+            {columns.map((column, index) => (
+              <TableHead
+                key={column.key}
+                className={cn(
+                  "text-center text-black-100 text-sm p-6",
+                  index === 0 && "rounded-tl-3xl",
+                  index === columns.length - 1 && "rounded-tr-3xl",
+                )}
+              >
+                {column.label}
+              </TableHead>
             ))}
           </TableRow>
         </TableHeader>
-        <TableBody>
+
+        {/* Body */}
+        <TableBody className=" border border-neutral-200">
           {data.map((item, index) => (
-            <TableRow key={item.id || index}>
+            <TableRow
+              key={item.id || index}
+              className={cn(
+                "border-b border-black-200 hover:bg-neutral-100 transition-colors",
+              )}
+            >
               {columns.map((column) => (
-                <TableCell key={column.key}>
+                <TableCell
+                  key={column.key}
+                  className="text-center text-black-100 text-sm p-6"
+                >
                   {renderCell ? renderCell(item, column.key) : item[column.key]}
                 </TableCell>
               ))}
@@ -42,5 +63,5 @@ export const DataTable = ({ columns, data, renderCell }: DataTableProps) => {
         </TableBody>
       </Table>
     </div>
-  )
-}
+  );
+};
