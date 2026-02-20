@@ -1,35 +1,86 @@
 import { Select, SelectItem } from "@/components/atoms/select/select";
-import { Button } from "@/components/ui/button";
 
-export const StudentsFilters = () => {
+interface StudentsFiltersProps {
+  onFilterChange?: (filters: any) => void;
+}
+
+export const StudentsFilters = ({ onFilterChange }: StudentsFiltersProps) => {
   return (
     <div className="flex items-center gap-2">
-      {/* Actif - badge spécial */}
-      <Select label="Actif" variant="compact" color="secondary">
+      <Select
+        label="Genre"
+        variant="filtres"
+        color="secondary"
+        /*onChange={(value) =>
+          onFilterChange?.({ gender: value === "all" ? undefined : value })
+        }*/
+      >
         <SelectItem value="all">Tous</SelectItem>
-        <SelectItem value="active">Actif</SelectItem>
-        <SelectItem value="inactive">Inactif</SelectItem>
+        <SelectItem value="FEMALE">Fille</SelectItem>
+        <SelectItem value="MALE">Garçon</SelectItem>
       </Select>
 
-      <Select label="Type d'abonnement" variant="compact" color="secondary">
-        <SelectItem value="all">Tous</SelectItem>
-        <SelectItem value="premium">Premium</SelectItem>
-        <SelectItem value="freemium">Freemium</SelectItem>
-        <SelectItem value="pro">Pro</SelectItem>
-        <SelectItem value="essai">Essai gratuit</SelectItem>
+      <Select
+        label="Type d'appareil"
+        variant="filtres"
+        color="secondary"
+        /*onChange={(value) =>
+          onFilterChange?.({ gender: value === "all" ? undefined : value })
+        }*/
+      >
+        <SelectItem value="FEMALE">Fille</SelectItem>
+        <SelectItem value="MALE">Garçon</SelectItem>
       </Select>
 
-      <Select label="Type de plan" variant="compact" color="secondary">
-        <SelectItem value="all">Tous</SelectItem>
-        <SelectItem value="monthly">Mensuel</SelectItem>
-        <SelectItem value="annual">Annuel</SelectItem>
-        <SelectItem value="trimestriel">Trimestriel</SelectItem>
+      <Select
+        label="Niveau"
+        variant="filtres"
+        color="secondary"
+        /*onChange={(value) =>
+          onFilterChange?.({ gender: value === "all" ? undefined : value })
+        }*/
+      >
+        <SelectItem value="FEMALE">Fille</SelectItem>
+        <SelectItem value="MALE">Garçon</SelectItem>
       </Select>
 
-      {/* Bouton créer */}
-      <Button className="bg-primary-500 hover:bg-primary-600 text-white rounded-full px-5 text-sm whitespace-nowrap">
-        + Créer un abonnement
-      </Button>
+      <Select
+        label="Type d'abonnement"
+        variant="filtres"
+        color="secondary"
+        /*onChange={(value) =>
+          onFilterChange?.({ gender: value === "all" ? undefined : value })
+        }*/
+      >
+        <SelectItem value="FEMALE">Fille</SelectItem>
+        <SelectItem value="MALE">Garçon</SelectItem>
+      </Select>
+
+      <Select
+        label="Type de plan"
+        variant="filtres"
+        color="secondary"
+        /*onChange={(value) =>
+          onFilterChange?.({ gender: value === "all" ? undefined : value })
+        }*/
+      >
+        <SelectItem value="FEMALE">Fille</SelectItem>
+        <SelectItem value="MALE">Garçon</SelectItem>
+      </Select>
+
+      <Select
+        label="Cycle"
+        variant="filtres"
+        color="secondary"
+        /*onChange={(value) =>
+          onFilterChange?.({ cycle: value === "all" ? undefined : value })
+        }*/
+      >
+        <SelectItem value="all">Tous</SelectItem>
+        <SelectItem value="ELEMENTARY_SCHOOL">Primaire</SelectItem>
+        <SelectItem value="MIDDLE_SCHOOL">Collège</SelectItem>
+        <SelectItem value="HIGH_SCHOOL">Lycée</SelectItem>
+      </Select>
     </div>
   );
 };

@@ -1,0 +1,191 @@
+/\*\*
+
+- QUICK REFERENCE: TABLE ARCHITECTURE
+-
+- 5-minute guide to the new system
+  \*/
+
+/\*\*
+
+- ============================================================================
+- 1.  THE CONCEPT IN 30 SECONDS
+- ============================================================================
+-
+- Before: Each table gets its own folder with pagination, filters, hooks
+- After: All tables use generic TablePage component + table config file
+- Result: Adding a new table is just ~100 lines of config (down from 200+)
+-
+- ============================================================================
+- 2.  FOLDER STRUCTURE TO REMEMBER
+- ============================================================================
+-
+- Centralized (reusable for ALL tables):
+- features/tables/
+- ├── types/table-config.ts ← Define types here
+- ├── hooks/useTableData.ts ← State management
+- ├── components/DataTable.tsx ← Pagination UI
+- ├── components/TableToolbar.tsx ← Search/filters UI
+- └── pages/TablePage.tsx ← Main entry point
+-
+- Per-entity (define your table):
+- features/entityName/
+- └── config/entityName.table.config.ts ← YOUR CONFIG FILE!
+- └── pages/EntityTablePage.tsx ← Wrapper: <TablePage config={...} />
+-
+- ============================================================================
+- 3.  WHAT IS TableConfig<TBackend, TUI, TFilters>?
+- ============================================================================
+-
+- A single TypeScript object that tells the system:
+-
+- columns: [...] ─────────────────> What columns to show
+- filters: [...] ─────────────────> What filters available
+- searchKeys: [...] ──────────────> What fields are searchable
+- pageSize: 10 ───────────────────> Items per page
+-
+- fetcher: (filters) => {...} ───> How to fetch from API
+- mapper: (backend) => {...} ────> How to transform backend to UI
+- renderCell: (item, key) => {..}> How to render each cell
+-
+- That's it! Pass this to <TablePage config={...} /> and you're done.
+-
+- ============================================================================
+- 4.  TO ADD A NEW TABLE (Teachers Example)
+- ============================================================================
+-
+- STEP 1: Types (features/teachers/model/)
+- export interface TeacherBackend { ... } ← From API
+- export interface TeacherUI { ... } ← For display
+- export interface TeachersFilters { ... } ← Filters available
+-
+- STEP 2: Fetcher (features/teachers/api/)
+- export async function fetchTeachers(filters) => Promise<PaginatedResponse>
+-
+- STEP 3: Config (features/teachers/config/)
+- export const TEACHERS_TABLE_CONFIG: TableConfig = {
+-     entityName: "Teachers",
+-     columns: [{ key: "name", label: "Nom" }, ...],
+-     fetcher: fetchTeachers,
+-     mapper: (backend) => ({ ... }),
+- }
+-
+- STEP 4: Page (features/teachers/pages/)
+- export const TeachersTablePage = () =>
+-     <TablePage config={TEACHERS_TABLE_CONFIG} title="Professeurs" />
+-
+- Done! That's literally all you need.
+-
+- ============================================================================
+- 5.  REAL-WORLD ANALOGY
+- ============================================================================
+-
+- OLD WAY (Like buying a different house for each guest):
+- Guest 1 (Students) → needs house with 3 bedrooms
+- Guest 2 (Teachers) → buy another house with 3 bedrooms
+- Guest 3 (Orders) → buy another house with 3 bedrooms
+- Problem: 3 identical houses to maintain!
+-
+- NEW WAY (Like booking a hotel room):
+- You have 1 hotel (TablePage + generic components)
+- Guest 1 (Students) → room #1 with students config
+- Guest 2 (Teachers) → room #2 with teachers config
+- Guest 3 (Orders) → room #3 with orders config
+- Benefit: 1 building to maintain, infinite rooms!
+-
+- ============================================================================
+- 6.  FILE SIZES (Rough Estimates)
+- ============================================================================
+-
+- Old StudentsPage ecosystem:
+- - StudentsPage.tsx: 45 lines
+- - StudentsTableContainer.tsx: 50 lines
+- - StudentsFilters.tsx: 30 lines
+- - useStudents.ts: 60 lines
+- - Total: ~185 lines
+-
+- New Students using TablePage:
+- - StudentsTablePage.tsx: 5 lines
+- - student.table.config.ts: 120 lines
+- - Total: ~125 lines
+- - Savings: ~60 lines per table
+-
+- Shared across ALL tables:
+- - TablePage: 60 lines (used by Students, Teachers, Orders, ...)
+- - GenericDataTable: 70 lines
+- - useTableData: 80 lines
+- - TableToolbar: 80 lines
+- - TableConfig types: 80 lines
+-
+- If you have 10 tables:
+- Old way: 185 × 10 = 1,850 lines
+- New way: (125 + 290) + (125 × 9) = 1,415 lines
+- Savings: ~435 lines (23% code reduction)
+-
+- ============================================================================
+- 7.  IMPORTS CHEAT SHEET
+- ============================================================================
+-
+- In your table config:
+- import { TableConfig, PaginatedResponse } from "@/features/tables";
+-
+- In your page component:
+- import { TablePage } from "@/features/tables";
+- import { YOUR_TABLE_CONFIG } from "../config/...";
+-
+- That's it!
+-
+- ============================================================================
+- 8.  TYPESCRIPT BENEFITS
+- ============================================================================
+-
+- Your config is FULLY TYPED:
+-
+- ✅ columns must match your TUI fields
+- ✅ mapper must return valid TUI
+- ✅ fetcher must return PaginatedResponse<TBackend>
+- ✅ searchKeys must be keyof TUI
+- ✅ renderCell receives typed TUI items
+-
+- Benefits:
+- - Catch bugs at compile time, not runtime
+- - IDE autocomplete works perfectly
+- - Refactoring is safe (rename field = compile error alerts)
+-
+- ============================================================================
+- 9.  WHEN TO USE THIS ARCHITECTURE
+- ============================================================================
+-
+- ✅ YES, use TablePage when:
+- - Building a CRUD list table (Students, Teachers, Orders, etc.)
+- - Need pagination, search, filters
+- - Standard table layout is fine
+-
+- ❌ NO, create custom when:
+- - Table needs complex multi-select interactions
+- - Inline editing required
+- - Highly specialized layout
+- - But even then, consider extending TableConfig first!
+-
+- ============================================================================
+- 10. TROUBLESHOOTING
+- ============================================================================
+-
+- Problem: TypeScript error in mapper
+- Solution: Your mapper return type must match TUI
+-
+- Problem: Filters not working
+- Solution: Filtter key must be in TFilters interface
+-
+- Problem: Pagination not showing right numbers
+- Solution: API response.meta must have page, size, totalPages, totalElements
+-
+- Problem: Search not finding items
+- Solution: Add field name to searchKeys array
+-
+- Problem: Custom rendering not showing
+- Solution: renderCell is optional, make sure columnKey matches
+-
+- ============================================================================
+  \*/
+
+export {};

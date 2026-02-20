@@ -1,0 +1,252 @@
+/\*\*
+
+- IMPLEMENTATION CHECKLIST & FILE STRUCTURE
+-
+- Use this as a guide when creating new tables
+  \*/
+
+/\*\*
+
+- ============================================================================
+- YOUR NEW features/tables FOLDER STRUCTURE
+- ============================================================================
+-
+- src/features/tables/
+- ├── ARCHITECTURE.md [Documentation about design]
+- ├── IMPLEMENTATION_GUIDE.md [This file!]
+- ├── index.ts [Public API exports]
+- │
+- ├── types/
+- │ ├── index.ts
+- │ └── table-config.ts [TableConfig<TBackend, TUI, TFilters>]
+- │
+- ├── hooks/
+- │ └── useTableData.ts [Core hook for state management]
+- │
+- ├── components/
+- │ ├── DataTable.tsx [Renders table with pagination]
+- │ └── TableToolbar.tsx [Search + filters UI]
+- │
+- ├── pages/
+- │ └── TablePage.tsx [Main page component - USE THIS!]
+- │
+- └── config/
+-     └── teachers.table.config.example.ts [Template example for new tables]
+-
+- ============================================================================
+- FOR EACH NEW ENTITY (Students, Teachers, Orders, etc.)
+- ============================================================================
+-
+- CREATE THIS STRUCTURE:
+-
+- src/features/entityName/
+- ├── api/
+- │ └── entityName_api.ts [API fetcher function]
+- │
+- ├── model/ [Define these for your entity]
+- │ ├── index.ts
+- │ ├── entityName.ts [UI types - what you display]
+- │ ├── entityName_dto.ts [Backend types - from API]
+- │ ├── entityName_filters.ts [Filter types]
+- │ └── entityName_response.ts [API response wrapper]
+- │
+- ├── config/
+- │ └── entityName.table.config.ts [THE MOST IMPORTANT FILE!]
+- │
+- └── pages/
+-     └── EntityNameTablePage.tsx         [Simple wrapper around TablePage]
+-
+- ============================================================================
+- STEP-BY-STEP IMPLEMENTATION CHECKLIST
+- ============================================================================
+-
+- For adding a new table entity (e.g., Teachers):
+-
+- [ ] 1.  Create model types
+-       Location: features/teachers/model/
+-       Files needed:
+-         - teacher.ts (TeacherUI type)
+-         - teacher_dto.ts (TeacherBackend type)
+-         - teachers_filters.ts (TeachersFilters type)
+-         - teachers_response.ts (PaginatedResponse wrapper)
+-         - index.ts (exports all types)
+-
+- [ ] 2.  Create API fetcher
+-       Location: features/teachers/api/teachers_api.ts
+-       Must return: Promise<PaginatedResponse<TeacherBackend>>
+-
+- [ ] 3.  Create table configuration
+-       Location: features/teachers/config/teachers.table.config.ts
+-       File contains:
+-         - TEACHERS_TABLE_CONFIG object
+-         - All configurations (columns, filters, mapper, renderer)
+-         - Enums/constants (SUBJECT_CONFIG, etc.)
+-       Imports: TableConfig type, fetcher, types
+-
+- [ ] 4.  Create page component
+-       Location: features/teachers/pages/TeachersTablePage.tsx
+-       Content:
+-         - Import TablePage
+-         - Import TEACHERS_TABLE_CONFIG
+-         - Return: <TablePage config={TEACHERS_TABLE_CONFIG} ... />
+-
+- [ ] 5.  Export from feature index
+-       Location: features/teachers/index.ts
+-       Export: TeachersTablePage, TEACHERS_TABLE_CONFIG
+-
+- ============================================================================
+- QUICK REFERENCE: TableConfig STRUCTURE
+- ============================================================================
+-
+- Type Definition:
+-
+- export interface TableConfig<TBackend, TUI, TFilters> {
+-     // Basic Info
+-     entityName: string;              // "Students", "Teachers"
+-     tableId: string;                 // "students-table"
+-     pageSize?: number;               // default: 10
+-
+-     // Column Definitions
+-     columns: TableColumn[];           // What to display
+-
+-     // Search & Filters
+-     filters?: FilterConfig[];         // Filter definitions
+-     searchKeys?: (keyof TUI)[];       // Which fields are searchable
+-
+-     // API Integration
+-     fetcher: (filters: TFilters) => Promise<PaginatedResponse<TBackend>>;
+-     mapper: (backend: TBackend) => TUI;
+-     renderCell?: (item: TUI, key: string) => ReactNode;
+-
+-     // Optional
+-     enums?: Record<string, Record<string, any>>;
+- }
+-
+- ============================================================================
+- COPY-PASTE TEMPLATE FOR NEW CONFIG
+- ============================================================================
+-
+- // features/entityName/config/entityName.table.config.ts
+-
+- import { TableConfig, PaginatedResponse } from "@/features/tables";
+- import { fetchEntities } from "../api/entityName_api";
+- import type { EntityBackend, EntityUI, EntitiesFilters } from "../model";
+-
+- export const ENUM_CONFIG = {
+- STATUS_A: { label: "Active", color: "green" },
+- STATUS_B: { label: "Inactive", color: "gray" },
+- };
+-
+- export const ENTITY_TABLE_CONFIG: TableConfig<
+- EntityBackend,
+- EntityUI,
+- EntitiesFilters
+- > = {
+- // Basic
+- entityName: "Entity Name",
+- tableId: "entity-table",
+- pageSize: 10,
+-
+- // Columns
+- columns: [
+-     { key: "id", label: "ID" },
+-     { key: "name", label: "Name" },
+-     { key: "email", label: "Email" },
+-     { key: "status", label: "Status" },
+- ],
+-
+- // Filters
+- filters: [
+-     {
+-       key: "status",
+-       label: "Status",
+-       type: "select",
+-       options: [
+-         { label: "Active", value: "A" },
+-         { label: "Inactive", value: "B" },
+-       ],
+-     },
+- ],
+-
+- // Search
+- searchKeys: ["name", "email"],
+-
+- // Enums
+- enums: { STATUS: ENUM_CONFIG },
+-
+- // API Integration
+- fetcher: fetchEntities,
+- mapper: (backend: EntityBackend): EntityUI => ({
+-     id: backend.id,
+-     name: backend.name,
+-     email: backend.email,
+-     status: ENUM_CONFIG[backend.status].label,
+- }),
+-
+- // Rendering
+- renderCell: (entity, key) => {
+-     switch (key) {
+-       case "name":
+-         return <strong>{entity.name}</strong>;
+-       default:
+-         return entity[key];
+-     }
+- },
+- };
+-
+- ============================================================================
+- USING THE TABLE CONFIG IN A PAGE
+- ============================================================================
+-
+- // features/entityName/pages/EntityTablePage.tsx
+-
+- import { TablePage } from "@/features/tables";
+- import { ENTITY_TABLE_CONFIG } from "../config/entity.table.config";
+-
+- export const EntityTablePage = () => {
+- return (
+-     <TablePage
+-       config={ENTITY_TABLE_CONFIG}
+-       title="Entity Display Name"
+-       showExport={true}
+-       showSettings={true}
+-       initialFilters={{ }}              // Optional
+-       headerActions={null}               // Optional
+-     />
+- );
+- };
+-
+- ============================================================================
+- TYPE SAFETY GUARANTEES
+- ============================================================================
+-
+- The TableConfig is fully generic and type-safe:
+-
+- 1.  Backend Type (TBackend)
+- - Must match API response structure
+- - IDE checks fetcher return type
+- - Mapper input is typed
+-
+- 2.  UI Type (TUI)
+- - What your table displays
+- - Mapper output is typed
+- - renderCell receives typed items
+- - searchKeys must be keyof TUI
+-
+- 3.  Filter Type (TFilters)
+- - Strongly typed filters object
+- - Fetcher receives typed filters
+- - updateFilters() is type-checked
+-
+- Example TypeScript Error:
+-
+- // This will error (field doesn't exist in TeacherUI):
+- searchKeys: ["name", "invalidField"] // ❌ TypeScript error
+-
+- // This will error (mapper returns wrong type):
+- mapper: (backend) => ({ id: backend.id }) // ❌ Missing required fields
+-
+- ============================================================================
+  \*/
+
+export {};

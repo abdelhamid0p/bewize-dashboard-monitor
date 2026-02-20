@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { SearchInput } from "@/components/atoms/search-input/search_input";
-import { Button } from "@/components/ui/button";
-import { Calendar, Download, Settings2 } from "lucide-react";
+import { Button } from "@/components/atoms/button";
+import { Download, Settings2 } from "lucide-react";
 import { StudentsFilters } from "../components/students_filters";
 import { StudentsTableContainer } from "../components/students_table_container";
 
 export const StudentsPage = () => {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <div className="p-6 space-y-4">
-      {/* Header (à changer avec l organism nav-bar) */}
+      {/* A remplacer par navbar Components Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-neutral-900">Les étudiants</h1>
         <div className="flex items-center gap-3">
@@ -16,7 +19,7 @@ export const StudentsPage = () => {
             Exporter
           </Button>
           <Button
-            variant="outline"
+            variant="secondary"
             size="icon"
             className="rounded-full border-neutral-300"
           >
@@ -25,25 +28,20 @@ export const StudentsPage = () => {
         </div>
       </div>
 
-      {/* Barre recherche + Filtres */}
-      <div className="flex items-center justify-between gap-4">
-        {/* Gauche : Recherche + Date */}
-        <div className="flex items-center gap-3">
-          <SearchInput placeholder="Rechercher..." />
-          <Button
-            variant="outline"
-            className="flex items-center gap-2 rounded-full border-neutral-300 text-neutral-600 text-sm px-4"
-          >
-            <Calendar className="h-4 w-4" />
-            Date
-          </Button>
+      {/* Recherche + Filtres */}
+      <div className="flex items-center justify-between ">
+        <div className="flex items-center ">
+          <SearchInput
+            placeholder="Rechercher..."
+            value={searchValue}
+            onChange={setSearchValue}
+          />
         </div>
 
-        {/* Droite : Filtres */}
         <StudentsFilters />
       </div>
 
-      {/* Table */}
+      {/* Table avec pagination serveur */}
       <StudentsTableContainer />
     </div>
   );

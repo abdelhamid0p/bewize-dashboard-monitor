@@ -21,18 +21,17 @@ interface DataTableProps {
 
 export const DataTable = ({ columns, data, renderCell }: DataTableProps) => {
   return (
-    <div className=" bg-white overflow-hidden">
+    <div className=" bg-white overflow-hidden rounded-t-2xl">
       <Table>
-        {/* Header avec fond primaire */}
         <TableHeader>
-          <TableRow className="border border-accent-100   bg-neutral-100 ">
+          <TableRow className="border border-accent-100 bg-neutral-100 ">
             {columns.map((column, index) => (
               <TableHead
                 key={column.key}
                 className={cn(
                   "text-center text-black-100 text-sm p-6",
-                  index === 0 && "rounded-tl-3xl",
-                  index === columns.length - 1 && "rounded-tr-3xl",
+                  index === 0 && "rounded-tl-2xl",
+                  index === columns.length - 1 && "rounded-tr-2xl",
                 )}
               >
                 {column.label}

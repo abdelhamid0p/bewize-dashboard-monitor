@@ -1,27 +1,57 @@
-export const SUBSCRIPTION_TYPE_CONFIG = {
-  freemium: { label: "Freemium", color: "green" as const },
-  premium: { label: "Premium", color: "yellow" as const },
-  pro: { label: "Pro", color: "blue" as const },
-  "essai-gratuit": { label: "Essai gratuit", color: "red" as const },
+import {
+  StudentActionsCell,
+  StudentGenderCell,
+  StudentNameCell,
+} from "../components";
+
+export const GENDER_CONFIG = {
+  FEMALE: { label: "Fille", color: "red" as const },
+  MALE: { label: "Garçon", color: "blue" as const },
 };
 
-export const PLAN_TYPE_CONFIG = {
-  annual: { label: "Annuel" },
-  monthly: { label: "Mensuel" },
-  trimestriel: { label: "Trimestriel" },
-  semestriel: { label: "Semestriel" },
+export const CYCLE_CONFIG = {
+  ELEMENTARY_SCHOOL: { label: "Primaire" },
+  MIDDLE_SCHOOL: { label: "Collège" },
+  HIGH_SCHOOL: { label: "Lycée" },
 };
 
 export const TABLE_COLUMNS = [
+  { key: "cne", label: "CNE" },
   { key: "name", label: "Nom" },
   { key: "phone", label: "Téléphone" },
-  { key: "subscriptionType", label: "Type d'abonnement" },
-  { key: "planType", label: "Type de plan" },
-  { key: "device", label: "Appareil / Système" },
+  { key: "email", label: "Email" },
   { key: "gender", label: "Genre" },
-  { key: "registrationDate", label: "Date d'inscription" },
+  { key: "signupDate", label: "Date d'inscription" },
   { key: "level", label: "Niveau" },
   { key: "actions", label: "Actions" },
 ];
 
 export const PAGE_SIZE = 10;
+
+export const renderStudentCell = (student: any, columnKey: string) => {
+  switch (columnKey) {
+    case "name":
+      return <StudentNameCell name={student.name} />;
+
+    case "gender":
+      return (
+        <StudentGenderCell
+          genderLabel={student.gender}
+          genderColor={student.genderColor}
+        />
+      );
+
+    case "actions":
+      return (
+        <StudentActionsCell
+          studentId={student.id}
+          onView={(studentId) => console.log("Voir", studentId)}
+        />
+      );
+
+    default:
+      return (
+        <span className="text-sm text-neutral-700">{student[columnKey]}</span>
+      );
+  }
+};

@@ -1,46 +1,70 @@
-import { useState } from "react"
-import { useFetchData } from "@/shared/hooks/useFetchData"
+import { useState, useEffect } from "react"
 import { fetchStudents } from "../api/students_api"
-import {
-  SUBSCRIPTION_TYPE_CONFIG,
-  PLAN_TYPE_CONFIG,
-  PAGE_SIZE,
-} from "../config/student_config"
-import type { StudentUI } from "../model/student_types"
+import { GENDER_CONFIG, CYCLE_CONFIG } from "../config/student_config"
+import type { StudentUI, StudentsFilters } from "../model"
 
-export function useStudents() {
-  const [currentPage, setCurrentPage] = useState(1)
+export function useStudents(initialFilters: StudentsFilters = {}) {
+  const [data, setData] = useState<StudentUI[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+  const [filters, setFilters] = useState<StudentsFilters>(initialFilters);
+  const [meta, setMeta] = useState({
+    page: 0,
+    size: 10,
+    totalElements: 0,
+    totalPages: 0,
+  });
 
-  const query = useFetchData(
-    fetchStudents,
-    (data: any[]): StudentUI[] =>
-      data.map((student: any) => ({
-        id:                     student.id,
-        name:                   student.name,
-        phone:                  student.phone,
-        subscriptionType:       SUBSCRIPTION_TYPE_CONFIG[student.subscriptionType as keyof typeof SUBSCRIPTION_TYPE_CONFIG].label,
-        subscriptionBadgeColor: SUBSCRIPTION_TYPE_CONFIG[student.subscriptionType as keyof typeof SUBSCRIPTION_TYPE_CONFIG].color,
-        planType:               PLAN_TYPE_CONFIG[student.planType as keyof typeof PLAN_TYPE_CONFIG].label,
-        device:                 student.device,
-        gender:                 student.gender,
-        registrationDate:       student.registrationDate,
-        level:                  student.level,
-      }))
-  )
+  useEffect(() => {
+    const loadStudents = async () => {
+      setLoading(true)
+      setError(null)
 
-  const totalItems = query.data?.length || 0
-  const totalPages = Math.ceil(totalItems / PAGE_SIZE)
-  const paginatedData = query.data?.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE
-  )
+      try {
+        const response = await fetchStudents(filters)
+
+        // Transformer les données backend → UI
+        const transformedData: StudentUI[] = response.data.map((student) => ({
+          id:         student.id,
+          cne:        student.cne,
+          name:       `${student.firstName} ${student.lastName}`,
+          phone:      student.phone,
+          email:      student.email,
+          gender:     GENDER_CONFIG[student.gender].label,
+          genderColor: GENDER_CONFIG[student.gender].color,
+          signupDate: new Date(student.singupDate).toLocaleDateString("fr-FR"),
+          level:      `${student.level.levelName} (${CYCLE_CONFIG[student.level.cycle].label})`,
+        }))
+
+        setData(transformedData)
+        setMeta(response.meta)
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error("Erreur inconnue"))
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadStudents()
+  }, [filters])
+
+  const goToPage = (page: number) => {
+    setFilters((prev) => ({ ...prev, page }))
+  }
+
+  const updateFilters = (newFilters: Partial<StudentsFilters>) => {
+    setFilters((prev) => ({ ...prev, ...newFilters, page: 0 }))
+  }
 
   return {
-    ...query,
-    data:        paginatedData,
-    currentPage,
-    totalPages,
-    totalItems,
-    goToPage:    setCurrentPage,
+    data,
+    loading,
+    error,
+    meta,
+    currentPage: meta.page,
+    totalPages: meta.totalPages,
+    totalElements: meta.totalElements,
+    goToPage,
+    updateFilters,
   }
 }

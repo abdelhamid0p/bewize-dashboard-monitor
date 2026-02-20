@@ -1,0 +1,272 @@
+/\*\*
+
+- 📋 TABLE ARCHITECTURE CHEAT SHEET
+-
+- Print this out or save for quick reference
+  \*/
+
+/\*\*
+
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ THE PATTERN (Remember This!) │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+- For ANY table (Students, Teachers, Orders, Products, etc.):
+-
+- 1️⃣ Create config → features/entity/config/entity.table.config.ts
+- 2️⃣ Implement TableConfig<Backend, UI, Filters>
+- 3️⃣ Define: columns, filters, fetcher, mapper, renderCell
+- 4️⃣ Create page → features/entity/pages/EntityTablePage.tsx
+- 5️⃣ Render: <TablePage config={CONFIG} title="..." />
+-
+- That's it! No hooks, no components, no custom logic.
+-
+-
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ TableConfig STRUCTURE │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+- export const ENTITY_TABLE_CONFIG: TableConfig<
+-     EntityBackend,     ← API response type
+-     EntityUI,          ← Display type
+-     EntityFilters      ← Filters type
+- > = {
+-     // Display Info
+-     entityName: "Entity Name",
+-     tableId: "entity-table",
+-     pageSize: 10,
+-
+-     // What to display
+-     columns: [
+-       { key: "col1", label: "Column 1" },
+-       { key: "col2", label: "Column 2" },
+-     ],
+-
+-     // Filtering options
+-     filters: [
+-       {
+-         key: "status",
+-         label: "Status",
+-         type: "select",
+-         options: [...],
+-       },
+-     ],
+-
+-     // Search fields
+-     searchKeys: ["name", "email"],
+-
+-     // API Integration
+-     fetcher: fetchEntity,              // (filters) => Promise<PaginatedResponse>
+-     mapper: (backend) => ({...}),      // Transform API data
+-     renderCell: (item, key) => {...},  // Custom rendering (optional)
+- };
+-
+-
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ THE 5 KEY FILES │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+- 1.  types/table-config.ts
+-      └─ TableConfig<TBackend, TUI, TFilters> type definition
+-         ✨ This is THE contract that everything follows
+-
+- 2.  hooks/useTableData.ts
+-      └─ Manages: data, pagination, filters, search, loading, error
+-         📦 ONE hook for all tables instead of useStudents, useTeachers, etc.
+-
+- 3.  components/DataTable.tsx
+-      └─ Renders table with pagination controls
+-         📦 ONE component for all tables
+-
+- 4.  components/TableToolbar.tsx
+-      └─ Renders search input and filter controls
+-         📦 ONE component for all tables
+-
+- 5.  pages/TablePage.tsx
+-      └─ Main page combining header + toolbar + table
+-         🎯 USE THIS! Just pass your config
+-
+-
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ CREATING A NEW TABLE │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+- Assuming entity = "Teachers"
+-
+- 📁 Create folder: features/teachers/
+-
+- 📄 Step 1: Types (teachers/model/)
+-
+-      export interface TeacherBackend {
+-        id: string,
+-        firstName: string,
+-        lastName: string,
+-        subject: string,
+-      }
+-
+-      export interface TeacherUI {
+-        id: string,
+-        name: string,
+-        subject: string,
+-      }
+-
+-      export interface TeachersFilters {
+-        page?: number,
+-        size?: number,
+-        search?: string,
+-        subject?: string,
+-      }
+-
+- 📄 Step 2: Fetcher (teachers/api/teachers_api.ts)
+-
+-      export async function fetchTeachers(
+-        filters: TeachersFilters
+-      ): Promise<PaginatedResponse<TeacherBackend>> {
+-        const params = new URLSearchParams({
+-          page: filters.page || 0,
+-          size: filters.size || 10,
+-          ...(filters.search && { search: filters.search }),
+-          ...(filters.subject && { subject: filters.subject }),
+-        });
+-
+-        const response = await fetch(`/api/teachers?${params}`);
+-        return response.json();
+-      }
+-
+- 📄 Step 3: Config (teachers/config/teachers.table.config.ts)
+-
+-      import { TableConfig } from "@/features/tables";
+-      import { fetchTeachers } from "../api/teachers_api";
+-      import type { TeacherBackend, TeacherUI, TeachersFilters } from "../model";
+-
+-      export const TEACHERS_TABLE_CONFIG: TableConfig<
+-        TeacherBackend,
+-        TeacherUI,
+-        TeachersFilters
+-      > = {
+-        entityName: "Teachers",
+-        tableId: "teachers-table",
+-        pageSize: 10,
+-
+-        columns: [
+-          { key: "name", label: "Name" },
+-          { key: "subject", label: "Subject" },
+-        ],
+-
+-        filters: [
+-          {
+-            key: "subject",
+-            label: "Subject",
+-            type: "select",
+-            options: [
+-              { label: "Math", value: "MATH" },
+-              { label: "English", value: "ENGLISH" },
+-            ],
+-          },
+-        ],
+-
+-        searchKeys: ["name", "subject"],
+-
+-        fetcher: fetchTeachers,
+-
+-        mapper: (backend) => ({
+-          id: backend.id,
+-          name: `${backend.firstName} ${backend.lastName}`,
+-          subject: backend.subject,
+-        }),
+-
+-        renderCell: (teacher, columnKey) => {
+-          if (columnKey === "name")
+-            return <strong>{teacher.name}</strong>;
+-          return teacher[columnKey];
+-        },
+-      };
+-
+- 📄 Step 4: Page (teachers/pages/TeachersTablePage.tsx)
+-
+-      import { TablePage } from "@/features/tables";
+-      import { TEACHERS_TABLE_CONFIG } from "../config/teachers.table.config";
+-
+-      export const TeachersTablePage = () => (
+-        <TablePage
+-          config={TEACHERS_TABLE_CONFIG}
+-          title="Teachers"
+-        />
+-      );
+-
+- ✅ DONE! You have a fully functional table with:
+-      ✓ Pagination
+-      ✓ Search
+-      ✓ Filtering
+-      ✓ Custom rendering
+-      ✓ Loading/error states
+-      ✓ Type safety
+-
+-
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ DATA FLOW DIAGRAM │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+-                          <TablePage />
+-                             (Entry point)
+-                                  │
+-                  ┌───────────────┼───────────────┐
+-                  │               │               │
+-              Header          Toolbar         Table
+-            & Buttons       (Search/      (Pagination)
+-                            Filters)
+-                  │               │               │
+-                  └───────────────┼───────────────┘
+-                                  │
+-                           useTableData(config)
+-                                  │
+-                  ┌───────────────┼───────────────┐
+-                  │               │               │
+-           config.fetcher()  config.mapper()  config.renderCell()
+-                  │               │               │
+-          API Response       Transform         JSX
+-          (Backend)          (UI Type)         (Display)
+-
+-
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ COMMON MISTAKES & FIXES │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+- ❌ Mapper doesn't return full TUI type
+-      ✅ mapper: (b) => ({ id: b.id, name: ... }) must have all TUI fields
+-
+- ❌ Column key doesn't exist in TUI
+-      ✅ { key: "name", label: "Name" } → name must be in TeacherUI
+-
+- ❌ searchKeys includes field not in TUI
+-      ✅ searchKeys: ["name", "subject"] → all must exist in TUI
+-
+- ❌ Filter key doesn't exist in TFilters
+-      ✅ { key: "subject" } → TeachersFilters must have subject property
+-
+- ❌ Forgot to pass config to TablePage
+-      ✅ <TablePage config={TEACHERS_TABLE_CONFIG} title="..." />
+-
+-
+- ┌─────────────────────────────────────────────────────────────────────────┐
+- │ FINAL CHECKLIST │
+- └─────────────────────────────────────────────────────────────────────────┘
+-
+- Before launching new table:
+-
+- [ ] Types defined (Backend, UI, Filters)
+- [ ] API fetcher returns Promise<PaginatedResponse>
+- [ ] Config has all required fields
+- [ ] Column keys match TUI properties
+- [ ] Mapper returns complete TUI object
+- [ ] searchKeys are valid TUI fields
+- [ ] Filter keys are valid TFilters fields
+- [ ] Page component passes config to TablePage
+- [ ] Data loads and displays in table
+- [ ] Pagination works
+- [ ] Search works
+- [ ] Filters work
+- [ ] Custom rendering (if any) displays correctly
+- \*/
+
+export {};
