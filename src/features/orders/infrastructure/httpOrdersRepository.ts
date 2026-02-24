@@ -4,18 +4,7 @@ import type {
   Paginated,
 } from "../domain/repositories/orders_repository";
 import type { Order } from "../domain/entities/order";
-import { getStoredToken } from "@/shared/storage/authStorage";
-
-function getBaseUrl(): string {
-  const base = import.meta.env.VITE_API_BASE_URL;
-  if (base && typeof base === "string" && base.trim()) {
-    const trimmed = base.trim();
-    return trimmed.startsWith("http")
-      ? trimmed.replace(/\/$/, "")
-      : `${window.location.origin}${trimmed.startsWith("/") ? "" : "/"}${trimmed}`.replace(/\/$/, "");
-  }
-  return "/api/v1";
-}
+import { baseQuery } from "@/shared/services/baseApi";
 
 const appendParam = (
   params: URLSearchParams,
@@ -45,25 +34,18 @@ export class HttpOrdersRepository implements OrdersRepository {
     appendParam(query, "level", params.level);
     appendParam(query, "percentage", params.percentage);
 
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-    };
+    const result = await baseQuery(
+      `/orders?${query.toString()}`,
+      { type: "query" } as any,
+      {}
+    );
 
-    const token = getStoredToken();
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+    if (result.error) {
+      throw new Error(
+        `Erreur API: ${result.error.status} ${JSON.stringify(result.error.data)}`
+      );
     }
 
-    const baseUrl = getBaseUrl();
-    const response = await fetch(`${baseUrl}/orders?${query.toString()}`, {
-      method: "GET",
-      headers,
-    });
-
-    if (!response.ok) {
-      throw new Error(`Erreur API: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json();
+    return result.data as Paginated<Order>;
   }
 }

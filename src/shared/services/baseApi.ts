@@ -18,7 +18,7 @@ function getBaseUrl(): string {
   return '/api/v1';
 }
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: getBaseUrl(),
   prepareHeaders(headers) {
     const token = getStoredToken();
