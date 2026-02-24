@@ -1,30 +1,45 @@
-import {
-  StudentActionsCell,
-  StudentGenderCell,
-  StudentNameCell,
-} from "../components";
-import type { StudentUI } from "../model";
+import { StudentsActionsMenu } from "../components";
+import { PlanBadge } from "@/components/atoms/plan-badge";
+import { SubscriptionTypeBadge } from "@/components/atoms/subscription-type-badge";
+import { StatusIndicator } from "@/components/atoms/status-indicator";
+import type { StudentRow } from "../adapters/mapOrdersToStudentsRows";
 
-export const renderStudentCell = (student: StudentUI, columnKey: string) => {
+const UserIcon = "/assets/icons/students_icone_table.svg";
+
+export const renderStudentCell = (student: StudentRow, columnKey: string) => {
   switch (columnKey) {
     case "name":
-      return <StudentNameCell name={student.name} />;
+      return (
+        <div className="flex items-center gap-2">
+          <img src={UserIcon} className="w-5 h-5 " />
+          <span className="text-sm font-medium text-neutral-800">
+            {student.name}
+          </span>
+        </div>
+      );
+
+    case "planType":
+      return <PlanBadge plan={student.planType} />;
+
+    case "subscriptionType":
+      return <SubscriptionTypeBadge type={student.subscriptionType} />;
 
     case "gender":
-      return <StudentGenderCell genderLabel={student.gender} />;
-
-    case "actions":
       return (
-        <StudentActionsCell
-          studentId={student.id}
-          onView={(studentId) => console.log("Voir", studentId)}
+        <StatusIndicator
+          label={student.gender}
+          dotColor={student.gender === "Fille" ? "red" : "blue"}
+          textColor="neutral"
         />
       );
 
+    case "actions":
+      return <StudentsActionsMenu studentId={student.id} />;
+
     default:
       return (
-        <span className="text-sm text-neutral-700">
-          {student[columnKey as keyof StudentUI]}
+        <span className="text-sm font-medium text-neutral-800">
+          {student[columnKey as keyof StudentRow]}
         </span>
       );
   }

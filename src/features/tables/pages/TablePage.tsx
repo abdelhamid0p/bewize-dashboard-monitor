@@ -15,6 +15,7 @@ import { GenericDataTable } from "../components/DataTable";
 import { TableToolbar } from "../components/TableToolbar";
 import { useTableData } from "../hooks/useTableData";
 import type { TablePageProps } from "../types";
+import { DashboardNavbar } from "@/components/molecules/dashboard_navbar";
 
 export function TablePage<
   TBackend = any,
@@ -22,6 +23,7 @@ export function TablePage<
   TFilters extends Record<string, any> = Record<string, any>,
 >({
   config,
+  tableState: tableStateOverride,
   initialFilters = {},
   title,
   showExport = true,
@@ -29,33 +31,12 @@ export function TablePage<
   headerActions,
 }: TablePageProps<TBackend, TUI, TFilters>) {
   // Initialize table data management
-  const tableState = useTableData(config, initialFilters);
+  const tableState = tableStateOverride ?? useTableData(config, initialFilters);
 
   return (
-    <div className="p-6 space-y-4">
-      {/* Header with title and action buttons */}
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-neutral-900">{title}</h1>
-        <div className="flex items-center gap-3">
-          {showExport && (
-            <Button className="bg-primary-500 hover:bg-primary-600 text-white rounded-full px-5">
-              <Download className="h-4 w-4 mr-2" />
-              Exporter
-            </Button>
-          )}
-          {showSettings && (
-            <Button
-              variant="secondary"
-              size="icon"
-              className="rounded-full border-neutral-300"
-            >
-              <Settings2 className="h-4 w-4 text-neutral-600" />
-            </Button>
-          )}
-          {headerActions}
-        </div>
-      </div>
-
+    <div className="p-6 space-y-4 bg-[#FAFAFF]">
+      {/* Header (à changer par le components navbar) */}
+      <DashboardNavbar userName="John Doe" />
       {/* Search and filters toolbar */}
       <TableToolbar config={config} tableState={tableState} />
 

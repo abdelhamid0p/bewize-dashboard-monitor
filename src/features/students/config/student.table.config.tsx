@@ -9,14 +9,16 @@
  * - Available filters
  */
 
-import { fetchStudents } from "../api/students_api";
-import type { StudentBackend, StudentUI, StudentsFilters } from "../model";
+import type { Order } from "@/features/orders/domain/entities/order";
 import type { TableConfig } from "@/features/tables/types";
 import { STUDENTS_TABLE_COLUMNS } from "./students.table.columns";
 import { STUDENTS_TABLE_FILTERS } from "./students.table.filters";
-import { CYCLE_CONFIG, GENDER_CONFIG } from "./students.table.enums";
-import { mapStudentToUI } from "./students.table.mapper";
 import { renderStudentCell } from "./students.table.render-cell";
+import {
+  mapOrderToStudentRow,
+  type StudentRow,
+  type StudentsOrdersFilters,
+} from "../adapters/mapOrdersToStudentsRows";
 
 /**
  * Gender configuration for display
@@ -25,10 +27,20 @@ import { renderStudentCell } from "./students.table.render-cell";
  * Complete table configuration for Students
  * This is the single source of truth for the students table
  */
+const EMPTY_RESPONSE = {
+  data: [],
+  meta: {
+    page: 0,
+    size: 10,
+    totalElements: 0,
+    totalPages: 0,
+  },
+};
+
 export const STUDENTS_TABLE_CONFIG: TableConfig<
-  StudentBackend,
-  StudentUI,
-  StudentsFilters
+  Order,
+  StudentRow,
+  StudentsOrdersFilters
 > = {
   // Basic configuration
   entityName: "Students",
@@ -42,25 +54,22 @@ export const STUDENTS_TABLE_CONFIG: TableConfig<
   filters: STUDENTS_TABLE_FILTERS,
 
   // Searchable fields
-  searchKeys: ["name", "cne", "email", "phone"],
-
-  // Enums for reference (optional)
-  enums: {
-    GENDER: GENDER_CONFIG,
-    CYCLE: CYCLE_CONFIG,
-  },
+  searchKeys: ["name", "phone", "subscriptionType", "planType"],
 
   /**
    * API Fetcher
-   * Calls the students API with filters
+   * Not used when Redux tableState is provided
    */
-  fetcher: async (filters: StudentsFilters) => fetchStudents(filters),
+  fetcher: async () => EMPTY_RESPONSE,
 
   /**
    * Data Mapper
    * Transforms raw backend data to UI display format
    */
-  mapper: mapStudentToUI,
+  mapper: (order: Order) => {
+    const result = mapOrderToStudentRow(order);
+    return result || ({} as StudentRow);
+  },
 
   /**
    * Custom cell renderer

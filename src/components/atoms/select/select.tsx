@@ -66,6 +66,7 @@ export function Select({
           "font-sans font-light text-md",
           "text-center",
           "rounded-full text-sm w-auto",
+          "border-0",
 
           isFiltres
             ? cn(
@@ -81,7 +82,7 @@ export function Select({
       </SelectTrigger>
 
       <SelectContent
-        className="rounded-[16px] border border-neutral-200 shadow-lg p-1 z-50"
+        className="rounded-[16px] border border-neutral-200 p-1 z-50 bg-white backdrop-opacity-85"
         position="popper"
         side="bottom"
         align="start"

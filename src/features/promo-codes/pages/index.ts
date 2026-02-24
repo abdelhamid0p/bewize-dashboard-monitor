@@ -1,0 +1,1 @@
+export { PromoCodesTablePage } from "./PromoCodesTablePage";

@@ -25,7 +25,8 @@ export function GenericDataTable<
   TUI = any,
   TFilters extends Record<string, any> = Record<string, any>,
 >({ config, tableState }: GenericDataTableProps<TBackend, TUI, TFilters>) {
-  const { data, loading, error, pagination, goToPage } = tableState;
+  const { data, loading, error, pagination, goToPage, sort, toggleSort } =
+    tableState;
   const { currentPage = pagination.page, totalPages = pagination.totalPages } =
     pagination as any;
 
@@ -56,6 +57,8 @@ export function GenericDataTable<
             ? (item, key) => config.renderCell!(item, key)
             : undefined
         }
+        sort={sort}
+        onSort={toggleSort}
       />
 
       {/* Pagination controls */}

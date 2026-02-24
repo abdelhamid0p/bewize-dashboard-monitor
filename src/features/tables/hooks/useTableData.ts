@@ -43,7 +43,7 @@ export function useTableData<
         // Add search to filters
         const filtersWithSearch = {
           ...filters,
-          ...(searchTerm && { search: searchTerm }),
+          ...(searchTerm && { search: searchTerm })
         };
 
         // Call the configured fetcher

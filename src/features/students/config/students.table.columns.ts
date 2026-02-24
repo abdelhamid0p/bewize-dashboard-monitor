@@ -1,8 +1,9 @@
 export const STUDENTS_TABLE_COLUMNS = [
-  { key: "cne", label: "CNE" },
   { key: "name", label: "Nom" },
   { key: "phone", label: "Telephone" },
-  { key: "email", label: "Email" },
+  { key: "subscriptionType", label: "Type d'abonnement" },
+  { key: "planType", label: "Type de plan" },
+  { key: "deviceSystem", label: "Appareil / Systeme" },
   { key: "gender", label: "Genre" },
   { key: "signupDate", label: "Date d'inscription" },
   { key: "level", label: "Niveau" },

@@ -39,6 +39,8 @@ export interface TableColumn {
   width?: string;
   /** Optional: CSS class for styling */
   className?: string;
+  /** Optional: whether this column is sortable */
+  sortable?: boolean;
 }
 
 /**
@@ -117,6 +119,9 @@ export interface TablePageProps<
   /** Table configuration */
   config: TableConfig<TBackend, TUI, TFilters>;
 
+  /** Optional: Override table state (used for Redux-powered tables) */
+  tableState?: UseTableDataResult<TUI, TFilters>;
+
   /** Initial filters to apply */
   initialFilters?: Partial<TFilters>;
 
@@ -131,6 +136,14 @@ export interface TablePageProps<
 
   /** Optional: Custom actions in header */
   headerActions?: ReactNode;
+}
+
+/**
+ * Single sort criterion
+ */
+export interface SortCriterion {
+  field: string;
+  direction: "asc" | "desc";
 }
 
 /**
@@ -155,6 +168,9 @@ export interface UseTableDataResult<TUI, TFilters extends Record<string, any>> {
   /** Search term */
   searchTerm: string;
 
+  /** Current sort criteria (array for multi-sort) */
+  sort: SortCriterion[];
+
   /** Update filters and reset to page 0 */
   updateFilters: (newFilters: Partial<TFilters>) => void;
 
@@ -163,4 +179,10 @@ export interface UseTableDataResult<TUI, TFilters extends Record<string, any>> {
 
   /** Update search term and reset to page 0 */
   setSearchTerm: (term: string) => void;
+
+  /** Toggle sort on a column (add to sort criteria or remove/toggle direction) */
+  toggleSort: (field: string) => void;
+
+  /** Clear all sort criteria */
+  clearSort: () => void;
 }
