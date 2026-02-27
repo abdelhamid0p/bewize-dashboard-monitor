@@ -3,27 +3,17 @@
  *
  * After refactoring, the page is extremely simple:
  * 1. Import the table config
- * 2. Render the generic TablePage with the config
- *
- * That's it! All the logic (fetching, filtering, searching, rendering)
- * is now centralized in the generic TablePage and configuration.
+ * 2. Use the students hook for data fetching
+ * 3. Render the generic TablePage with the config
  */
 
 import { TablePage } from "@/features/tables/pages/TablePage";
-import { useOrdersTableData } from "@/features/orders/application/useOrdersTableData";
+import { useStudentsTableData } from "../hooks/useStudentsTableData";
 import { STUDENTS_TABLE_CONFIG } from "../config/student.table.config";
-import {
-  buildStudentsOrdersQueryParams,
-  mapOrdersToStudentsRows,
-  type StudentRow,
-  type StudentsOrdersFilters,
-} from "../adapters/mapOrdersToStudentsRows";
 
 export const StudentsTablePage = () => {
-  const tableState = useOrdersTableData<StudentRow, StudentsOrdersFilters>({
+  const tableState = useStudentsTableData({
     pageSize: STUDENTS_TABLE_CONFIG.pageSize ?? 10,
-    mapRows: mapOrdersToStudentsRows,
-    toQueryParams: buildStudentsOrdersQueryParams,
   });
 
   return (

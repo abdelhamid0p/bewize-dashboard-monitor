@@ -1,51 +1,65 @@
 import { useState, useCallback } from 'react';
-import { useGetSubscriptionsQuery } from '@/shared/services/api/subscriptionsApi';
+import { useGetSubscriptionsQuery } from '../api/subscriptionsApi';
 import type { SubscriptionsQueryParams } from '@/shared/types/subscriptions.types';
 
 /**
  * Hook for managing subscriptions table data with pagination, filtering, and sorting
+ * Uses the Subscriptions API to fetch subscription data directly
  * Encapsulates all subscriptions-specific API logic
  */
-export const useSubscriptionsTableData = () => {
-  const [queryParams, setQueryParams] = useState<SubscriptionsQueryParams>({
+export const useSubscriptionsTableData = (config?: { pageSize?: number }) => {
+  const [filters, setFilters] = useState<SubscriptionsQueryParams>({
     page: 0,
-    size: 10,
-    sort: ['startDate,desc'],
+    size: config?.pageSize ?? 10,
   });
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Build query params for subscriptions API
+  const queryParams: SubscriptionsQueryParams = {
+    page: filters.page,
+    size: filters.size,
+    orderId: filters.orderId,
+    active: filters.active,
+    sort: filters.sort,
+  };
 
   const { data, isLoading, error, refetch } = useGetSubscriptionsQuery(queryParams);
 
+  // Use subscriptions data directly
+  const subscriptionData = data?.data || [];
+
   const handlePageChange = useCallback((newPage: number) => {
-    setQueryParams((prev) => ({ ...prev, page: newPage }));
+    setFilters((prev) => ({ ...prev, page: newPage }));
   }, []);
 
   const handlePageSizeChange = useCallback((newSize: number) => {
-    setQueryParams((prev) => ({ ...prev, page: 0, size: newSize }));
+    setFilters((prev) => ({ ...prev, page: 0, size: newSize }));
   }, []);
 
   const handleSort = useCallback((sortCriteria: string[]) => {
-    setQueryParams((prev) => ({ ...prev, page: 0, sort: sortCriteria }));
+    setFilters((prev) => ({ ...prev, page: 0, sort: sortCriteria }));
   }, []);
 
   const handleOrderIdFilter = useCallback((orderId: string | undefined) => {
-    setQueryParams((prev) => ({ ...prev, page: 0, orderId }));
+    setFilters((prev) => ({ ...prev, page: 0, orderId }));
   }, []);
 
   const handleActiveFilter = useCallback((active: boolean | undefined) => {
-    setQueryParams((prev) => ({ ...prev, page: 0, active }));
+    setFilters((prev) => ({ ...prev, page: 0, active }));
   }, []);
 
   const handleReset = useCallback(() => {
-    setQueryParams({
+    setFilters({
       page: 0,
-      size: 10,
-      sort: ['startDate,desc'],
+      size: config?.pageSize ?? 10,
     });
-  }, []);
+    setSearchTerm('');
+  }, [config?.pageSize]);
 
   return {
-    // Data
-    subscriptions: data?.data || [],
+    // Data - compatible with TablePage component
+    data: subscriptionData as any[],
     pagination: data?.meta,
     isLoading,
     error,
@@ -60,6 +74,7 @@ export const useSubscriptionsTableData = () => {
     refetch,
 
     // Current state
-    queryParams,
+    filters,
+    searchTerm,
   };
 };

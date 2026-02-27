@@ -1,5 +1,4 @@
-import type { Order } from "@/features/orders/domain/entities/order";
-import type { OrdersQueryParams } from "@/features/orders/domain/repositories/orders_repository";
+import type { Order, OrdersQueryParams } from "@/shared/types/orders.types";
 
 export interface StudentsOrdersFilters {
   page?: number;

@@ -1,18 +1,10 @@
 import { TablePage } from "@/features/tables/pages/TablePage";
 import { PROMO_CODES_TABLE_CONFIG } from "../config/promo-codes.table.config";
-import { useOrdersTableData } from "@/features/orders/application/useOrdersTableData";
-import {
-  buildPromoCodesOrdersQueryParams,
-  mapOrdersToPromoCodesRows,
-  type PromoCodeRow,
-  type PromoCodesOrdersFilters,
-} from "../adapters/mapOrdersToPromoCodesRows";
+import { useDiscountsTableData } from "../hooks/useDiscountsTableData";
 
 export const PromoCodesTablePage = () => {
-  const tableState = useOrdersTableData<PromoCodeRow, PromoCodesOrdersFilters>({
+  const tableState = useDiscountsTableData({
     pageSize: PROMO_CODES_TABLE_CONFIG.pageSize ?? 20,
-    mapRows: mapOrdersToPromoCodesRows,
-    toQueryParams: buildPromoCodesOrdersQueryParams,
   });
 
   return (

@@ -1,4 +1,5 @@
-import type { Order } from "@/features/orders/domain/entities/order";
+import type { Order } from "@/shared/types/orders.types";
+
 import type { TableConfig } from "@/features/tables/types";
 import { PROMO_CODES_TABLE_COLUMNS } from "./promo-codes.table.columns";
 import { PROMO_CODES_TABLE_FILTERS } from "./promo-codes.table.filters";

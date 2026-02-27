@@ -9,7 +9,7 @@
  * - Available filters
  */
 
-import type { Order } from "@/features/orders/domain/entities/order";
+import type { Order } from "@/shared/types/orders.types";
 import type { TableConfig } from "@/features/tables/types";
 import { STUDENTS_TABLE_COLUMNS } from "./students.table.columns";
 import { STUDENTS_TABLE_FILTERS } from "./students.table.filters";

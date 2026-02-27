@@ -1,21 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { ordersReducer } from "@/features/orders/application/orders.slice";
-import { HttpOrdersRepository } from "@/features/orders/infrastructure/httpOrdersRepository";
-
-const ordersRepository = new HttpOrdersRepository();
+import { baseApi } from "@/shared/services/baseApi";
 
 export const store = configureStore({
   reducer: {
-    orders: ordersReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: {
-          ordersRepository,
-        },
-      },
-    }),
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

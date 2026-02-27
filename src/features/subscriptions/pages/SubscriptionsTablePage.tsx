@@ -3,29 +3,15 @@
  *
  * Minimal page component that leverages the generic TablePage
  * with the subscriptions configuration.
- *
- * All business logic (fetching, filtering, rendering) is handled
- * by the generic TablePage and configuration.
  */
 
 import { TablePage } from "@/features/tables/pages/TablePage";
-import { useOrdersTableData } from "@/features/orders/application/useOrdersTableData";
+import { useSubscriptionsTableData } from "../hooks/useSubscriptionsTableData";
 import { SUBSCRIPTIONS_TABLE_CONFIG } from "../config/subscriptions.table.config";
-import {
-  buildSubscriptionsOrdersQueryParams,
-  mapOrdersToSubscriptionsRows,
-  type SubscriptionRow,
-  type SubscriptionsOrdersFilters,
-} from "../adapters/mapOrdersToSubscriptionsRows";
 
 export const SubscriptionsTablePage = () => {
-  const tableState = useOrdersTableData<
-    SubscriptionRow,
-    SubscriptionsOrdersFilters
-  >({
+  const tableState = useSubscriptionsTableData({
     pageSize: SUBSCRIPTIONS_TABLE_CONFIG.pageSize ?? 20,
-    mapRows: mapOrdersToSubscriptionsRows,
-    toQueryParams: buildSubscriptionsOrdersQueryParams,
   });
 
   return (

@@ -8,7 +8,7 @@
  * - Custom cell rendering
  */
 
-import type { Order } from "@/features/orders/domain/entities/order";
+import type { Order } from "@/shared/types/orders.types";
 import type { TableConfig } from "@/features/tables/types";
 import { SUBSCRIPTIONS_TABLE_COLUMNS } from "./subscriptions.table.columns";
 import { SUBSCRIPTIONS_TABLE_FILTERS } from "./subscriptions.table.filters";
