@@ -1,6 +1,15 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useGetStudentsQuery } from '../api/studentsApi';
-import type { StudentsQueryParams } from '@/shared/types/students.types';
+import type { StudentsQueryParams, Student } from '@/shared/types/students.types';
+import type { StudentRow } from '../types';
+
+/**
+ * Simple mapper from Student API response to StudentRow for table display
+ */
+const mapStudentToRow = (student: Student): StudentRow => ({
+  ...student,
+  // Add any computed fields needed for display
+});
 
 /**
  * Hook for managing students table data with pagination, filtering, and sorting
@@ -27,8 +36,10 @@ export const useStudentsTableData = (config?: { pageSize?: number }) => {
 
   const { data, isLoading, error, refetch } = useGetStudentsQuery(queryParams);
 
-  // Use students data directly
-  const studentData = data?.data || [];
+  // Map students data to table format
+  const studentRows = useMemo(() => {
+    return data?.data?.map(mapStudentToRow) || [];
+  }, [data?.data]);
 
   const handlePageChange = useCallback((newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
@@ -65,7 +76,7 @@ export const useStudentsTableData = (config?: { pageSize?: number }) => {
 
   return {
     // Data - compatible with TablePage component
-    data: studentData as any[],
+    data: studentRows,
     pagination: data?.meta,
     isLoading,
     error,
@@ -85,3 +96,4 @@ export const useStudentsTableData = (config?: { pageSize?: number }) => {
     searchTerm,
   };
 };
+

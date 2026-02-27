@@ -2,7 +2,7 @@ import { StudentsActionsMenu } from "../components";
 import { PlanBadge } from "@/components/atoms/plan-badge";
 import { SubscriptionTypeBadge } from "@/components/atoms/subscription-type-badge";
 import { StatusIndicator } from "@/components/atoms/status-indicator";
-import type { StudentRow } from "../adapters/mapOrdersToStudentsRows";
+import type { StudentRow } from "../types";
 
 const UserIcon = "/assets/icons/students_icone_table.svg";
 

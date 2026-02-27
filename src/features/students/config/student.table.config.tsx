@@ -9,20 +9,13 @@
  * - Available filters
  */
 
-import type { Order } from "@/shared/types/orders.types";
+import type { Student } from "@/shared/types/students.types";
 import type { TableConfig } from "@/features/tables/types";
 import { STUDENTS_TABLE_COLUMNS } from "./students.table.columns";
 import { STUDENTS_TABLE_FILTERS } from "./students.table.filters";
 import { renderStudentCell } from "./students.table.render-cell";
-import {
-  mapOrderToStudentRow,
-  type StudentRow,
-  type StudentsOrdersFilters,
-} from "../adapters/mapOrdersToStudentsRows";
+import type { StudentRow, StudentsTableFilters } from "../types";
 
-/**
- * Gender configuration for display
- */
 /**
  * Complete table configuration for Students
  * This is the single source of truth for the students table
@@ -38,9 +31,9 @@ const EMPTY_RESPONSE = {
 };
 
 export const STUDENTS_TABLE_CONFIG: TableConfig<
-  Order,
+  Student,
   StudentRow,
-  StudentsOrdersFilters
+  StudentsTableFilters
 > = {
   // Basic configuration
   entityName: "Students",
@@ -54,7 +47,7 @@ export const STUDENTS_TABLE_CONFIG: TableConfig<
   filters: STUDENTS_TABLE_FILTERS,
 
   // Searchable fields
-  searchKeys: ["name", "phone", "subscriptionType", "planType"],
+  searchKeys: ["firstName", "lastName", "email"],
 
   /**
    * API Fetcher
@@ -66,10 +59,9 @@ export const STUDENTS_TABLE_CONFIG: TableConfig<
    * Data Mapper
    * Transforms raw backend data to UI display format
    */
-  mapper: (order: Order) => {
-    const result = mapOrderToStudentRow(order);
-    return result || ({} as StudentRow);
-  },
+  mapper: (student: Student) => ({
+    ...student,
+  } as StudentRow),
 
   /**
    * Custom cell renderer
