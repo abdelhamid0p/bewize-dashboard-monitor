@@ -8,20 +8,16 @@
  * - Custom cell rendering
  */
 
-import type { Order } from "@/shared/types/orders.types";
+import type { Subscription } from "@/shared/types/subscriptions.types";
 import type { TableConfig } from "@/features/tables/types";
 import { SUBSCRIPTIONS_TABLE_COLUMNS } from "./subscriptions.table.columns";
 import { SUBSCRIPTIONS_TABLE_FILTERS } from "./subscriptions.table.filters";
 import { renderSubscriptionCell } from "./subscriptions.table.render-cell";
-import {
-  mapOrderToSubscriptionRow,
-  type SubscriptionRow,
-  type SubscriptionsOrdersFilters,
-} from "../adapters/mapOrdersToSubscriptionsRows";
+import type { SubscriptionRow, SubscriptionsTableFilters } from "../types";
 
 /**
  * Complete table configuration for Subscriptions
- * Fetches from /orders endpoint and maps order data to subscription UI
+ * Fetches from /subscriptions endpoint with subscription data
  * This is the single source of truth for the subscriptions table
  */
 const EMPTY_RESPONSE = {
@@ -35,9 +31,9 @@ const EMPTY_RESPONSE = {
 };
 
 export const SUBSCRIPTIONS_TABLE_CONFIG: TableConfig<
-  Order,
+  Subscription,
   SubscriptionRow,
-  SubscriptionsOrdersFilters
+  SubscriptionsTableFilters
 > = {
   // Basic configuration
   entityName: "Subscriptions",
@@ -51,7 +47,7 @@ export const SUBSCRIPTIONS_TABLE_CONFIG: TableConfig<
   filters: SUBSCRIPTIONS_TABLE_FILTERS,
 
   // Searchable fields
-  searchKeys: ["cne", "planType", "subscriptionType"],
+  searchKeys: ["id", "orderId"],
 
   /**
    * API Fetcher
@@ -63,7 +59,9 @@ export const SUBSCRIPTIONS_TABLE_CONFIG: TableConfig<
    * Data Mapper
    * Transforms raw backend data to UI display format
    */
-  mapper: mapOrderToSubscriptionRow,
+  mapper: (subscription: Subscription) => ({
+    ...subscription,
+  } as SubscriptionRow),
 
   /**
    * Custom cell renderer

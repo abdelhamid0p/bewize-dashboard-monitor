@@ -1,25 +1,24 @@
-import type {
-  PromoCodeRow,
-  PromoCodeStatus,
-} from "../adapters/mapOrdersToPromoCodesRows";
-import { PromoCodeActionsCell, PromoCodeViewCell } from "../components";
+import type { PromoCodeRow } from "../types";
+import { PromoCodeActionsCell } from "../components";
 import { StatusIndicator } from "@/components/atoms/status-indicator";
 import { PercentageBadge } from "@/components/atoms/percentage-badge";
 
 type DotColor = "red" | "blue" | "green" | "orange";
 
+const getPromoCodeStatus = (code: PromoCodeRow): "active" | "expired" => {
+  const end = new Date(code.endDate);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+  return end >= today ? "active" : "expired";
+};
+
 const getPromoCodeStatusConfig = (
-  status: PromoCodeStatus,
+  status: "active" | "expired",
 ): { label: string; dotColor: DotColor; textColor: DotColor } => {
   switch (status) {
     case "active":
       return { label: "Actif", dotColor: "green", textColor: "green" };
-    case "pending":
-      return {
-        label: "En attente",
-        dotColor: "orange",
-        textColor: "orange",
-      };
     case "expired":
       return { label: "Expiré", dotColor: "red", textColor: "red" };
     default:
@@ -36,7 +35,8 @@ export const renderPromoCodeCell = (
       return <PercentageBadge percentage={promoCode.percentage} />;
 
     case "status": {
-      const config = getPromoCodeStatusConfig(promoCode.status);
+      const status = getPromoCodeStatus(promoCode);
+      const config = getPromoCodeStatusConfig(status);
       return (
         <StatusIndicator
           label={config.label}
@@ -46,8 +46,18 @@ export const renderPromoCodeCell = (
       );
     }
 
-    case "view":
+    case "actions":
+      return <PromoCodeActionsCell promoCodeId={promoCode.id} />;
+
+    default:
       return (
+        <span className="text-sm font-medium text-neutral-800">
+          {promoCode[columnKey as keyof PromoCodeRow]}
+        </span>
+      );
+  }
+};
+
         <PromoCodeViewCell
           promoCodeId={promoCode.id}
           onView={(promoCodeId) => console.log("Voir", promoCodeId)}

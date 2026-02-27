@@ -1,6 +1,22 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useGetSubscriptionsQuery } from '../api/subscriptionsApi';
-import type { SubscriptionsQueryParams } from '@/shared/types/subscriptions.types';
+import type { SubscriptionsQueryParams, Subscription } from '@/shared/types/subscriptions.types';
+import type { SubscriptionRow } from '../types';
+
+/**
+ * Simple mapper from Subscription API response to SubscriptionRow for table display
+ */
+const mapSubscriptionToRow = (subscription: Subscription): SubscriptionRow => ({
+  ...subscription,
+  // Add computed status field
+  status: (() => {
+    const end = new Date(subscription.endDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    return end >= today ? 'active' : 'inactive';
+  })(),
+});
 
 /**
  * Hook for managing subscriptions table data with pagination, filtering, and sorting
@@ -26,8 +42,10 @@ export const useSubscriptionsTableData = (config?: { pageSize?: number }) => {
 
   const { data, isLoading, error, refetch } = useGetSubscriptionsQuery(queryParams);
 
-  // Use subscriptions data directly
-  const subscriptionData = data?.data || [];
+  // Map subscriptions data to table format
+  const subscriptionRows = useMemo(() => {
+    return data?.data?.map(mapSubscriptionToRow) || [];
+  }, [data?.data]);
 
   const handlePageChange = useCallback((newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
@@ -59,7 +77,7 @@ export const useSubscriptionsTableData = (config?: { pageSize?: number }) => {
 
   return {
     // Data - compatible with TablePage component
-    data: subscriptionData as any[],
+    data: subscriptionRows,
     pagination: data?.meta,
     isLoading,
     error,
@@ -78,3 +96,4 @@ export const useSubscriptionsTableData = (config?: { pageSize?: number }) => {
     searchTerm,
   };
 };
+

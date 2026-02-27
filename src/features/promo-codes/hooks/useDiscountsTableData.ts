@@ -1,6 +1,22 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useGetDiscountsQuery } from '../api/discountsApi';
-import type { DiscountsQueryParams } from '@/shared/types/discounts.types';
+import type { DiscountsQueryParams, Discount } from '@/shared/types/discounts.types';
+import type { PromoCodeRow } from '../types';
+
+/**
+ * Simple mapper from Discount API response to PromoCodeRow for table display
+ */
+const mapDiscountToRow = (discount: Discount): PromoCodeRow => ({
+  ...discount,
+  // Add computed status field
+  status: (() => {
+    const end = new Date(discount.endDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+    return end >= today ? 'active' : 'expired';
+  })(),
+});
 
 /**
  * Hook for managing discounts/promo codes table data with pagination, filtering, and sorting
@@ -26,8 +42,10 @@ export const useDiscountsTableData = (config?: { pageSize?: number }) => {
 
   const { data, isLoading, error, refetch } = useGetDiscountsQuery(queryParams);
 
-  // Use discounts data directly
-  const discountData = data?.data || [];
+  // Map discounts data to table format
+  const promoCodeRows = useMemo(() => {
+    return data?.data?.map(mapDiscountToRow) || [];
+  }, [data?.data]);
 
   const handlePageChange = useCallback((newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
@@ -60,7 +78,7 @@ export const useDiscountsTableData = (config?: { pageSize?: number }) => {
 
   return {
     // Data - compatible with TablePage component
-    data: discountData as any[],
+    data: promoCodeRows,
     pagination: data?.meta,
     isLoading,
     error,
