@@ -1,4 +1,4 @@
-import { PaginatedResponse, PaginationParams } from './api.types';
+import type { PaginatedResponse, PaginationParams } from './api.types';
 
 /**
  * Discount/Promo Code domain model
