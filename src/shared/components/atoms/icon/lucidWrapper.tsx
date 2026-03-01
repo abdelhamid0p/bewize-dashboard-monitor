@@ -3,12 +3,7 @@ import React from "react";
 import { cn } from "@/shared/lib/utils";
 import type { IconName } from "./iconName";
 
-export type IconVariant =
-  | "default"
-  | "nav"
-  | "button"
-  | "sm"
-  | "lg";
+export type IconVariant = "default" | "nav" | "button" | "sm" | "lg";
 
 interface IconProps {
   name: IconName;
@@ -33,22 +28,19 @@ export const Icon: React.FC<IconProps> = ({
           "w-5 h-5": variant === "default",
 
           // Sidebar nav icon (responsive)
-          "w-4! h-4! md:w-5! md:h-5! 2xl:w-8! 2xl:h-8!":
-            variant === "nav",
+          "w-4! h-4! md:w-5! md:h-5! 2xl:w-8! 2xl:h-8!": variant === "nav",
 
           // Button icon
-          "w-4! h-4! md:w-4.5! md:h-4.5!":
-            variant === "button",
+          "w-4! h-4! md:w-4.5! md:h-4.5!": variant === "button",
 
           // Small
           "w-3 h-3": variant === "sm",
 
           // Large
-          "w-6 h-6 md:w-7 md:h-7":
-            variant === "lg",
+          "w-6 h-6 md:w-7 md:h-7": variant === "lg",
         },
 
-        className
+        className,
       )}
     />
   );
