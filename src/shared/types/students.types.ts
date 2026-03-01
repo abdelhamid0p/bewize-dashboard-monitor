@@ -27,4 +27,8 @@ export interface StudentsQueryParams extends PaginationParams {
   search?: string;
   gender?: string;
   cycle?: string;
+  deviceType?: string;
+  level?: string;
+  type?: string;
+  planType?: string;
 }

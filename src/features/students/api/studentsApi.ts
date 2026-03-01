@@ -18,6 +18,10 @@ export const studentsApi = baseApi.injectEndpoints({
         if (params.search) queryParams.append('search', params.search);
         if (params.gender) queryParams.append('gender', params.gender);
         if (params.cycle) queryParams.append('cycle', params.cycle);
+        if (params.deviceType) queryParams.append('deviceType', params.deviceType);
+        if (params.level) queryParams.append('level', params.level);
+        if (params.type) queryParams.append('type', params.type);
+        if (params.planType) queryParams.append('planType', params.planType);
 
         return `/students?${queryParams.toString()}`;
       },

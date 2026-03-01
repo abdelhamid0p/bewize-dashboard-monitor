@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { ActionIconButton } from "@/components/atoms/action-icon-button";
+import { ActionIconButton } from "@/shared/components/atoms/action-icon-button";
 
 interface PromoCodeActionsCellProps {
   promoCodeId: string;

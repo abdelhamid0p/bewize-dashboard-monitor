@@ -18,4 +18,8 @@ export type SubscriptionsResponse = PaginatedResponse<Subscription>;
 export interface SubscriptionsQueryParams extends PaginationParams {
   orderId?: string;
   active?: boolean;
+  status?: string;
+  type?: string;
+  planType?: string;
+  search?: string;
 }

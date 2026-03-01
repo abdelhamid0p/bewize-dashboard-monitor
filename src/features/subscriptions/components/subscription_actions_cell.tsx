@@ -1,5 +1,5 @@
 import { Eye } from "lucide-react";
-import { ActionIconButton } from "@/components/atoms/action-icon-button";
+import { ActionIconButton } from "@/shared/components/atoms/action-icon-button";
 
 interface SubscriptionActionsCellProps {
   subscriptionId: string;

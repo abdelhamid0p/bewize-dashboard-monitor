@@ -5,9 +5,9 @@ import StaticDesignSystemShowcase from "@/design-system/design-system-showcase/s
 import DynamicDesignSystemShowcase from "@/design-system/design-system-showcase/interactiveShowcase.tsx";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { StudentsTablePage } from "@/features/students/pages/StudentsTablePage";
-import { SubscriptionsTablePage } from "@/features/subscriptions/pages/SubscriptionsTablePage";
-import { PromoCodesTablePage } from "@/features/promo-codes/pages";
+import { PromoCodesPage } from "@/features/promo-codes/pages";
+import { StudentsPage } from "@/features/students/pages/StudentsPage";
+import { SubscriptionsPage } from "@/features/subscriptions/pages/SubscriptionsPage";
 
 function App() {
   return (
@@ -18,9 +18,9 @@ function App() {
           path="/dynamic_showcase"
           element={<DynamicDesignSystemShowcase />}
         />
-        <Route path="/students" element={<StudentsTablePage />} />
-        <Route path="/subscriptions" element={<SubscriptionsTablePage />} />
-        <Route path="/promo-codes" element={<PromoCodesTablePage />} />
+        <Route path="/students" element={<StudentsPage />} />
+        <Route path="/subscriptions" element={<SubscriptionsPage />} />
+        <Route path="/promo-codes" element={<PromoCodesPage />} />
       </Routes>
     </BrowserRouter>
   );

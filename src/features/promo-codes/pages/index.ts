@@ -1,1 +1,1 @@
-export { PromoCodesTablePage } from "./PromoCodesTablePage";
+export { PromoCodesPage } from "./PromoCodesPage";
