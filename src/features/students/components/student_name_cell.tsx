@@ -1,4 +1,4 @@
-import icone from "@/assets/icons/students_icone_table.svg";
+import icone from "@/assets/icones/students_icone_table.svg";
 interface StudentNameCellProps {
   name: string;
 }

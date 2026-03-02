@@ -20,7 +20,7 @@ import { SubscriptionsPage } from "@/features/subscriptions/pages/SubscriptionsP
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/bewize-dashboard-monitor">
       <Routes>
         {/* Login Page */}
         <Route path="/" element={<LoginPage />} />
