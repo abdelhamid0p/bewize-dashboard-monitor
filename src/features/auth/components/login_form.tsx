@@ -9,6 +9,8 @@ export const LoginForm = () => {
     password,
     emailError,
     passwordError,
+    handleEmailChange,
+    handlePasswordChange,
     validateEmail,
     validatePassword,
     validateForm,
@@ -30,6 +32,8 @@ export const LoginForm = () => {
       passwordError={passwordError}
       error={error}
       loading={loading}
+      onEmailChange={handleEmailChange}
+      onPasswordChange={handlePasswordChange}
       onEmailBlur={validateEmail}
       onPasswordBlur={validatePassword}
       onSubmit={handleSubmit}

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { Input, type InputProps } from '@/shared/components/atoms/input/Input';
-import { Label } from '@/shared/components/atoms/label/label';
-import { cn } from '@/shared/lib/utils';
+import * as React from "react";
+import { Input, type InputProps } from "@/shared/components/atoms/input/Input";
+import { Label } from "@/shared/components/atoms/label/label";
+import { cn } from "@/shared/lib/utils";
 
 export interface FormFieldProps extends InputProps {
   label: string;
@@ -14,12 +14,12 @@ export interface FormFieldProps extends InputProps {
 const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
   ({ label, id, required, error, helperText, className, ...props }, ref) => {
     return (
-      <div className={cn('space-y-2', className)}>
+      <div className={cn("space-y-2", className)}>
         <Label htmlFor={id} required={required}>
           {label}
         </Label>
         <Input
-          className='rounded-[24px]'
+          className="rounded-[24px]"
           id={id}
           ref={ref}
           error={error}
@@ -28,9 +28,9 @@ const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
         />
       </div>
     );
-  }
+  },
 );
 
-FormField.displayName = 'FormField';
+FormField.displayName = "FormField";
 
 export { FormField };
