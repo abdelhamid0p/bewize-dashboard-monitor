@@ -26,25 +26,35 @@ export const renderStudentCell = (
         <div className="flex items-center gap-2">
           <img src={UserIcon} alt="" className="w-5 h-5" />
           <span className="text-sm font-medium text-neutral-800">
-            {student.name}
+            {student.name || "—"}
           </span>
         </div>
       );
     }
 
     case "planType":
-      return <PlanBadge plan="N/A" />;
+      return student.planType ? (
+        <PlanBadge plan={student.planType} />
+      ) : (
+        <span className="text-sm font-medium text-neutral-800">—</span>
+      );
 
     case "subscriptionType":
-      return <SubscriptionTypeBadge type="—" />;
+      return student.subscriptionType ? (
+        <SubscriptionTypeBadge type={student.subscriptionType} />
+      ) : (
+        <span className="text-sm font-medium text-neutral-800">—</span>
+      );
 
     case "gender":
-      return (
+      return student.gender ? (
         <StatusIndicator
           label={student.gender}
           dotColor={GENDER_LABEL_COLORS[student.gender] || "blue"}
           textColor="neutral"
         />
+      ) : (
+        <span className="text-sm font-medium text-neutral-800">—</span>
       );
 
     case "actions":
@@ -53,7 +63,7 @@ export const renderStudentCell = (
     default:
       return (
         <span className="text-sm font-medium text-neutral-800">
-          {student[columnKey as keyof StudentUI] ?? "—"}
+          {student[columnKey as keyof StudentUI] || "—"}
         </span>
       );
   }

@@ -25,13 +25,15 @@ export interface StudentBackend {
 // ============ UI TYPES ============
 /**
  * Student data formatted for table display
+ * Matches STUDENTS_COLUMNS keys exactly
  */
 export interface StudentUI {
   id: string;
-  cne: string;
   name: string;
   phone: string;
-  email: string;
+  subscriptionType?: string;
+  planType?: string;
+  deviceSystem?: string;
   gender: string;
   signupDate: string;
   level: string;
