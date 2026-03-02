@@ -61,15 +61,15 @@ export function Select({
       <SelectTrigger
         className={cn(
           "inline-flex items-center justify-center",
-          "h-7 md:h-8 lg:h-9 xl:h-10",
-          "px-2 md:px-2.5 lg:px-3 xl:px-4 py-1 md:py-1.5",
-          "gap-1 md:gap-1.5 lg:gap-2",
+          "h-6 sm:h-7 md:h-8 lg:h-9 xl:h-10",
+          "px-1.5 sm:px-2 md:px-2.5 lg:px-3 xl:px-4 py-0.5 sm:py-1 md:py-1.5",
+          "gap-0.5 sm:gap-1 md:gap-1.5 lg:gap-2",
           "rounded-full",
 
           /* ===== Typography ===== */
-          "font-sans font-light text-[10px] md:text-xs lg:text-xs xl:text-sm",
+          "font-sans font-light text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm",
           "text-center",
-          "w-auto min-w-[70px] md:min-w-[80px] lg:min-w-[90px] xl:min-w-[100px] max-w-[120px] md:max-w-[140px] xl:max-w-[160px]",
+          "w-auto min-w-[50px] sm:min-w-[60px] md:min-w-[70px] lg:min-w-[80px] xl:min-w-[100px] max-w-[80px] sm:max-w-[100px] md:max-w-[120px] lg:max-w-[140px] xl:max-w-[160px]",
           "border-0",
 
           isFiltres
@@ -88,7 +88,7 @@ export function Select({
       </SelectTrigger>
 
       <SelectContent
-        className="rounded-[16px] border border-neutral-200 p-1 z-50 bg-white backdrop-opacity-85"
+        className="rounded-2xl border border-neutral-200 p-0.5 sm:p-1 z-50 bg-white backdrop-opacity-85 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm"
         position="popper"
         side="bottom"
         align="start"

@@ -41,19 +41,19 @@ export function DataTable<T extends { id: string | number }>({
   return (
     <div className="border border-accent-100 bg-white rounded-t-2xl overflow-hidden w-full">
       <div className="overflow-x-auto">
-        <Table className="w-full table-auto">
+        <Table className="w-full table-fixed">
           <TableHeader>
             <TableRow className="bg-neutral-100">
               {columns.map((column, index) => (
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "border-b border-accent-100 text-center text-black-100 text-[10px] md:text-xs xl:text-sm px-1 py-1.5 md:px-2 md:py-2 lg:px-3 lg:py-3 xl:px-4 xl:py-4 whitespace-nowrap",
+                    "border-b border-accent-100 text-center text-black-100 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm px-0.5 py-1 sm:px-1 sm:py-1.5 md:px-1.5 md:py-2 lg:px-2 lg:py-2.5 xl:px-3 xl:py-3 whitespace-nowrap truncate",
                     index === 0 && "rounded-tl-2xl",
                     index === columns.length - 1 && "rounded-tr-2xl",
                   )}
                 >
-                  <div className="flex items-center justify-center gap-0.5 md:gap-1">
+                  <div className="flex items-center justify-center gap-0.5 truncate">
                     {column.label}
                   </div>
                 </TableHead>
@@ -70,9 +70,9 @@ export function DataTable<T extends { id: string | number }>({
                 {columns.map((column) => (
                   <TableCell
                     key={column.key}
-                    className="text-center text-black-100 text-[10px] md:text-xs xl:text-sm px-1 py-1 md:px-2 md:py-1.5 lg:px-3 lg:py-2 xl:px-4 xl:py-3 whitespace-nowrap"
+                    className="text-center text-black-100 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm px-0.5 py-0.5 sm:px-1 sm:py-1 md:px-1.5 md:py-1.5 lg:px-2 lg:py-2 xl:px-3 xl:py-2.5 whitespace-nowrap truncate"
                   >
-                    <div className="flex items-center justify-center w-full">
+                    <div className="flex items-center justify-center w-full truncate">
                       {renderCell
                         ? renderCell(item, column.key)
                         : ((item[column.key as keyof T] as React.ReactNode) ??
