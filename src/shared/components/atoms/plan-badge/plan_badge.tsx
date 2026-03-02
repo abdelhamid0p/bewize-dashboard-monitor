@@ -11,10 +11,10 @@ interface PlanBadgeProps {
 export const PlanBadge = ({ plan }: PlanBadgeProps) => {
   const label = plan && plan.trim() !== "" ? plan : "N/A";
   const styles: Record<string, string> = {
-    Annuel: "bg-green-200 text-green-100",
-    Mensuel: "bg-orange-200 text-orange-100",
-    Trimestriel: "bg-red-200 text-red-100",
-    Semestriel: "bg-blue-200 text-blue-300",
+    Annuel: "bg-green-200 text-green-card",
+    Mensuel: "bg-orange-200 text-orange-card",
+    Trimestriel: "bg-red-200 text-red-card",
+    Semestriel: "bg-blue-200 text-blue-card",
   };
 
   return (
