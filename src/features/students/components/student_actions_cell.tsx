@@ -14,7 +14,7 @@ export const StudentActionsCell = ({
     <ActionIconButton
       icon={<Eye className="size-6 2xl:size-7" />}
       ariaLabel="View student"
-      className="text-blue-100 rounded-full"
+      className="text-action-eyes rounded-full"
       onClick={() => onView?.(studentId)}
     />
   );

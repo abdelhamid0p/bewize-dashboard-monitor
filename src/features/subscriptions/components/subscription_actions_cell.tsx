@@ -14,7 +14,7 @@ export const SubscriptionActionsCell = ({
     <ActionIconButton
       icon={<Eye className="size-6 2xl:size-7" />}
       ariaLabel="View subscription"
-      className="text-blue-100 rounded-full"
+      className="color-blue-action-eyes rounded-full"
       onClick={() => onView?.(subscriptionId)}
     />
   );

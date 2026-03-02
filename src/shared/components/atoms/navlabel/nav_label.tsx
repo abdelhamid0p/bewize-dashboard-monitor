@@ -1,4 +1,3 @@
-import { Text } from "@/shared/components/atoms/text/text";
 import { cn } from "@/shared/lib/utils";
 
 interface NavLabelProps {
@@ -7,22 +6,17 @@ interface NavLabelProps {
   className?: string;
 }
 
-export const NavLabel = ({
-  children,
-  isActive,
-  className,
-}: NavLabelProps) => {
+export const NavLabel = ({ children, isActive, className }: NavLabelProps) => {
   return (
-    <Text
-      as="span"
-      variant="subtitle"
+    <span
       className={cn(
         "font-medium transition-colors duration-200",
+        "text-[9px] sm:text-[10px] md:text-xs lg:text-sm xl:text-base",
         isActive ? "text-neutral-100" : "text-neutral-1000",
-        className
+        className,
       )}
     >
       {children}
-    </Text>
+    </span>
   );
 };

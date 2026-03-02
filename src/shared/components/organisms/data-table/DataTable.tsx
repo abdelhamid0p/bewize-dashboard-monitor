@@ -70,9 +70,9 @@ export function DataTable<T extends { id: string | number }>({
                 {columns.map((column) => (
                   <TableCell
                     key={column.key}
-                    className="text-center text-black-100 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm px-0.5 py-0.5 sm:px-1 sm:py-1 md:px-1.5 md:py-1.5 lg:px-2 lg:py-2 xl:px-3 xl:py-2.5 break-words"
+                    className="text-center text-black-100 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm px-0.5 py-0.5 sm:px-1 sm:py-1 md:px-1.5 md:py-1.5 lg:px-2 lg:py-2 xl:px-3 xl:py-2.5 whitespace-normal break-words"
                   >
-                    <div className="flex items-center justify-center w-full">
+                    <div className="flex items-center justify-center w-full whitespace-normal break-words">
                       {renderCell
                         ? renderCell(item, column.key)
                         : ((item[column.key as keyof T] as React.ReactNode) ??
