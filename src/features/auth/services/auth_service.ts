@@ -10,9 +10,7 @@ export const login =
 
     if (email === 'admin@test.com' && password === '123456') {
       dispatch(loginSuccess({ email }))
-    } else if (email === 'admin@test.com' && password != '123456'){
-      dispatch(loginFailure('Mot de passe incorrect'))
-    }else {
-      dispatch(loginFailure('Email incorret'))
+    } else {
+      dispatch(loginFailure('Email ou mot de passe incorrect'))
     }
   }
