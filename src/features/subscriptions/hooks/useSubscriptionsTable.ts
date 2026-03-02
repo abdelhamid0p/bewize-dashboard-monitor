@@ -56,8 +56,18 @@ export const useSubscriptionsTable = (
     
     // Handle both array and paginated response formats
     const subscriptions = Array.isArray(apiData) ? apiData : apiData?.data || [];
-    return subscriptions.map((s) => mapSubscriptionToUI(s as unknown as SubscriptionBackend));
-  }, [apiData]);
+    const mapped = subscriptions.map((s) => mapSubscriptionToUI(s as unknown as SubscriptionBackend));
+    
+    // If API returns an array (not paginated), do client-side pagination
+    if (Array.isArray(apiData)) {
+      const page = filters.page ?? 0;
+      const size = filters.size ?? pageSize;
+      const startIndex = page * size;
+      return mapped.slice(startIndex, startIndex + size);
+    }
+    
+    return mapped;
+  }, [apiData, filters.page, filters.size, pageSize]);
 
   const pagination: PaginationState = useMemo(() => {
     if (!apiData) {
