@@ -48,12 +48,12 @@ export function DataTable<T extends { id: string | number }>({
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "border-b border-accent-100 text-center text-black-100 text-xs lg:text-sm px-2 py-3 lg:px-4 lg:py-4 xl:px-6 xl:py-5 whitespace-nowrap",
+                    "border-b border-accent-100 text-center text-black-100 text-[10px] md:text-xs xl:text-sm px-1 py-1.5 md:px-2 md:py-2 lg:px-3 lg:py-3 xl:px-4 xl:py-4 whitespace-nowrap",
                     index === 0 && "rounded-tl-2xl",
                     index === columns.length - 1 && "rounded-tr-2xl",
                   )}
                 >
-                  <div className="flex items-center justify-center gap-1">
+                  <div className="flex items-center justify-center gap-0.5 md:gap-1">
                     {column.label}
                   </div>
                 </TableHead>
@@ -70,7 +70,7 @@ export function DataTable<T extends { id: string | number }>({
                 {columns.map((column) => (
                   <TableCell
                     key={column.key}
-                    className="text-center text-black-100 text-xs lg:text-sm px-2 py-2 lg:px-4 lg:py-3 xl:px-6 xl:py-4 whitespace-nowrap"
+                    className="text-center text-black-100 text-[10px] md:text-xs xl:text-sm px-1 py-1 md:px-2 md:py-1.5 lg:px-3 lg:py-2 xl:px-4 xl:py-3 whitespace-nowrap"
                   >
                     <div className="flex items-center justify-center w-full">
                       {renderCell

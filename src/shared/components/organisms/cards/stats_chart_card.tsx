@@ -33,19 +33,24 @@ export const StatsChartCard = ({
   return (
     <Card className={cn("w-full h-full flex flex-col bg-white", className)}>
       {/* Header avec dropdowns */}
-      <div className="p-6 pb-0">
-        <div className="flex items-center justify-between mb-4">
+      <div className="p-3 md:p-4 lg:p-5 xl:p-6 pb-0">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 mb-2 md:mb-3 lg:mb-4">
           {/* Titre et icône */}
-          <div className="flex items-center gap-3">
-            <div className={cn("p-2 rounded-full", iconBgClass)}>
-              <Icon name={iconName} className={cn("h-5 w-5", iconColorClass)} />
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className={cn("p-1.5 md:p-2 rounded-full", iconBgClass)}>
+              <Icon
+                name={iconName}
+                className={cn("h-4 w-4 md:h-5 md:w-5", iconColorClass)}
+              />
             </div>
 
-            <Text variant="body">{title}</Text>
+            <Text variant="body" className="text-[10px] md:text-xs lg:text-sm">
+              {title}
+            </Text>
           </div>
 
           {/* Dropdowns */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 md:gap-2">
             <Select label="Type d'abonnement" variant="statsFilter">
               <SelectItem value="all">Tous</SelectItem>
               <SelectItem value="premium">Premium</SelectItem>
@@ -61,7 +66,7 @@ export const StatsChartCard = ({
       </div>
 
       {/* Chart */}
-      <div className="px-6 flex-1">
+      <div className="px-3 md:px-4 lg:px-5 xl:px-6 flex-1">
         <ChartLine
           datasets={datasets}
           labels={labels}
@@ -73,15 +78,17 @@ export const StatsChartCard = ({
 
       {/* Legend */}
       {showLegend && legendItems.length > 0 && (
-        <div className="px-6 pb-6 pt-2">
-          <div className="flex items-center justify-center gap-6">
+        <div className="px-3 md:px-4 lg:px-5 xl:px-6 pb-3 md:pb-4 lg:pb-5 xl:pb-6 pt-1 md:pt-2">
+          <div className="flex items-center justify-center gap-3 md:gap-4 lg:gap-6">
             {legendItems.map((item, index) => (
-              <div key={index} className="flex items-center gap-2">
+              <div key={index} className="flex items-center gap-1 md:gap-2">
                 <div
-                  className="w-3 h-3 rounded-full"
+                  className="w-2 h-2 md:w-3 md:h-3 rounded-full"
                   style={{ backgroundColor: item.color }}
                 />
-                <Text className="text-sm text-gray-600">{item.label}</Text>
+                <Text className="text-[10px] md:text-xs lg:text-sm text-gray-600">
+                  {item.label}
+                </Text>
               </div>
             ))}
           </div>

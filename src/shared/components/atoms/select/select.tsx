@@ -61,15 +61,15 @@ export function Select({
       <SelectTrigger
         className={cn(
           "inline-flex items-center justify-center",
-          "h-9 lg:h-10",
-          "px-3 lg:px-4 py-2",
-          "gap-2",
+          "h-7 md:h-8 lg:h-9 xl:h-10",
+          "px-2 md:px-2.5 lg:px-3 xl:px-4 py-1 md:py-1.5",
+          "gap-1 md:gap-1.5 lg:gap-2",
           "rounded-full",
 
           /* ===== Typography ===== */
-          "font-sans font-light text-xs lg:text-sm",
+          "font-sans font-light text-[10px] md:text-xs lg:text-xs xl:text-sm",
           "text-center",
-          "w-auto min-w-[100px] max-w-[160px]",
+          "w-auto min-w-[70px] md:min-w-[80px] lg:min-w-[90px] xl:min-w-[100px] max-w-[120px] md:max-w-[140px] xl:max-w-[160px]",
           "border-0",
 
           isFiltres

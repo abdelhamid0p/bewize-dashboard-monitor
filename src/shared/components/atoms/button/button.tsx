@@ -25,14 +25,14 @@ export const Button = ({
       className={cn(
         /* ===== Figma base styles ===== */
         "inline-flex items-center justify-center",
-        " px-4",
-        "px-3.75 py-2.75",
-        "gap-2.75",
-        "rounded-3xl",
+        "px-2 md:px-3 lg:px-4",
+        "py-1.5 md:py-2 lg:py-2.5",
+        "gap-1 md:gap-1.5 lg:gap-2",
+        "rounded-2xl md:rounded-3xl",
 
         /* ===== Typography (Figma) ===== */
-        "font-sans font-light text-md",
-        " text-center",
+        "font-sans font-light text-[10px] md:text-xs lg:text-sm",
+        "text-center",
 
         /* ===== Variants ===== */
         variant === "default" &&
@@ -48,13 +48,13 @@ export const Button = ({
       )}
     >
       {icon && iconPosition === "left" && (
-        <Icon name={icon} variant="default" className="w-4 h-4" />
+        <Icon name={icon} variant="default" className="w-3 h-3 md:w-4 md:h-4" />
       )}
 
       {children}
 
       {icon && iconPosition === "right" && (
-        <Icon name={icon} variant="button" className="w-4 h-4" />
+        <Icon name={icon} variant="button" className="w-3 h-3 md:w-4 md:h-4" />
       )}
     </ShadButton>
   );
