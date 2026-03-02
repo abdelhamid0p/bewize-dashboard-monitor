@@ -39,25 +39,21 @@ export function DataTable<T extends { id: string | number }>({
   }
 
   return (
-    <div className="border border-accent-100 bg-white rounded-t-2xl overflow-hidden">
-      <div className="overflow-x-auto max-w-full">
-        <Table className="min-w-full">
+    <div className="border border-accent-100 bg-white rounded-t-2xl overflow-hidden w-full">
+      <div className="overflow-x-auto">
+        <Table className="w-full table-auto">
           <TableHeader>
             <TableRow className="bg-neutral-100">
               {columns.map((column, index) => (
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "border-b border-accent-100 text-center text-black-100 text-sm p-6 whitespace-normal",
+                    "border-b border-accent-100 text-center text-black-100 text-xs lg:text-sm px-2 py-3 lg:px-4 lg:py-4 xl:px-6 xl:py-5 whitespace-nowrap",
                     index === 0 && "rounded-tl-2xl",
                     index === columns.length - 1 && "rounded-tr-2xl",
                   )}
-                  style={{
-                    width: column.width || "auto",
-                    minWidth: column.width || "100px",
-                  }}
                 >
-                  <div className="flex items-center justify-center gap-1 flex-wrap">
+                  <div className="flex items-center justify-center gap-1">
                     {column.label}
                   </div>
                 </TableHead>
@@ -74,11 +70,7 @@ export function DataTable<T extends { id: string | number }>({
                 {columns.map((column) => (
                   <TableCell
                     key={column.key}
-                    className="text-center text-black-100 text-sm p-4 md:p-6 whitespace-normal"
-                    style={{
-                      width: column.width || "auto",
-                      minWidth: column.width || "100px",
-                    }}
+                    className="text-center text-black-100 text-xs lg:text-sm px-2 py-2 lg:px-4 lg:py-3 xl:px-6 xl:py-4 whitespace-nowrap"
                   >
                     <div className="flex items-center justify-center w-full">
                       {renderCell

@@ -16,8 +16,8 @@ export function Toolbar({
   actions,
 }: ToolbarProps) {
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex items-center">
+    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-4">
+      <div className="flex items-center w-full lg:w-auto">
         <SearchInput
           placeholder="Rechercher..."
           value={searchValue}
@@ -25,7 +25,7 @@ export function Toolbar({
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Filters */}
         {filters
           .filter((filter) => filter.options && filter.options.length > 0)
