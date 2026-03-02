@@ -1,21 +1,21 @@
-import { Card } from "@/shared/components/atoms/card/card"
-import { Icon, type IconName } from "@/shared/components/atoms/icon"
-import { Text } from "@/shared/components/atoms/text/text"
-import { ChartLine } from "@/shared/components/atoms/chart/chart_line"
-import { Select, SelectItem } from "@/shared/components/atoms/select"
-import { cn } from "@/shared/lib/utils"
+import { Card } from "@/shared/components/atoms/card/card";
+import { Icon, type IconName } from "@/shared/components/atoms/icon";
+import { Text } from "@/shared/components/atoms/text/text";
+import { ChartLine } from "@/shared/components/atoms/chart/chart_line";
+import { Select, SelectItem } from "@/shared/components/atoms/select";
+import { cn } from "@/shared/lib/utils";
 
 interface StatsChartCardProps {
-  title: string
-  iconName: IconName
-  iconBgClass: string
-  iconColorClass: string
-  datasets: number[][]
-  labels: string[]
-  colors: string[]
-  showLegend?: boolean
-  legendItems?: { label: string; color: string }[]
-  className?: string
+  title: string;
+  iconName: IconName;
+  iconBgClass: string;
+  iconColorClass: string;
+  datasets: number[][];
+  labels: string[];
+  colors: string[];
+  showLegend?: boolean;
+  legendItems?: { label: string; color: string }[];
+  className?: string;
 }
 
 export const StatsChartCard = ({
@@ -36,23 +36,22 @@ export const StatsChartCard = ({
       <div className="p-6 pb-0">
         <div className="flex items-center justify-between mb-4">
           {/* Titre et icône */}
-            <div className="flex items-center gap-3">
-           <div className={cn("p-2 rounded-full", iconBgClass)}>
+          <div className="flex items-center gap-3">
+            <div className={cn("p-2 rounded-full", iconBgClass)}>
               <Icon name={iconName} className={cn("h-5 w-5", iconColorClass)} />
             </div>
 
             <Text variant="body">{title}</Text>
           </div>
 
-
           {/* Dropdowns */}
           <div className="flex items-center gap-2">
-            <Select label="Type d'abonnement" variant="compact" color="list" >
+            <Select label="Type d'abonnement" variant="statsFilter">
               <SelectItem value="all">Tous</SelectItem>
               <SelectItem value="premium">Premium</SelectItem>
               <SelectItem value="basic">Basic</SelectItem>
             </Select>
-            <Select label="Type de plan" variant="compact" color="list" >
+            <Select label="Type de plan" variant="statsFilter">
               <SelectItem value="all">Tous</SelectItem>
               <SelectItem value="monthly">Mensuel</SelectItem>
               <SelectItem value="yearly">Annuel</SelectItem>
@@ -89,5 +88,5 @@ export const StatsChartCard = ({
         </div>
       )}
     </Card>
-  )
-}
+  );
+};

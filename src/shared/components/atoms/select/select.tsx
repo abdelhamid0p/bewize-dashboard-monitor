@@ -8,7 +8,7 @@ import {
   SelectItem,
 } from "@/shared/components/ui/select";
 
-type SelectVariant = "compact" | "default" | "filtres";
+type SelectVariant = "compact" | "default" | "filtres" | "statsFilter";
 type SelectColor = "default" | "secondary";
 
 interface SelectProps {
@@ -23,7 +23,8 @@ interface SelectProps {
 const variantStyles: Record<SelectVariant, string> = {
   compact: "",
   default: "",
-  filtres: "",
+  filtres: "text-[#666666] [&>svg]:text-[#666666]",
+  statsFilter: "bg-[#F9F9F9] text-[#626262] [&>svg]:text-[#626262]",
 };
 
 const colorStyles: Record<SelectColor, string> = {
@@ -42,6 +43,7 @@ export function Select({
 }: SelectProps) {
   const [value, setValue] = React.useState<string>(defaultValue || "");
   const isFiltres = variant === "filtres";
+  const isStatsFilter = variant === "statsFilter";
   // Only has value when it's not empty, not "all", and not "__all__"
   const hasValue =
     isFiltres && value !== "" && value !== "all" && value !== "__all__";
@@ -77,7 +79,9 @@ export function Select({
                   ? "text-[#7300FF] [&>svg]:text-[#7300FF] font-medium"
                   : "text-[#666666] [&>svg]:text-[#666666]",
               )
-            : cn(variantStyles[variant], colorStyles[color]),
+            : isStatsFilter
+              ? variantStyles.statsFilter
+              : cn(variantStyles[variant], colorStyles[color]),
         )}
       >
         <SelectValue placeholder={label} />
