@@ -8,18 +8,13 @@ interface DashboardNavbarProps {
 
 // Configuration des titres selon le path
 const PAGE_TITLES: Record<string, string> = {
-  "/": "Bon retour",
-  "/home": "Bon retour",
   "/dashboard": "Bon retour",
-  "/schools": "Les écoles",
-  "/etudiants": "Les étudiants",
-  "/students": "Les étudiants",
-  "/commandes": "Les commandes",
-  "/abonnements": "Les abonnements",
-  "/subscriptions": "Les abonnements",
-  "/codes-promo": "Les codes promo",
-  "/promo-codes": "Les codes promo",
-  "/reservations": "Les réservations",
+  "/dashboard/schools": "Les écoles",
+  "/dashboard/students": "Les étudiants",
+  "/dashboard/commandes": "Les commandes",
+  "/dashboard/subscriptions": "Les abonnements",
+  "/dashboard/reductions": "Les codes promo",
+  "/dashboard/reservations": "Les réservations",
 };
 
 export const DashboardNavbar = ({}: DashboardNavbarProps) => {

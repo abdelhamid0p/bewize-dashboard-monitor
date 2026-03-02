@@ -1,10 +1,10 @@
-import { Button } from "@/shared/components/atoms/button"
-import { Icon, ICONS } from "@/shared/components/atoms/icon"
-import { useLocation } from "react-router-dom"
-import { Text } from "@/shared/components/atoms/text/text"
+import { Button } from "@/shared/components/atoms/button";
+import { Icon, ICONS } from "@/shared/components/atoms/icon";
+import { useLocation } from "react-router-dom";
+import { Text } from "@/shared/components/atoms/text/text";
 
 interface DashboardNavbarProps {
-  userName: string
+  userName: string;
 }
 
 // Configuration des titres selon le path
@@ -16,23 +16,24 @@ const PAGE_TITLES: Record<string, string> = {
   "/etudiants": "Étudiants",
   "/commandes": "Commandes",
   "/abonnements": "Abonnements",
-  "/reservations": "Réservations"
-}
+  "/reservations": "Réservations",
+};
 
 export const DashboardNavbar = ({ userName }: DashboardNavbarProps) => {
-  const location = useLocation()
-  const pathname = location.pathname
-  
+  const location = useLocation();
+  const pathname = location.pathname;
+
   // Déterminer si on est sur la page d'accueil
-  const isHomePage = pathname === "/" || pathname === "/home" || pathname === "/dashboard"
-  
+  const isHomePage =
+    pathname === "/" || pathname === "/home" || pathname === "/dashboard";
+
   // Récupérer le titre de la page actuelle
-  const pageTitle = PAGE_TITLES[pathname] || "Dashboard"
-  
+  const pageTitle = PAGE_TITLES[pathname] || "Dashboard";
+
   return (
     <div className="flex items-center justify-between w-full px-6 py-4 bg-gray-50 ">
       {/* Left - Title */}
-      <Text variant="title" >
+      <Text variant="title">
         {pageTitle}, {userName}
       </Text>
 
@@ -41,23 +42,23 @@ export const DashboardNavbar = ({ userName }: DashboardNavbarProps) => {
         {/* Date Picker - Only on home page */}
         {isHomePage && (
           <div className="inline-flex items-center gap-2 px-3 py-2 text-sm text-gray-500 bg-white rounded-full   ">
-           <Icon name={ICONS.calendarPlus} className="w-4 h-4 text-gray-500" />
-               <span>Du Jan 01, 2025 - Feb 01, 2025</span>
+            <Icon name={ICONS.calendarPlus} className="w-4 h-4 text-gray-500" />
+            <span>Du Jan 01, 2025 - Feb 01, 2025</span>
           </div>
         )}
 
         {/* Export Button */}
-          <Button
-              variant="default"
-              className="w-auto px-6 h-9"
-              icon={ICONS.upload}
-              iconPosition="left"
-          >
-              Exporter
-          </Button>
+        <Button
+          variant="default"
+          className="w-auto px-6 h-9"
+          icon={ICONS.upload}
+          iconPosition="left"
+        >
+          Exporter
+        </Button>
 
         {/* Menu Button */}
-        <Button 
+        <Button
           variant="secondary"
           size="icon"
           className="w-9 h-9 border-gray-200 rounded-full"
@@ -66,5 +67,5 @@ export const DashboardNavbar = ({ userName }: DashboardNavbarProps) => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};

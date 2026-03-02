@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 
 type DotColor = "red" | "blue" | "green" | "orange";
 type TextColor = "neutral" | "red" | "blue" | "green" | "orange";

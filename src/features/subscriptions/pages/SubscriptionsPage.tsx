@@ -39,7 +39,7 @@ export const SubscriptionsPage = () => {
 
   return (
     <div className="p-6 space-y-4 bg-[#FAFAFF]">
-      <DashboardNavbar userName="John Doe" />
+      <DashboardNavbar userName="Abonnements" />
 
       <Toolbar
         searchValue={searchTerm}

@@ -1,20 +1,20 @@
-import { Card, CardContent } from "@/shared/components/atoms/card/card"
-import { cn } from "@/shared/lib/utils"
-import ArrowDownRight from "@/assets/icones/arrow_down.svg"
-import ArrowUpRight from "@/assets/icones/arrow_up.svg"
-import { Icon, type IconName } from "../../atoms/icon"
-import { Text } from "../../atoms/text/text"
+import { Card, CardContent } from "@/shared/components/atoms/card/card";
+import { cn } from "@/shared/lib/utils";
+import ArrowDownRight from "@/assets/icones/arrow_down.svg";
+import ArrowUpRight from "@/assets/icones/arrow_up.svg";
+import { Icon, type IconName } from "../../atoms/icon";
+import { Text } from "../../atoms/text/text";
 
 interface StatsNumberCardProps {
-  iconName: IconName
-  title: string
-  value: number
-  growth: string
-  trend: "up" | "down"
-  iconBgClass: string
-  iconColorClass: string
-  valueColorClass: string
-  className?: string
+  iconName: IconName;
+  title: string;
+  value: number;
+  growth: string;
+  trend: "up" | "down";
+  iconBgClass: string;
+  iconColorClass: string;
+  valueColorClass: string;
+  className?: string;
 }
 
 export const StatsNumberCard = ({
@@ -28,24 +28,23 @@ export const StatsNumberCard = ({
   valueColorClass,
   className,
 }: StatsNumberCardProps) => {
-  const isPositive = trend === "up"
+  const isPositive = trend === "up";
 
   return (
     <Card
       className={cn(
         "p-0 w-full rounded-2xl border bg-white shadow-sm",
         "transition-all duration-200 hover:shadow-md",
-        className
+        className,
       )}
     >
       <CardContent className="flex flex-col justify-between p-5 sm:p-6">
-
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div
               className={cn(
                 "flex h-10 w-10 items-center justify-center rounded-full",
-                iconBgClass
+                iconBgClass,
               )}
             >
               <Icon name={iconName} className={iconColorClass} />
@@ -59,7 +58,7 @@ export const StatsNumberCard = ({
               "flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium",
               isPositive
                 ? "bg-green-100 text-green-600"
-                : "bg-red-100 text-red-600"
+                : "bg-red-100 text-red-600",
             )}
           >
             <img
@@ -75,14 +74,13 @@ export const StatsNumberCard = ({
             variant="display"
             className={cn(
               "text-2xl sm:text-3xl lg:text-[28px] font-bold tracking-tight",
-              valueColorClass
+              valueColorClass,
             )}
           >
             {value.toLocaleString()}
           </Text>
         </div>
-
       </CardContent>
     </Card>
-  )
-}
+  );
+};

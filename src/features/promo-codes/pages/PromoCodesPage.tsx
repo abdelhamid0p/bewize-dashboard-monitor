@@ -39,7 +39,7 @@ export const PromoCodesPage = () => {
 
   return (
     <div className="p-6 space-y-4 bg-[#FAFAFF]">
-      <DashboardNavbar userName="John Doe" />
+      <DashboardNavbar userName="Réductions" />
 
       <Toolbar
         searchValue={searchTerm}

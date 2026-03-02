@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/shared/components/ui/table";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/utils";
 import type { DataTableProps } from "./types";
 
 export function DataTable<T extends { id: string | number }>({

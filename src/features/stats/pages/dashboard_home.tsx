@@ -1,15 +1,15 @@
-import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard_navbar"
-import { useDashboard } from "../hooks/useStats"
-import { StatsNumberCardContainer } from "../components/stats_number_card_container"
-import { StatsChartCardContainer } from "../components/stats_chart_card_container"
+import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard_navbar";
+import { useDashboard } from "../hooks/useStats";
+import { StatsNumberCardContainer } from "../components/stats_number_card_container";
+import { StatsChartCardContainer } from "../components/stats_chart_card_container";
 
 export const DashboardPage = () => {
-  const dashboard = useDashboard()
+  const dashboard = useDashboard();
 
   return (
     <div className="p-6">
       {/* Dashboard Navbar */}
-      <DashboardNavbar userName="Mohamed" />
+      <DashboardNavbar userName="Mohammed" />
 
       {/* Number Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
@@ -27,5 +27,5 @@ export const DashboardPage = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};

@@ -8,7 +8,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { LoginPage } from "@/features/auth/pages/login_page";
 import { DashboardPage } from "@/features/stats/pages/dashboard_home";
-import { Dashboard } from "@/features/navigation/pages/Dashboard";
+import {
+  CommandesPage,
+  Dashboard,
+  EcolesPage,
+  ReclamationsPage,
+} from "@/features/navigation/pages/Dashboard";
 import { PromoCodesPage } from "@/features/promo-codes/pages";
 import { StudentsPage } from "@/features/students/pages/StudentsPage";
 import { SubscriptionsPage } from "@/features/subscriptions/pages/SubscriptionsPage";
@@ -23,9 +28,12 @@ function App() {
         {/* Dashboard layout */}
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<DashboardPage />} />
-          <Route path="/students" element={<StudentsPage />} />
-          <Route path="/subscriptions" element={<SubscriptionsPage />} />
-          <Route path="/promo-codes" element={<PromoCodesPage />} />
+          <Route path="students" element={<StudentsPage />} />
+          <Route path="subscriptions" element={<SubscriptionsPage />} />
+          <Route path="reductions" element={<PromoCodesPage />} />
+          <Route path="orders" element={<CommandesPage />} />
+          <Route path="schools" element={<EcolesPage />} />
+          <Route path="reclamations" element={<ReclamationsPage />} />
         </Route>
 
         {/* Design System layout */}
