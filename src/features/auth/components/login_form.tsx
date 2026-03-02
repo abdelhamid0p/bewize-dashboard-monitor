@@ -1,6 +1,6 @@
-import { LoginFormOrganism } from '@/shared//components/organisms/LoginForm.tsx';
-import { useLoginAuth } from '../hooks/useLoginAuth.ts';
-import { useLoginForm } from '../hooks/useLoginForm.ts';
+import { LoginFormOrganism } from "@/shared//components/organisms/LoginForm.tsx";
+import { useLoginAuth } from "../hooks/useLoginAuth.ts";
+import { useLoginForm } from "../hooks/useLoginForm.ts";
 
 export const LoginForm = () => {
   const { loading, error, handleLogin } = useLoginAuth();
@@ -9,8 +9,6 @@ export const LoginForm = () => {
     password,
     emailError,
     passwordError,
-    handleEmailChange,
-    handlePasswordChange,
     validateEmail,
     validatePassword,
     validateForm,
@@ -32,8 +30,6 @@ export const LoginForm = () => {
       passwordError={passwordError}
       error={error}
       loading={loading}
-      onEmailChange={handleEmailChange}
-      onPasswordChange={handlePasswordChange}
       onEmailBlur={validateEmail}
       onPasswordBlur={validatePassword}
       onSubmit={handleSubmit}
