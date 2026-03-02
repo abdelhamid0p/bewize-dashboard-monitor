@@ -1,5 +1,4 @@
 import {
-  
   AuthTemplate,
 } from "@/shared/components/templates/AuthLayout";
 import { useAppSelector } from "@/shared/hooks";

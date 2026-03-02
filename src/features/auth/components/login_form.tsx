@@ -1,6 +1,6 @@
-import { LoginFormOrganism } from '@/shared//components/organisms/LoginForm.tsx';
-import { useLoginAuth } from '../hooks/useLoginAuth.ts';
-import { useLoginForm } from '../hooks/useLoginForm.ts';
+import { LoginFormOrganism } from "@/shared//components/organisms/LoginForm.tsx";
+import { useLoginAuth } from "../hooks/useLoginAuth.ts";
+import { useLoginForm } from "../hooks/useLoginForm.ts";
 
 export const LoginForm = () => {
   const { loading, error, handleLogin } = useLoginAuth();

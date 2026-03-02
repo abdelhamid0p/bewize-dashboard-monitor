@@ -1,72 +1,102 @@
-import * as React from "react"
-import { cn } from "@/shared/lib/utils"
+import * as React from "react";
+import { cn } from "@/shared/lib/utils";
 import {
-    Select as ShadSelect,
-    SelectTrigger,
-    SelectContent,
-    SelectValue,
-    SelectItem,
-} from "@/shared/components/ui/select"
+  Select as ShadSelect,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+  SelectItem,
+} from "@/shared/components/ui/select";
 
-type SelectVariant = "compact" | "default"
-type SelectColor = "default" | "secondary"
+type SelectVariant = "compact" | "default" | "filtres" | "statsFilter";
+type SelectColor = "default" | "secondary";
 
 interface SelectProps {
-    label: string
-    variant?: SelectVariant
-    color?: SelectColor
-    children: React.ReactNode
-    defaultValue?: string
+  label: string;
+  variant?: SelectVariant;
+  color?: SelectColor;
+  children: React.ReactNode;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
 }
 
 const variantStyles: Record<SelectVariant, string> = {
-    compact: "w-[92px]",
-    default: "w-[195px]",
-}
+  compact: "",
+  default: "",
+  filtres: "text-[#666666] [&>svg]:text-[#666666]",
+  statsFilter: "bg-[#F9F9F9] text-[#626262] [&>svg]:text-[#626262]",
+};
 
 const colorStyles: Record<SelectColor, string> = {
-    default: "bg-primary-500 text-neutral-100 hover:bg-primary-600",
-    secondary: "bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-100",
-}
+  default: "bg-primary-500 text-neutral-100 hover:bg-primary-600",
+  secondary:
+    "bg-transparent border border-primary-500 text-primary-500 hover:bg-primary-100",
+};
 
 export function Select({
-                           label,
-                           variant = "default",
-                           color = "default",
-                           children,
-                           defaultValue,
-                       }: SelectProps) {
-    return (
-        <ShadSelect defaultValue={defaultValue || ""}>
-            <SelectTrigger
-                className={cn(
-                    "inline-flex items-center justify-center",
-                    " h-[100px]",
-                    "px-[15px] py-[11px]",
-                    "gap-[11px]",
-                    "rounded-[24px]",
+  label,
+  variant = "default",
+  color = "default",
+  children,
+  defaultValue,
+  onChange,
+}: SelectProps) {
+  const [value, setValue] = React.useState<string>(defaultValue || "");
+  const isFiltres = variant === "filtres";
+  const isStatsFilter = variant === "statsFilter";
+  // Only has value when it's not empty, not "all", and not "__all__"
+  const hasValue =
+    isFiltres && value !== "" && value !== "all" && value !== "__all__";
 
-                    /* ===== Typography (Figma) ===== */
-                    "font-sans font-light text-md",
-                    " text-center","rounded-full  text-sm w-auto",
-                    variantStyles[variant],
-                    colorStyles[color],
-                )}
-            >
-                <SelectValue placeholder={label} />
-            </SelectTrigger>
+  const handleValueChange = (nextValue: string) => {
+    setValue(nextValue);
+    onChange?.(nextValue);
+  };
 
-            <SelectContent
-                className="rounded-[16px] border border-neutral-200 shadow-lg p-1 z-50"
-                position="popper"
-                side="bottom"
-                align="start"
-            >
-                {children}
-            </SelectContent>
+  return (
+    <ShadSelect
+      defaultValue={defaultValue || ""}
+      onValueChange={handleValueChange}
+    >
+      <SelectTrigger
+        className={cn(
+          "inline-flex items-center justify-center shrink-0",
+          "h-[1.25rem] sm:h-[1.5rem] md:h-[1.75rem] lg:h-8 xl:h-9",
+          "px-[0.25rem] sm:px-[0.375rem] md:px-2 lg:px-2.5 xl:px-3 py-0.5",
+          "gap-[0.125rem] sm:gap-[0.25rem] md:gap-1 lg:gap-1.5",
+          "rounded-full",
 
-        </ShadSelect>
-    )
+          /* ===== Typography ===== */
+          "font-sans font-light text-[0.4rem] sm:text-[0.5rem] md:text-[0.55rem] lg:text-[0.625rem] xl:text-xs",
+          "text-center",
+          "w-fit",
+          "border-0",
+
+          isFiltres
+            ? cn(
+                "bg-white font-light ",
+                hasValue
+                  ? "text-[#7300FF] [&>svg]:text-[#7300FF] font-medium"
+                  : "text-[#666666] [&>svg]:text-[#666666]",
+              )
+            : isStatsFilter
+              ? variantStyles.statsFilter
+              : cn(variantStyles[variant], colorStyles[color]),
+        )}
+      >
+        <SelectValue placeholder={label} />
+      </SelectTrigger>
+
+      <SelectContent
+        className="rounded-xl border border-neutral-200 p-0.5 z-50 bg-white backdrop-opacity-85 text-[0.4rem] sm:text-[0.5rem] md:text-[0.55rem] lg:text-[0.625rem] xl:text-xs"
+        position="popper"
+        side="bottom"
+        align="start"
+      >
+        {children}
+      </SelectContent>
+    </ShadSelect>
+  );
 }
 
-export { SelectItem }
+export { SelectItem };

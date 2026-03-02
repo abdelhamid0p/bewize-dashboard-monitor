@@ -1,7 +1,14 @@
-import { Button } from '@/shared/components/atoms/button';
-import { FormField } from '@/shared/components/molecules/form-field/form_field';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/shared/components/atoms/card/card';
-import { Alert } from '@/shared/components/atoms/alert/alert';
+import { Button } from "@/shared/components/atoms/button";
+import { FormField } from "@/shared/components/molecules/form-field/Form_Field";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/shared/components/atoms/card/Card";
+import { Alert } from "@/shared/components/atoms/alert/alert";
+import { Text } from "@/shared/components/atoms/text/text";
 
 interface LoginFormOrganismProps {
   email: string;
@@ -32,16 +39,19 @@ export const LoginFormOrganism = ({
 }: LoginFormOrganismProps) => {
   return (
     <Card className="w-full gap-0 pb-3">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-xl">
-          Bon retour 👋
+      <CardHeader className="pt-4">
+        <CardTitle className="flex items-center gap-2">
+          <Text variant="title">Bon retour 👋</Text>
         </CardTitle>
-        <CardDescription className="text-sm">
-          Accédez à votre tableau de bord et gérez vos données facilement.
+
+        <CardDescription>
+          <Text variant="body-sm">
+            Accédez à votre tableau de bord et gérez vos données facilement.
+          </Text>
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="pb-3">
+      <CardContent>
         <form onSubmit={onSubmit} className="space-y-5">
           {error && (
             <Alert variant="destructive" showIcon>
@@ -83,7 +93,7 @@ export const LoginFormOrganism = ({
             disabled={loading}
             size="lg"
           >
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading ? "Connexion..." : "Se connecter"}
           </Button>
         </form>
       </CardContent>
