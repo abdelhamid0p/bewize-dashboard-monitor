@@ -1,4 +1,4 @@
-import { Card } from "@/shared/components/atoms/card/card";
+import { Card } from "@/shared/components/atoms/card/Card";
 import { Icon, type IconName } from "@/shared/components/atoms/icon";
 import { Text } from "@/shared/components/atoms/text/text";
 import { ChartLine } from "@/shared/components/atoms/chart/chart_line";

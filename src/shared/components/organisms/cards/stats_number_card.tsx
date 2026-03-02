@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/shared/components/atoms/card/card";
+import { Card, CardContent } from "@/shared/components/atoms/card/Card";
 import { cn } from "@/shared/lib/utils";
 import ArrowDownRight from "@/assets/icones/arrow_down.svg";
 import ArrowUpRight from "@/assets/icones/arrow_up.svg";
