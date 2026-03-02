@@ -19,6 +19,7 @@
   --color-primary-700: var(--primary-700);
   --color-primary-800: var(--primary-800);
   --color-primary-900: var(--primary-900);
+  --color-primary-1000: var(--primary-1000);  
 
   --color-neutral-100: var(--neutral-100);
   --color-neutral-200: var(--neutral-200);
@@ -29,6 +30,7 @@
   --color-neutral-700: var(--neutral-700);
   --color-neutral-800: var(--neutral-800);
   --color-neutral-900: var(--neutral-900);
+  --color-neutral-1000: var(--neutral-1000);
 
   --color-secondary-100: var(--secondary-100);
   --color-secondary-200: var(--secondary-200);
@@ -41,7 +43,7 @@
   --color-secondary-900: var(--secondary-900);
 
   /* -------- TYPOGRAPHY -------- */
-  --font-sans: var(--font-family-lexend);
+  --font-sans: var(--font-family-sans);
 
   --text-2xl: var(--font-2xl);
   --text-xl: var(--font-xl);
@@ -60,7 +62,7 @@
 /* Base styles */
 @layer base {
   body {
-    font-family: var(--font-family-lexend), serif;
+    font-family: var(--font-sans), serif;
     background-color: var(--neutral-100);
     color: var(--neutral-900);
   }

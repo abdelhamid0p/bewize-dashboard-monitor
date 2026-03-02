@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import Logo from "@/../assets/images/login_logo.svg";
+import Logo from "@/assets/images/login_logo.svg";
 
 interface SidebarProps {
   children: React.ReactNode;

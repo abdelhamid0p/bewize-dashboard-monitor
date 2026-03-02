@@ -1,6 +1,6 @@
 @layer base {
     :root {
-        --font-family-lexend: 'Lexend', sans-serif;
+        --font-family-sans: 'Lexend', sans-serif;
         --font-weight-regular: 400;
         --font-weight-button: 300;
 

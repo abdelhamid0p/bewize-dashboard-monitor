@@ -1,5 +1,7 @@
 import { NavigationSidebar } from "@/features/navigation/components/navigation_sidebar"
 import { Outlet, useLocation } from "react-router-dom"
+import { DashboardNavbar } from "../molecules/nav-bar/dashboard_navbar"
+import { Icon, ICONS } from "../atoms/icon"
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Tableau de bord",
@@ -16,7 +18,7 @@ export const DashboardLayout = () => {
     pageTitles[location.pathname] ?? "Tableau de bord"
 
   return (
-    <div className="flex h-screen gap-y-3 bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-gray-50 overflow-hidden">
 
       {/* Sidebar (reste dans le flow) */}
       <NavigationSidebar />
@@ -25,33 +27,19 @@ export const DashboardLayout = () => {
       <div className="flex flex-col flex-1 min-w-0">
 
         {/* Top bar */}
-        <header className="shrink-0 h-16 bg-white px-6 flex items-center justify-between">
-          
-          {/* Left */}
-          <div className="leading-tight">
-            <p className="text-sm text-gray-500">
-              Bon retour,
-            </p>
-            <h1 className="text-lg font-semibold text-gray-800">
-              {title}
-            </h1>
-          </div>
-
-          {/* Right */}
-          <div className="flex items-center gap-3">
-            <button className="text-sm text-gray-600 border px-3 py-1.5 rounded-md">
-              Jun 01, 2025 - Feb 01, 2025
-            </button>
-
-            <button className="bg-purple-600 text-white text-sm px-4 py-1.5 rounded-md">
-              Exporter
-            </button>
-          </div>
-
-        </header>
+      <header className="shrink-0 bg-white">
+            {/* Top bar with chevron */}
+          <div className="flex items-center justify-end px-6 py-2">
+             <button className="p-1 hover:bg-gray-100 rounded-full">
+               <Icon name={ICONS.chevronDown} className="w-4 h-[2vh] text-gray-400" />
+             </button>
+        </div>
+  
+     
+      </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-2">
           <Outlet />
         </main>
 
