@@ -1,9 +1,9 @@
 'use client';
 
 import  { useState } from 'react';
-import { Button } from '@/components/atoms/button';
-import { Icon } from '@/components/atoms/icon';
-import { ICONS, type IconName } from '@/components/atoms/icon/iconName.ts';
+import { Button } from '@/shared/components/atoms/button';
+import { Icon } from '@/shared/components/atoms/icon';
+import { ICONS, type IconName } from '@/shared/components/atoms/icon/iconName';
 import {Link} from "react-router-dom";
 
 const InteractiveShowcase = () => {

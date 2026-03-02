@@ -1,8 +1,8 @@
-import { Button } from '@/components/atoms/button';
-import { Icon } from '@/components/atoms/icon';
-import { ICONS } from '@/components/atoms/icon/iconName.ts';
-import { Select } from "@/components/atoms/select"
-import { SelectItem } from "@/components/ui/select"
+import { Button } from '@/shared/components/atoms/button';
+import { Icon } from '@/shared/components/atoms/icon';
+import { ICONS } from '@/shared/components/atoms/icon/iconName';
+import { Select } from "@/shared/components/atoms/select"
+import { SelectItem } from "@/shared/components/ui/select"
 import {Link} from 'react-router-dom';
 
 const  StaticDesignSystemShowcase  = () => {
