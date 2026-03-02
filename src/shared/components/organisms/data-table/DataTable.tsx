@@ -48,7 +48,7 @@ export function DataTable<T extends { id: string | number }>({
                 <TableHead
                   key={column.key}
                   className={cn(
-                    "border-b border-accent-100 text-center text-black-100 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm px-0.5 py-1 sm:px-1 sm:py-1.5 md:px-1.5 md:py-2 lg:px-2 lg:py-2.5 xl:px-3 xl:py-3",
+                    "border-b border-accent-100 text-center text-black-100 font-sans font-normal text-[6px] sm:text-[7px] md:text-[9px] lg:text-[11px] xl:text-[13px] 2xl:text-[15px] px-0.5 py-1 sm:px-1 sm:py-1.5 md:px-1.5 md:py-2 lg:px-2 lg:py-2.5 xl:px-3 xl:py-3",
                     index === 0 && "rounded-tl-2xl",
                     index === columns.length - 1 && "rounded-tr-2xl",
                   )}
@@ -70,7 +70,7 @@ export function DataTable<T extends { id: string | number }>({
                 {columns.map((column) => (
                   <TableCell
                     key={column.key}
-                    className="text-center text-black-100 text-[8px] sm:text-[9px] md:text-[10px] lg:text-xs xl:text-sm px-0.5 py-0.5 sm:px-1 sm:py-1 md:px-1.5 md:py-1.5 lg:px-2 lg:py-2 xl:px-3 xl:py-2.5 whitespace-normal break-words"
+                    className="text-center text-black-100 font-sans font-normal text-[6px] sm:text-[7px] md:text-[9px] lg:text-[11px] xl:text-[13px] 2xl:text-[15px] px-0.5 py-0.5 sm:px-1 sm:py-1 md:px-1.5 md:py-1.5 lg:px-2 lg:py-2 xl:px-3 xl:py-2.5 whitespace-normal break-words"
                   >
                     <div className="flex items-center justify-center w-full whitespace-normal break-words">
                       {renderCell

@@ -21,7 +21,7 @@ export const NavItem = ({
       onClick={onClick}
       className={cn(
         "flex items-center justify-start gap-1.5 sm:gap-2 md:gap-2.5 lg:gap-3 transition-colors",
-        "h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 2xl:h-[8vh] w-full px-2 sm:px-3 md:px-4 lg:px-5 rounded-full",
+        "h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 2xl:h-14 w-full px-2 sm:px-3 md:px-4 lg:px-5 rounded-full",
         isActive
           ? "bg-purple-600 text-white"
           : "text-gray-700 hover:bg-purple-50 hover:text-purple-700",
