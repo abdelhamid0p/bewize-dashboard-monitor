@@ -4,6 +4,7 @@ import { Text } from "@/shared/components/atoms/text/text";
 import { ChartLine } from "@/shared/components/atoms/chart/chart_line";
 import { Select, SelectItem } from "@/shared/components/atoms/select";
 import { cn } from "@/shared/lib/utils";
+import { CardContent } from "../../ui/card";
 
 interface StatsChartCardProps {
   title: string;
@@ -34,7 +35,7 @@ export const StatsChartCard = ({
     <Card className={cn("w-full h-full flex flex-col bg-white", className)}>
       {/* Header avec dropdowns */}
       <div className="p-3 md:p-4 lg:p-5 xl:p-6 pb-0">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 md:gap-0 mb-2 md:mb-3 lg:mb-4">
+        <div className="flex items-center justify-between">
           {/* Titre et icône */}
           <div className="flex items-center gap-2 md:gap-3">
             <div className={cn("p-1.5 md:p-2 rounded-full", iconBgClass)}>

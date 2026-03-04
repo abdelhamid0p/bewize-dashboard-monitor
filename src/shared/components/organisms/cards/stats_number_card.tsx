@@ -4,6 +4,7 @@ import ArrowDownRight from "@/assets/icones/arrow_down.svg";
 import ArrowUpRight from "@/assets/icones/arrow_up.svg";
 import { Icon, type IconName } from "../../atoms/icon";
 import { Text } from "../../atoms/text/text";
+import { CardHeaderStats } from "../../atoms/card/Card_Header";
 
 interface StatsNumberCardProps {
   iconName: IconName;
@@ -39,41 +40,14 @@ export const StatsNumberCard = ({
       )}
     >
       <CardContent className="flex flex-col justify-between p-3 md:p-4 lg:p-5 xl:p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 md:gap-3">
-            <div
-              className={cn(
-                "flex h-8 w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 items-center justify-center rounded-full",
-                iconBgClass,
-              )}
-            >
-              <Icon
-                name={iconName}
-                className={cn(iconColorClass, "w-4 h-4 md:w-5 md:h-5")}
-              />
-            </div>
-
-            <Text variant="body" className="text-[10px] md:text-xs lg:text-sm">
-              {title}
-            </Text>
-          </div>
-
-          <div
-            className={cn(
-              "flex items-center gap-0.5 md:gap-1 rounded-full px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs font-medium",
-              isPositive
-                ? "bg-green-100 text-green-600"
-                : "bg-red-100 text-red-600",
-            )}
-          >
-            <img
-              src={isPositive ? ArrowUpRight : ArrowDownRight}
-              className="h-3 w-3 md:h-4 md:w-4"
-            />
-            {growth}
-          </div>
-        </div>
-
+        <CardHeaderStats
+          iconName={iconName}
+          title={title}
+          iconBgClass={iconBgClass}
+          iconColorClass={iconColorClass}
+          growth={growth}
+          trend={trend}
+        />
         <div className="mt-3 md:mt-4 lg:mt-5">
           <Text
             variant="display"
