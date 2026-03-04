@@ -2,6 +2,7 @@ import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard
 import { useDashboard } from "../hooks/useStats";
 import { StatsNumberCardContainer } from "../components/stats_number_card_container";
 import { StatsChartCardContainer } from "../components/stats_chart_card_container";
+import { SubscriptionsChartContainer } from "../components/subscriptions_chart_container";
 
 export const DashboardPage = () => {
   const dashboard = useDashboard();
@@ -20,14 +21,22 @@ export const DashboardPage = () => {
 
       {/* Charts Cards - Grid 2x2 responsive */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 lg:gap-4 xl:gap-6">
-        {dashboard.data?.charts.map((chart) => (
-          <div
-            key={chart.id}
-            className="min-h-[300px] lg:min-h-[350px] xl:min-h-[400px]"
-          >
-            <StatsChartCardContainer {...chart} />
-          </div>
-        ))}
+        {/* Subscriptions Chart - Real API */}
+        <div className="min-h-[300px] lg:min-h-[350px] xl:min-h-[400px]">
+          <SubscriptionsChartContainer />
+        </div>
+
+        {/* Other charts - Mock data (to be migrated) */}
+        {dashboard.data?.charts
+          .filter((chart) => chart.id !== "subscriptions")
+          .map((chart) => (
+            <div
+              key={chart.id}
+              className="min-h-[300px] lg:min-h-[350px] xl:min-h-[400px]"
+            >
+              <StatsChartCardContainer {...chart} />
+            </div>
+          ))}
       </div>
     </div>
   );
