@@ -1,10 +1,10 @@
 import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard_navbar";
 import { useDashboard } from "../hooks/useStats";
 import { StatsNumberCardContainer } from "../components/stats_number_card_container";
-import { StatsChartCardContainer } from "../components/stats_chart_card_container";
 import { SubscriptionsChartContainer } from "../components/subscriptions_chart_container";
 import { OrdersChartContainer } from "../components/orders_chart_container";
 import { StudentsChartContainer } from "../components/students_chart_container";
+import { GlobalChartContainer } from "../components/global_chart_container";
 
 export const DashboardPage = () => {
   const dashboard = useDashboard();
@@ -38,17 +38,10 @@ export const DashboardPage = () => {
           <SubscriptionsChartContainer />
         </div>
 
-        {/* Global Chart - Mock data */}
-        {dashboard.data?.charts
-          .filter((chart) => chart.id === "global")
-          .map((chart) => (
-            <div
-              key={chart.id}
-              className="min-h-[300px] lg:min-h-[350px] xl:min-h-[400px]"
-            >
-              <StatsChartCardContainer {...chart} />
-            </div>
-          ))}
+        {/* Global Chart - Real API (combines all 3) */}
+        <div className="min-h-[300px] lg:min-h-[350px] xl:min-h-[400px]">
+          <GlobalChartContainer />
+        </div>
       </div>
     </div>
   );
