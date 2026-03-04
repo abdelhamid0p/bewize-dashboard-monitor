@@ -16,5 +16,5 @@ export interface DashboardStatUI {
   growth: string
   trend: "up" | "down"
   iconName: IconName
-  variant: "orange" | "blue" | "green"
+  variant: "orange" | "blue" | "green"| "purple";
 }
