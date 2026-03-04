@@ -25,7 +25,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <LoginFormOrganism
+    <LoginFormOrganism 
       email={email}
       password={password}
       emailError={emailError}
