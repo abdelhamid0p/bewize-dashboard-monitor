@@ -5,6 +5,7 @@ interface AuthState {
   user: { email: string } | null
   loading: boolean
   error: string | null
+  initialized: boolean // Pour savoir si on a vérifié le token
 }
 
 const initialState: AuthState = {
@@ -12,6 +13,7 @@ const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
+  initialized: false,
 }
 
 const authSlice = createSlice({
@@ -26,13 +28,27 @@ const authSlice = createSlice({
       state.loading = false
       state.isAuthenticated = true
       state.user = action.payload
+      state.initialized = true
     },
     loginFailure(state, action: PayloadAction<string>) {
       state.loading = false
       state.error = action.payload
+      state.initialized = true
     },
-    logout() {
-      return initialState
+    logout(state) {
+      state.isAuthenticated = false
+      state.user = null
+      state.loading = false
+      state.error = null
+      // On garde initialized = true car on a bien vérifié
+      state.initialized = true
+    },
+    restoreSession(state, action: PayloadAction<{ email: string } | null>) {
+      state.initialized = true
+      if (action.payload) {
+        state.isAuthenticated = true
+        state.user = action.payload
+      }
     },
   },
 })
@@ -42,6 +58,7 @@ export const {
   loginSuccess,
   loginFailure,
   logout,
+  restoreSession,
 } = authSlice.actions
 
 export default authSlice.reducer

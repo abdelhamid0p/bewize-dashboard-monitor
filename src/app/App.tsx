@@ -7,6 +7,7 @@ import DynamicDesignSystemShowcase from "@/shared/design-system/design-system-sh
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { LoginPage } from "@/features/auth/pages/login_page";
+import { PrivateRoute } from "@/features/auth/components/PrivateRoute";
 import { DashboardPage } from "@/features/stats/pages/dashboard_home";
 import {
   CommandesPage,
@@ -25,8 +26,15 @@ function App() {
         {/* Login Page */}
         <Route path="/" element={<LoginPage />} />
 
-        {/* Dashboard layout */}
-        <Route path="/dashboard" element={<Dashboard />}>
+        {/* Dashboard layout - Protected */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<DashboardPage />} />
           <Route path="students" element={<StudentsPage />} />
           <Route path="subscriptions" element={<SubscriptionsPage />} />
