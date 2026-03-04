@@ -33,7 +33,7 @@ export const baseQuery = fetchBaseQuery({
 export const baseApi = createApi({
   reducerPath: 'api',
   baseQuery,
-  tagTypes: ['Order', 'PromoCode', 'Student', 'Subscription'],
+  tagTypes: ['Order', 'PromoCode', 'Student', 'Subscription', 'Dashboard'],
   endpoints: () => ({}),
   refetchOnFocus: true,
   refetchOnReconnect: true,
