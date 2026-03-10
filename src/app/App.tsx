@@ -9,7 +9,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "@/features/auth/pages/login_page";
 import { DashboardPage } from "@/features/stats/pages/dashboard_home";
 import {
-  CommandesPage,
   Dashboard,
   EcolesPage,
   ReclamationsPage,
@@ -17,6 +16,7 @@ import {
 import { PromoCodesPage } from "@/features/promo-codes/pages";
 import { StudentsPage } from "@/features/students/pages/StudentsPage";
 import { SubscriptionsPage } from "@/features/subscriptions/pages/SubscriptionsPage";
+import { OrdersPage } from "@/features/orders/pages";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
           <Route path="students" element={<StudentsPage />} />
           <Route path="subscriptions" element={<SubscriptionsPage />} />
           <Route path="reductions" element={<PromoCodesPage />} />
-          <Route path="orders" element={<CommandesPage />} />
+          <Route path="orders" element={<OrdersPage />} />
           <Route path="schools" element={<EcolesPage />} />
           <Route path="reclamations" element={<ReclamationsPage />} />
         </Route>

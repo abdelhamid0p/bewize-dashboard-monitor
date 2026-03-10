@@ -11,7 +11,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/dashboard": "Bon retour",
   "/dashboard/schools": "Les écoles",
   "/dashboard/students": "Les étudiants",
-  "/dashboard/commandes": "Les commandes",
+  "/dashboard/orders": "Les commandes",
   "/dashboard/subscriptions": "Les abonnements",
   "/dashboard/reductions": "Les codes promo",
   "/dashboard/reservations": "Les réservations",
