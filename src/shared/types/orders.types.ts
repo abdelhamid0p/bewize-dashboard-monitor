@@ -1,32 +1,32 @@
 import type { PaginatedResponse, PaginationParams } from './api.types';
 
 /**
- * Order domain model
+ * Order domain model — matches GET /orders response
  */
 export interface Order {
   id: string;
-  code: string;
-  type: 'CARD' | 'BANK_TRANSFER' | 'WALLET' | 'OTHER';
-  status: 'PENDING' | 'PAID' | 'FAILED' | 'CANCELLED';
-  planType: 'FREEMIUM' | 'BASIC' | 'PREMIUM' | 'ENTERPRISE';
+  code: string | null;
+  type: 'CARD' | 'CASH_PLUS' | null;
+  status: 'PAID' | 'UNPAID' | 'FREE';
+  planType: 'FREEMIUM' | 'PREMIUM';
   date: string;
   amount: number;
   subscription: {
     id: string;
     startDate: string;
     endDate: string;
-  };
+  } | null;
   student: {
     id: string;
-    cne: string;
+    cne: string | null;
     firstName: string;
-    lastName: string;
+    lastName: string | null;
     email: string;
   };
-  discount?: {
+  discount: {
     id: string;
     percentage: number;
-  };
+  } | null;
 }
 
 export type OrdersResponse = PaginatedResponse<Order>;
@@ -37,7 +37,5 @@ export type OrdersResponse = PaginatedResponse<Order>;
 export interface OrdersQueryParams extends PaginationParams {
   status?: string;
   planType?: string;
-  studentId?: string;
-  dateFrom?: string;
-  dateTo?: string;
+  search?: string;
 }
