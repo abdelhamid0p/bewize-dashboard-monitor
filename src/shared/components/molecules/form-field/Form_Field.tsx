@@ -14,7 +14,7 @@ export interface FormFieldProps extends InputProps {
 const FormField = React.forwardRef<HTMLInputElement, FormFieldProps>(
   ({ label, id, required, error, helperText, className, ...props }, ref) => {
     return (
-      <div className={cn("space-y-2", className)}>
+      <div className={cn("space-y-1", className)}>
         <Label htmlFor={id} required={required}>
           {label}
         </Label>

@@ -2,8 +2,9 @@ import * as React from "react";
 import { Label as ShadcnLabel } from "@/shared/components/ui/label";
 import { cn } from "@/shared/lib/utils";
 
-export interface LabelProps
-  extends React.ComponentPropsWithoutRef<typeof ShadcnLabel> {
+export interface LabelProps extends React.ComponentPropsWithoutRef<
+  typeof ShadcnLabel
+> {
   required?: boolean;
 }
 
@@ -18,21 +19,19 @@ const Label = React.forwardRef<
         // Typography (Desktop-first responsive)
         "font-sans font-medium",
         "text-sm md:text-md 2xl:text-lg",
-        
+
         // Color from design tokens
-        "text-neutral-800",
+        "text-[#626262]",
 
         // Spacing
         "mb-1.5 ",
 
-        className
+        className,
       )}
       {...props}
     >
       {children}
-      {required && (
-        <span className="text-red-500 ml-1">*</span>
-      )}
+      {required && <span className="text-red-500 ml-1">*</span>}
     </ShadcnLabel>
   );
 });

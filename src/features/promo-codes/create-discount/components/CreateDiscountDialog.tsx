@@ -51,21 +51,30 @@ export const CreateDiscountDialog: React.FC<CreateDiscountDialogProps> = ({
           onSubmit={handleSubmit(submitForm)}
           className="space-y-4 sm:space-y-5 md:space-y-6"
         >
-          <FormField
-            label="Code"
-            id="discount-code"
-            placeholder="e.g. SUMMER2025"
-            {...register("code", { required: true })}
-          />
-          <FormField
-            label="Pourcentage"
-            id="discount-percentage"
-            type="number"
-            min={0}
-            max={100}
-            placeholder="0"
-            {...register("percentage", { required: true, valueAsNumber: true })}
-          />
+          <div className="w-full sm:w-1/2">
+            <FormField
+              label="Code"
+              id="discount-code"
+              placeholder="e.g. SUMMER2025"
+              {...register("code", { required: true })}
+            />
+          </div>
+
+          <div className="w-full sm:w-1/2">
+            <FormField
+              label="Pourcentage"
+              id="discount-percentage"
+              type="number"
+              min={0}
+              max={100}
+              placeholder="0"
+              {...register("percentage", {
+                required: true,
+                valueAsNumber: true,
+              })}
+            />
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5">
             <div className="flex-1">
               <FormField
@@ -75,6 +84,7 @@ export const CreateDiscountDialog: React.FC<CreateDiscountDialogProps> = ({
                 {...register("startDate", { required: true })}
               />
             </div>
+
             <div className="flex-1">
               <FormField
                 label="Date de fin"
