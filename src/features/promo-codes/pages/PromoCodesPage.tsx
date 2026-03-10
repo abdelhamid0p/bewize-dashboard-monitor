@@ -15,6 +15,10 @@ import {
   PROMO_CODES_FILTERS,
   renderPromoCodeCell,
 } from "../config";
+import { useState } from "react";
+import { CreateDiscountDialog } from "../create-discount";
+import { useCreateDiscount } from "../create-discount/hooks";
+import type { CreateDiscountRequest } from "../create-discount/model/discount.types";
 
 export const PromoCodesPage = () => {
   const {
@@ -28,6 +32,13 @@ export const PromoCodesPage = () => {
     goToPage,
     setPageSize,
   } = usePromoCodesTable({ pageSize: 20 });
+  const [openDialog, setOpenDialog] = useState(false);
+  const { createDiscount, isLoading } = useCreateDiscount();
+
+  const handleCreateDiscount = async (data: CreateDiscountRequest) => {
+    await createDiscount(data);
+    setOpenDialog(false);
+  };
 
   if (error) {
     return (
@@ -46,7 +57,17 @@ export const PromoCodesPage = () => {
         onSearchChange={setSearchTerm}
         filters={PROMO_CODES_FILTERS}
         onFilterChange={setFilter}
-        actions={<Button variant="secondary">Créer un code promo</Button>}
+        actions={
+          <Button variant="secondary" onClick={() => setOpenDialog(true)}>
+            Créer un code promo
+          </Button>
+        }
+      />
+      <CreateDiscountDialog
+        open={openDialog}
+        onOpenChange={setOpenDialog}
+        onSubmit={handleCreateDiscount}
+        loading={isLoading}
       />
 
       <DataTable
