@@ -1,51 +1,36 @@
 import React from "react";
-import { StudentDetails } from "../model/student-details.types";
+import { InfoSection } from "@/shared/components/organisms/info-section";
+import type { InfoFieldItem } from "@/shared/components/molecules/info-field-grid";
+import type { StudentDetails } from "../model/student-details.types";
 
 interface StudentDetailsFieldsProps {
   student: StudentDetails;
 }
 
+/**
+ * StudentDetailsFields - Feature component composing shared organisms.
+ * No business logic — only maps student data to InfoSection props.
+ */
 export const StudentDetailsFields: React.FC<StudentDetailsFieldsProps> = ({
   student,
 }) => {
+  const fields: InfoFieldItem[] = [
+    { label: "Nom", value: student.firstName },
+    { label: "Email", value: student.email },
+    { label: "Genre", value: student.gender },
+    { label: "École", value: "GSLM" },
+    {
+      label: "Pays/Ville",
+      value: `${student.locationCountry},${student.locationCity}`,
+    },
+    { label: "Dernière connexion / visite", value: student.lastVisit },
+  ];
+
   return (
-    <div className="bg-neutral-50 rounded-xl p-6 grid grid-cols-2 gap-4 shadow-sm">
-      <div>
-        <div className="text-xs text-neutral-500 mb-1">Nom</div>
-        <div className="text-base font-medium text-neutral-900">
-          {student.firstName} {student.lastName}
-        </div>
-      </div>
-      <div>
-        <div className="text-xs text-neutral-500 mb-1">Email</div>
-        <div className="text-base font-medium text-neutral-900">
-          {student.email}
-        </div>
-      </div>
-      <div>
-        <div className="text-xs text-neutral-500 mb-1">Genre</div>
-        <div className="text-base font-medium text-neutral-900">
-          {student.gender}
-        </div>
-      </div>
-      <div>
-        <div className="text-xs text-neutral-500 mb-1">École</div>
-        <div className="text-base font-medium text-neutral-900">GSLM</div>
-      </div>
-      <div>
-        <div className="text-xs text-neutral-500 mb-1">Pays/Ville</div>
-        <div className="text-base font-medium text-neutral-900">
-          {student.locationCountry},{student.locationCity}
-        </div>
-      </div>
-      <div>
-        <div className="text-xs text-neutral-500 mb-1">
-          Dernière connexion / visite
-        </div>
-        <div className="text-base font-medium text-neutral-900">
-          {student.lastVisit}
-        </div>
-      </div>
-    </div>
+    <InfoSection
+      title="Informations de l'étudiant"
+      fields={fields}
+      columns={2}
+    />
   );
 };

@@ -6,12 +6,10 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/shared/components/molecules/dialog";
-// Or update the path above to the correct relative or alias path where your Dialog components are actually located.
 import { Button } from "@/shared/components/atoms/button";
-import { Label } from "@/shared/components/atoms/label/label";
-import { Input } from "@/shared/components/ui/input";
-import { useForm } from "react-hook-form";
-import type { CreateDiscountRequest } from "../../create-discount/model/discount.types";
+import { FormField } from "@/shared/components/molecules/form-field/Form_Field";
+import { useCreateDiscountForm } from "../hooks/useCreateDiscountForm";
+import type { CreateDiscountRequest } from "../model/discount.types";
 
 interface CreateDiscountDialogProps {
   open: boolean;
@@ -20,68 +18,73 @@ interface CreateDiscountDialogProps {
   loading?: boolean;
 }
 
+/**
+ * CreateDiscountDialog - Feature component for creating a discount.
+ * Uses shared atoms/molecules for UI (FormField, Button, Dialog).
+ * Delegates form state to useCreateDiscountForm hook (SRP).
+ */
 export const CreateDiscountDialog: React.FC<CreateDiscountDialogProps> = ({
   open,
   onOpenChange,
   onSubmit,
   loading,
 }) => {
-  const { register, handleSubmit, reset } = useForm<CreateDiscountRequest>();
+  const { form, transformPayload, resetForm } = useCreateDiscountForm();
+  const { register, handleSubmit } = form;
 
   const handleClose = () => {
     onOpenChange(false);
-    reset();
+    resetForm();
   };
 
   const submitForm = (data: CreateDiscountRequest) => {
-    // Transforme les dates en LocalDateTime (ajoute T00:00:00 si besoin)
-    const toLocalDateTime = (date: string) =>
-      date.includes("T") ? date : `${date}T00:00:00`;
-    const payload = {
-      ...data,
-      startDate: toLocalDateTime(data.startDate),
-      endDate: toLocalDateTime(data.endDate),
-    };
-    onSubmit(payload);
+    onSubmit(transformPayload(data));
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg w-full">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Créer une réduction</DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit(submitForm)} className="space-y-4">
-          <div>
-            <Label required>Code</Label>
-            <Input
-              {...register("code", { required: true })}
-              placeholder="e.g. SUMMER2025"
-            />
-          </div>
-          <div>
-            <Label required>Pourcentage</Label>
-            <Input
-              type="number"
-              min={0}
-              max={100}
-              {...register("percentage", { required: true })}
-            />
-          </div>
-          <div className="flex gap-2">
+        <form
+          onSubmit={handleSubmit(submitForm)}
+          className="space-y-4 sm:space-y-5 md:space-y-6"
+        >
+          <FormField
+            label="Code"
+            id="discount-code"
+            placeholder="e.g. SUMMER2025"
+            {...register("code", { required: true })}
+          />
+          <FormField
+            label="Pourcentage"
+            id="discount-percentage"
+            type="number"
+            min={0}
+            max={100}
+            placeholder="0"
+            {...register("percentage", { required: true, valueAsNumber: true })}
+          />
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5">
             <div className="flex-1">
-              <Label required>Date de début</Label>
-              <Input
+              <FormField
+                label="Date de début"
+                id="discount-start-date"
                 type="date"
                 {...register("startDate", { required: true })}
               />
             </div>
             <div className="flex-1">
-              <Label required>Date de fin</Label>
-              <Input type="date" {...register("endDate", { required: true })} />
+              <FormField
+                label="Date de fin"
+                id="discount-end-date"
+                type="date"
+                {...register("endDate", { required: true })}
+              />
             </div>
           </div>
-          <DialogFooter className="flex justify-end gap-2 mt-4">
+          <DialogFooter className="flex justify-end gap-2 sm:gap-3">
             <Button
               type="button"
               variant="secondary"

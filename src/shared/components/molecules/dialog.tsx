@@ -1,4 +1,5 @@
 import * as React from "react";
+import { cn } from "@/shared/lib/utils";
 
 interface DialogProps {
   open: boolean;
@@ -13,15 +14,19 @@ export const Dialog: React.FC<DialogProps> = ({
 }) => {
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 min-w-[320px] max-w-full relative">
-        <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-          onClick={() => onOpenChange(false)}
-          aria-label="Fermer"
-        >
-          ×
-        </button>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      onClick={() => onOpenChange(false)}
+    >
+      <div
+        className={cn(
+          "bg-white rounded-2xl shadow-xl relative",
+          "w-[90vw] sm:w-[80vw] md:w-[60vw] lg:w-125 xl:w-135 2xl:w-150",
+          "p-5 sm:p-6 md:p-8 lg:p-10",
+          "max-h-[90vh] overflow-y-auto",
+        )}
+        onClick={(e) => e.stopPropagation()}
+      >
         {children}
       </div>
     </div>
@@ -41,14 +46,16 @@ interface DialogHeaderProps {
   children: React.ReactNode;
 }
 export const DialogHeader: React.FC<DialogHeaderProps> = ({ children }) => (
-  <div className="mb-4">{children}</div>
+  <div className="mb-4 sm:mb-5 md:mb-6">{children}</div>
 );
 
 interface DialogTitleProps {
   children: React.ReactNode;
 }
 export const DialogTitle: React.FC<DialogTitleProps> = ({ children }) => (
-  <h2 className="text-xl font-semibold">{children}</h2>
+  <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-neutral-900">
+    {children}
+  </h2>
 );
 
 interface DialogFooterProps {
@@ -58,4 +65,4 @@ interface DialogFooterProps {
 export const DialogFooter: React.FC<DialogFooterProps> = ({
   className = "",
   children,
-}) => <div className={className}>{children}</div>;
+}) => <div className={cn("mt-4 sm:mt-5 md:mt-6", className)}>{children}</div>;
