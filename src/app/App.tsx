@@ -18,6 +18,7 @@ import {
 import { PromoCodesPage } from "@/features/promo-codes/pages";
 import { StudentsPage } from "@/features/students/pages/StudentsPage";
 import { SubscriptionsPage } from "@/features/subscriptions/pages/SubscriptionsPage";
+import { StudentDetailsPage } from "@/features/students/student-details";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         >
           <Route index element={<DashboardPage />} />
           <Route path="students" element={<StudentsPage />} />
+          <Route path="students/:studentId" element={<StudentDetailsPage />} />
           <Route path="subscriptions" element={<SubscriptionsPage />} />
           <Route path="reductions" element={<PromoCodesPage />} />
           <Route path="orders" element={<CommandesPage />} />
