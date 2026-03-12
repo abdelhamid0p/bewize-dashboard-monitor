@@ -7,12 +7,12 @@
  * - UI (DataTable, Pagination, Toolbar)
  */
 
-import { DashboardNavbar } from "@/shared/components/molecules/dashboard_navbar";
 import {
   DataTable,
   Pagination,
   Toolbar,
 } from "@/shared/components/organisms/data-table";
+import { useTableExport } from "@/shared/hooks/useTableExport";
 import { useStudentsTable } from "../hooks/useStudentsTable";
 import {
   STUDENTS_COLUMNS,
@@ -33,6 +33,13 @@ export const StudentsPage = () => {
     setPageSize,
   } = useStudentsTable({ pageSize: 10 });
 
+  useTableExport({
+    fileName: "etudiants",
+    sheetName: "Étudiants",
+    columns: STUDENTS_COLUMNS,
+    data: data as unknown as Record<string, unknown>[],
+  });
+
   if (error) {
     return (
       <div className="p-6 text-center text-red-500">
@@ -43,8 +50,6 @@ export const StudentsPage = () => {
 
   return (
     <div className="p-3 lg:p-4 xl:p-6 space-y-3 lg:space-y-4 bg-[#FAFAFF] min-h-full">
-      <DashboardNavbar userName="Étudiants" />
-
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}
