@@ -1,6 +1,7 @@
 import { Button } from "@/shared/components/atoms/button";
 import { Icon, ICONS } from "@/shared/components/atoms/icon";
 import { Text } from "@/shared/components/atoms/text/text";
+import { useExportContext } from "@/shared/context/ExportContext";
 import type { NavbarConfig } from "@/features/navigation/constantes/navigation_items";
 
 interface DashboardNavbarProps {
@@ -9,6 +10,7 @@ interface DashboardNavbarProps {
 }
 
 export const DashboardNavbar = ({ config, userName }: DashboardNavbarProps) => {
+  const { triggerExport } = useExportContext();
   const title = userName ? `${config.title}, ${userName}` : config.title;
 
   return (
@@ -33,6 +35,7 @@ export const DashboardNavbar = ({ config, userName }: DashboardNavbarProps) => {
             className="w-auto px-6 h-9"
             icon={ICONS.upload}
             iconPosition="left"
+            onClick={triggerExport}
           >
             Exporter
           </Button>

@@ -8,6 +8,7 @@ import {
   Toolbar,
 } from "@/shared/components/organisms/data-table";
 import { Button } from "@/shared/components/atoms/button";
+import { useTableExport } from "@/shared/hooks/useTableExport";
 import { useSubscriptionsTable } from "../hooks/useSubscriptionsTable";
 import {
   SUBSCRIPTIONS_COLUMNS,
@@ -27,6 +28,13 @@ export const SubscriptionsPage = () => {
     goToPage,
     setPageSize,
   } = useSubscriptionsTable({ pageSize: 20 });
+
+  useTableExport({
+    fileName: "abonnements",
+    sheetName: "Abonnements",
+    columns: SUBSCRIPTIONS_COLUMNS,
+    data: data as unknown as Record<string, unknown>[],
+  });
 
   if (error) {
     return (

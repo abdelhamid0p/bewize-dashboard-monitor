@@ -8,6 +8,7 @@ import {
   Toolbar,
 } from "@/shared/components/organisms/data-table";
 import { Button } from "@/shared/components/atoms/button";
+import { useTableExport } from "@/shared/hooks/useTableExport";
 import { usePromoCodesTable } from "../hooks/usePromoCodesTable";
 import {
   PROMO_CODES_COLUMNS,
@@ -27,6 +28,13 @@ export const PromoCodesPage = () => {
     goToPage,
     setPageSize,
   } = usePromoCodesTable({ pageSize: 20 });
+
+  useTableExport({
+    fileName: "codes-promo",
+    sheetName: "Codes Promo",
+    columns: PROMO_CODES_COLUMNS,
+    data: data as unknown as Record<string, unknown>[],
+  });
 
   if (error) {
     return (

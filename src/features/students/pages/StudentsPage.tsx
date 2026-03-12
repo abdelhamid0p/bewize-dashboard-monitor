@@ -12,6 +12,7 @@ import {
   Pagination,
   Toolbar,
 } from "@/shared/components/organisms/data-table";
+import { useTableExport } from "@/shared/hooks/useTableExport";
 import { useStudentsTable } from "../hooks/useStudentsTable";
 import {
   STUDENTS_COLUMNS,
@@ -31,6 +32,13 @@ export const StudentsPage = () => {
     goToPage,
     setPageSize,
   } = useStudentsTable({ pageSize: 10 });
+
+  useTableExport({
+    fileName: "etudiants",
+    sheetName: "Étudiants",
+    columns: STUDENTS_COLUMNS,
+    data: data as unknown as Record<string, unknown>[],
+  });
 
   if (error) {
     return (
