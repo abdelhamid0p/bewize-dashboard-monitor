@@ -2,7 +2,6 @@
  * Subscriptions Page
  */
 
-import { DashboardNavbar } from "@/shared/components/molecules/dashboard_navbar";
 import {
   DataTable,
   Pagination,
@@ -39,8 +38,6 @@ export const SubscriptionsPage = () => {
 
   return (
     <div className="p-3 lg:p-4 xl:p-6 space-y-3 lg:space-y-4 bg-[#FAFAFF] min-h-full">
-      <DashboardNavbar userName="Abonnements" />
-
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}

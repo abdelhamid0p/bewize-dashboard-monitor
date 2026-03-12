@@ -1,20 +1,12 @@
 import { NavigationSidebar } from "@/features/navigation/components/navigation_sidebar";
+import { getNavbarConfig } from "@/features/navigation/constantes/navigation_items";
 import { Outlet, useLocation } from "react-router-dom";
 import { DashboardNavbar } from "../molecules/nav-bar/dashboard_navbar";
 import { Icon, ICONS } from "../atoms/icon";
 
-const pageTitles: Record<string, string> = {
-  "/dashboard": "Tableau de bord",
-  "/dashboard/students": "Étudiants",
-  "/dashboard/orders": "Commandes",
-  "/dashboard/subscriptions": "Abonnements",
-  "/dashboard/schools": "Écoles",
-};
-
 export const DashboardLayout = () => {
   const location = useLocation();
-
-  const title = pageTitles[location.pathname] ?? "Tableau de bord";
+  const navbarConfig = getNavbarConfig(location.pathname);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
@@ -38,6 +30,7 @@ export const DashboardLayout = () => {
 
         {/* Page content */}
         <main className="flex-1 overflow-y-auto p-2">
+          <DashboardNavbar config={navbarConfig} />
           <Outlet />
         </main>
       </div>

@@ -1,4 +1,3 @@
-import { DashboardNavbar } from "@/shared/components/molecules/nav-bar/dashboard_navbar";
 import { useDashboard } from "../hooks/useStats";
 import { StatsNumberCardContainer } from "../components/stats_number_card_container";
 import { StatsChartCardContainer } from "../components/stats_chart_card_container";
@@ -8,9 +7,6 @@ export const DashboardPage = () => {
 
   return (
     <div className="p-3 lg:p-4 xl:p-6 space-y-3 lg:space-y-4 bg-[#FAFAFF] min-h-full">
-      {/* Dashboard Navbar */}
-      <DashboardNavbar userName="Mohammed" />
-
       {/* Number Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-4 xl:gap-6">
         {dashboard.data?.stats.map((stat) => (
