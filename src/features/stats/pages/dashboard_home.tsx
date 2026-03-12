@@ -41,8 +41,7 @@ export const DashboardPage = () => {
         name: chartName,
         headers: ["Série", ...chart.labels],
         rows: chart.datasets.map((dataset, i) => {
-          const seriesLabel =
-            chart.legendItems?.[i]?.label ?? `Série ${i + 1}`;
+          const seriesLabel = chart.legendItems?.[i]?.label ?? `Série ${i + 1}`;
           return [seriesLabel, ...dataset];
         }),
       });
