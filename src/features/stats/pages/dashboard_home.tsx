@@ -3,12 +3,11 @@ import { useExportContext } from "@/shared/context/ExportContext";
 import { exportToExcel } from "@/shared/utils/exportToExcel";
 import type { ExportSheet } from "@/shared/utils/exportToExcel";
 import { useDashboard } from "../hooks/useStats";
-import { useMetrics } from "../hooks/useMetrics";
 import { StatsNumberCardContainer } from "../components/stats_number_card_container";
-import { SubscriptionsChartContainer } from "../components/subscriptions_chart_container";
+import { GlobalChartContainer } from "../components/global_chart_container";
 import { OrdersChartContainer } from "../components/orders_chart_container";
 import { StudentsChartContainer } from "../components/students_chart_container";
-import { GlobalChartContainer } from "../components/global_chart_container";
+import { SubscriptionsChartContainer } from "../components/subscriptions_chart_container";
 
 export const DashboardPage = () => {
   const dashboard = useDashboard();
@@ -62,15 +61,12 @@ export const DashboardPage = () => {
     <div className="p-3 lg:p-4 xl:p-6 space-y-3 lg:space-y-4 bg-[#FAFAFF] min-h-full">
       {/* Number Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-4 xl:gap-6">
-        {metricsLoading ? (
-          <div className="col-span-full text-center py-4">Chargement...</div>
-        ) : (
-          metrics?.map((metric) => (
-            <StatsNumberCardContainer key={metric.id} {...metric} />
-          ))
-        )}
+        {dashboard.data?.stats.map((stat) => (
+          <StatsNumberCardContainer key={stat.id} {...stat} />
+        ))}
       </div>
 
+      {/* Charts Cards - Grid 2x2 responsive */}
       {/* Charts Cards - Grid 2x2 responsive */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 lg:gap-4 xl:gap-6">
         {/* Students Chart - Real API */}

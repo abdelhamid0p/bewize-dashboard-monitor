@@ -1,15 +1,15 @@
-import { StatsNumberCard } from "@/shared/components/organisms/cards/stats_number_card"
+import { StatsNumberCard } from "@/shared/components/organisms/cards/stats_number_card";
 import {
   STATS_CONFIG,
   VARIANT_STYLES,
   type StatsId,
-} from "../config/stats_config"
+} from "../config/stats_config";
 
 interface StatsNumberCardContainerProps {
-  id: StatsId
-  value: number
-  growth: string
-  trend: "up" | "down"
+  id: StatsId;
+  value: number;
+  growth: string;
+  trend: "up" | "down";
 }
 
 export const StatsNumberCardContainer = ({
@@ -18,8 +18,8 @@ export const StatsNumberCardContainer = ({
   growth,
   trend,
 }: StatsNumberCardContainerProps) => {
-  const config = STATS_CONFIG[id]
-  const styles = VARIANT_STYLES[config.variant]
+  const config = STATS_CONFIG[id];
+  const styles = VARIANT_STYLES[config.variant];
 
   return (
     <StatsNumberCard
@@ -32,5 +32,5 @@ export const StatsNumberCardContainer = ({
       iconColorClass={styles.text}
       valueColorClass={styles.text}
     />
-  )
-}
+  );
+};

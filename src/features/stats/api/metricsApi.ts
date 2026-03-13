@@ -1,9 +1,11 @@
 import { baseApi } from '@/shared/services/baseApi';
 import type { MetricsApiResponse } from '../model/metrics.types';
+import type { DashboardResponse } from '../model/dashboard_types';
 
 /**
- * Dashboard Metrics API - handles dashboard number card metrics
- * GET /dashboard/metrics
+ * Dashboard Metrics API - handles dashboard endpoints
+ * - GET /dashboard/metrics (number cards)
+ * - GET /dashboard (full dashboard with charts)
  */
 export const metricsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,7 +13,11 @@ export const metricsApi = baseApi.injectEndpoints({
       query: () => '/dashboard/metrics',
       providesTags: ['Dashboard'],
     }),
+    getDashboard: builder.query<DashboardResponse, void>({
+      query: () => '/dashboard',
+      providesTags: ['Dashboard'],
+    }),
   }),
 });
 
-export const { useGetMetricsQuery } = metricsApi;
+export const { useGetMetricsQuery, useGetDashboardQuery } = metricsApi;

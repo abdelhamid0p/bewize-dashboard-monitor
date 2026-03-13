@@ -14,11 +14,7 @@ import {
   Toolbar,
 } from "@/shared/components/organisms/data-table";
 import { useOrdersTable } from "../hooks/useOrdersTable";
-import {
-  ORDERS_COLUMNS,
-  ORDERS_FILTERS,
-  renderOrderCell,
-} from "../config";
+import { ORDERS_COLUMNS, ORDERS_FILTERS, renderOrderCell } from "../config";
 
 export const OrdersPage = () => {
   const {
@@ -43,8 +39,6 @@ export const OrdersPage = () => {
 
   return (
     <div className="p-3 lg:p-4 xl:p-6 space-y-3 lg:space-y-4 bg-[#FAFAFF] min-h-full">
-      <DashboardNavbar userName="Commandes" />
-
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}

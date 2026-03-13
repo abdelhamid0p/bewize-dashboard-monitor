@@ -10,9 +10,7 @@ import { StatusIndicator } from "@/shared/components/atoms/status-indicator";
 import { StudentsActionsMenu } from "../components/students_actions_menu";
 import type { StudentUI } from "../model/student.types";
 import { GENDER_LABEL_COLORS } from "./enums";
-
-const UserIcon = "/assets/icons/students_icone_table.svg";
-
+import UserIcon from "@/assets/icones/students_icone_table.svg";
 /**
  * Render a cell based on column key
  */
