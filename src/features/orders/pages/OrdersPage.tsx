@@ -7,12 +7,12 @@
  * - UI (DataTable, Pagination, Toolbar)
  */
 
-import { DashboardNavbar } from "@/shared/components/molecules/dashboard_navbar";
 import {
   DataTable,
   Pagination,
   Toolbar,
 } from "@/shared/components/organisms/data-table";
+import { useTableExport } from "@/shared/hooks/useTableExport";
 import { useOrdersTable } from "../hooks/useOrdersTable";
 import { ORDERS_COLUMNS, ORDERS_FILTERS, renderOrderCell } from "../config";
 
@@ -28,6 +28,13 @@ export const OrdersPage = () => {
     goToPage,
     setPageSize,
   } = useOrdersTable({ pageSize: 20 });
+
+  useTableExport({
+    fileName: "commandes",
+    sheetName: "Commandes",
+    columns: ORDERS_COLUMNS,
+    data: data as unknown as Record<string, unknown>[],
+  });
 
   if (error) {
     return (
