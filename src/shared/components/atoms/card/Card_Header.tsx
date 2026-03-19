@@ -55,7 +55,17 @@ export const CardHeaderStats = ({
             src={isPositive ? ArrowUpRight : ArrowDownRight}
             className="h-3 w-3 md:h-4 md:w-4"
           />
-          {growth}
+          {(() => {
+            // Supprime % et espaces, garde le signe
+            const match = growth.match(/([+-]?\d+(?:\.\d+)?)/);
+            const num = match ? Number(match[1]) : 0;
+            return (
+              num.toLocaleString(undefined, {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2,
+              }) + "%"
+            );
+          })()}
         </div>
       )}
     </div>
