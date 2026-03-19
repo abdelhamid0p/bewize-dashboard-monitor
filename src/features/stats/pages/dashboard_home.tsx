@@ -8,9 +8,12 @@ import { GlobalChartContainer } from "../components/global_chart_container";
 import { OrdersChartContainer } from "../components/orders_chart_container";
 import { StudentsChartContainer } from "../components/students_chart_container";
 import { SubscriptionsChartContainer } from "../components/subscriptions_chart_container";
+import { useMetrics } from "../hooks";
 
 export const DashboardPage = () => {
   const dashboard = useDashboard();
+  const { metrics, isLoading: metricsLoading } = useMetrics();
+
   const { registerExport } = useExportContext();
 
   const handleExport = useCallback(() => {
@@ -61,9 +64,13 @@ export const DashboardPage = () => {
     <div className="p-3 lg:p-4 xl:p-6 space-y-3 lg:space-y-4 bg-[#FAFAFF] min-h-full">
       {/* Number Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-4 xl:gap-6">
-        {dashboard.data?.stats.map((stat) => (
-          <StatsNumberCardContainer key={stat.id} {...stat} />
-        ))}
+        {metricsLoading ? (
+          <div className="col-span-full text-center py-4">Chargement...</div>
+        ) : (
+          metrics?.map((metric) => (
+            <StatsNumberCardContainer key={metric.id} {...metric} />
+          ))
+        )}
       </div>
 
       {/* Charts Cards - Grid 2x2 responsive */}
