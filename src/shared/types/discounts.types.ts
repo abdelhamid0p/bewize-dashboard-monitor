@@ -21,4 +21,6 @@ export interface DiscountsQueryParams extends PaginationParams {
   code?: string;
   percentage?: string;
   search?: string;
+  startDate?: string;
+  endDate?: string;
 }
