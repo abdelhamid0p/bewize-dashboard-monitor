@@ -22,4 +22,6 @@ export interface SubscriptionsQueryParams extends PaginationParams {
   type?: string;
   planType?: string;
   search?: string;
+  startDate?: string;
+  endDate?: string;
 }

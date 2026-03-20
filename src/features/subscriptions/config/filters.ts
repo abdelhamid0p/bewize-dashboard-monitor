@@ -6,9 +6,11 @@ import type { FilterConfig } from "@/shared/components/organisms/data-table";
 
 export const SUBSCRIPTIONS_FILTERS: FilterConfig[] = [
   {
-    key: "date",
+    key: "dateRange",
     label: "Date",
-    options: [],
+    type: "date-range",
+    fromKey: "startDate",
+    toKey: "endDate",
   },
   {
     key: "status",
