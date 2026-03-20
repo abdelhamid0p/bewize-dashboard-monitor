@@ -18,6 +18,8 @@ export const discountsApi = baseApi.injectEndpoints({
         if (params.active !== undefined) queryParams.append('active', params.active.toString());
         if (params.code) queryParams.append('code', params.code);
         if (params.percentage) queryParams.append('percentage', params.percentage);
+        if (params.startDate) queryParams.append('startDate', params.startDate);
+        if (params.endDate) queryParams.append('endDate', params.endDate);
         if (params.search) queryParams.append('search', params.search);
 
         return `/discounts?${queryParams.toString()}`;

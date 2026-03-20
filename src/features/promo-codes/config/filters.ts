@@ -5,8 +5,14 @@
 import type { FilterConfig } from "@/shared/components/organisms/data-table";
 
 export const PROMO_CODES_FILTERS: FilterConfig[] = [
-  
-    {
+  {
+    key: "dateRange",
+    label: "Date",
+    type: "date-range",
+    fromKey: "startDate",
+    toKey: "endDate",
+  },
+  {
     key: "active",
     label: "Statut",
     options: [
@@ -14,15 +20,14 @@ export const PROMO_CODES_FILTERS: FilterConfig[] = [
       { label: "Expiré", value: "false" },
     ],
   },
-   {
+  {
     key: "code",
     label: "Code",
     options: [
-    { label: "0000", value: "1" },
-
+      { label: "0000", value: "1" },
     ],
   },
-    {
+  {
     key: "percentage",
     label: "Pourcentage",
     options: [
@@ -32,6 +37,5 @@ export const PROMO_CODES_FILTERS: FilterConfig[] = [
       { label: "40%", value: "40" },
       { label: "50%", value: "50" },
     ],
-  }
-
+  },
 ];

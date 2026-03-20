@@ -46,7 +46,10 @@ export interface FilterOption {
 export interface FilterConfig {
   key: string;
   label: string;
-  options: FilterOption[];
+  type?: "select" | "date-range";
+  options?: FilterOption[];
+  fromKey?: string;
+  toKey?: string;
 }
 
 /**
