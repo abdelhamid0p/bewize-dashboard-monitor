@@ -25,11 +25,11 @@ export const DashboardPage = () => {
     sheets.push({
       name: "Résumé",
       headers: ["Indicateur", "Valeur", "Croissance", "Tendance"],
-      rows: dashboard.data.stats.map((stat) => [
-        stat.title,
-        stat.value,
-        stat.growth,
-        stat.trend === "up" ? "Hausse" : "Baisse",
+      rows: (metrics ?? []).map((metric) => [
+        metric.id,
+        metric.value,
+        metric.growth,
+        metric.trend === "up" ? "Hausse" : "Baisse",
       ]),
     });
 
