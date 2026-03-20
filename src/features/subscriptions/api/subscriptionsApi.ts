@@ -20,6 +20,9 @@ export const subscriptionsApi = baseApi.injectEndpoints({
         if (params.status) queryParams.append('status', params.status);
         if (params.type) queryParams.append('type', params.type);
         if (params.planType) queryParams.append('planType', params.planType);
+
+        if (params.startDate) queryParams.append('startDate', params.startDate);
+        if (params.endDate) queryParams.append('endDate', params.endDate);
         if (params.search) queryParams.append('search', params.search);
 
         return `/subscriptions?${queryParams.toString()}`;
