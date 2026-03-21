@@ -27,7 +27,7 @@ export const OrdersPage = () => {
     setFilter,
     goToPage,
     setPageSize,
-  } = useOrdersTable({ pageSize: 20 });
+  } = useOrdersTable();
 
   useTableExport({
     fileName: "commandes",

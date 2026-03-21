@@ -14,6 +14,7 @@ import { useGetStudentsQuery } from "../api/studentsApi";
 import { mapStudentToUI } from "../config/mapper";
 import type { StudentUI, StudentsFilters, StudentBackend } from "../model/student.types";
 import type { SortState, PaginationState } from "@/shared/components/organisms/data-table";
+import { FIXED_PAGE_SIZE } from "@/shared/components/organisms/data-table/Pagination";
 
 interface UseStudentsTableOptions {
   pageSize?: number;
@@ -42,7 +43,7 @@ interface UseStudentsTableResult {
 export const useStudentsTable = (
   options: UseStudentsTableOptions = {}
 ): UseStudentsTableResult => {
-  const pageSize = options.pageSize ?? 10;
+  const pageSize = options.pageSize ?? FIXED_PAGE_SIZE;
 
   // State
   const [filters, setFilters] = useState<StudentsFilters>({

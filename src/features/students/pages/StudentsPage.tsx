@@ -19,6 +19,7 @@ import {
   STUDENTS_FILTERS,
   renderStudentCell,
 } from "../config";
+import { FIXED_PAGE_SIZE } from "@/shared/components/organisms/data-table/Pagination";
 
 export const StudentsPage = () => {
   const {
@@ -31,7 +32,7 @@ export const StudentsPage = () => {
     setFilter,
     goToPage,
     setPageSize,
-  } = useStudentsTable({ pageSize: 10 });
+  } = useStudentsTable({ pageSize: FIXED_PAGE_SIZE });
 
   useTableExport({
     fileName: "etudiants",

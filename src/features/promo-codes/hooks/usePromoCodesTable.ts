@@ -7,6 +7,7 @@ import { useGetDiscountsQuery } from "../api/discountsApi";
 import { mapPromoCodeToUI } from "../config/mapper";
 import type { PromoCodeUI, PromoCodesFilters, PromoCodeBackend } from "../model/promo-code.types";
 import type { SortState, PaginationState } from "@/shared/components/organisms/data-table";
+import { FIXED_PAGE_SIZE } from "@/shared/components/organisms/data-table/Pagination";
 
 interface UsePromoCodesTableOptions {
   pageSize?: number;
@@ -30,7 +31,7 @@ interface UsePromoCodesTableResult {
 export const usePromoCodesTable = (
   options: UsePromoCodesTableOptions = {}
 ): UsePromoCodesTableResult => {
-  const pageSize = options.pageSize ?? 20;
+  const pageSize = options.pageSize ?? FIXED_PAGE_SIZE;
 
   const [filters, setFilters] = useState<PromoCodesFilters>({
     page: 0,

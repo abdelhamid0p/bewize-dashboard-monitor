@@ -17,6 +17,7 @@ import type {
   SortState,
   PaginationState,
 } from "@/shared/components/organisms/data-table";
+import { FIXED_PAGE_SIZE } from "@/shared/components/organisms/data-table/Pagination";
 
 interface UseOrdersTableOptions {
   pageSize?: number;
@@ -40,7 +41,7 @@ interface UseOrdersTableResult {
 export const useOrdersTable = (
   options: UseOrdersTableOptions = {},
 ): UseOrdersTableResult => {
-  const pageSize = options.pageSize ?? 20;
+  const pageSize = options.pageSize ?? FIXED_PAGE_SIZE;
 
   const [filters, setFilters] = useState<OrdersFilters>({
     page: 0,

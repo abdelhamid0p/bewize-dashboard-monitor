@@ -7,6 +7,7 @@ import { useGetSubscriptionsQuery } from "../api/subscriptionsApi";
 import { mapSubscriptionToUI } from "../config/mapper";
 import type { SubscriptionUI, SubscriptionsFilters, SubscriptionBackend } from "../model/subscription.types";
 import type { SortState, PaginationState } from "@/shared/components/organisms/data-table";
+import { FIXED_PAGE_SIZE } from "@/shared/components/organisms/data-table/Pagination";
 
 interface UseSubscriptionsTableOptions {
   pageSize?: number;
@@ -30,7 +31,7 @@ interface UseSubscriptionsTableResult {
 export const useSubscriptionsTable = (
   options: UseSubscriptionsTableOptions = {}
 ): UseSubscriptionsTableResult => {
-  const pageSize = options.pageSize ?? 20;
+  const pageSize = options.pageSize ?? FIXED_PAGE_SIZE;
 
   const [filters, setFilters] = useState<SubscriptionsFilters>({
     page: 0,

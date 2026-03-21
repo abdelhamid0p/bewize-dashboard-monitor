@@ -27,7 +27,7 @@ export const SubscriptionsPage = () => {
     setFilter,
     goToPage,
     setPageSize,
-  } = useSubscriptionsTable({ pageSize: 20 });
+  } = useSubscriptionsTable();
 
   useTableExport({
     fileName: "abonnements",

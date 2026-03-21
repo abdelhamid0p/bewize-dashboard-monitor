@@ -31,7 +31,7 @@ export const PromoCodesPage = () => {
     setFilter,
     goToPage,
     setPageSize,
-  } = usePromoCodesTable({ pageSize: 20 });
+  } = usePromoCodesTable();
   const [openDialog, setOpenDialog] = useState(false);
   const { createDiscount, isLoading } = useCreateDiscount();
 
