@@ -15,6 +15,10 @@ import {
   SUBSCRIPTIONS_FILTERS,
   renderSubscriptionCell,
 } from "../config";
+import { useState } from "react";
+import { CreateSubscriptionDialog } from "../create-subscription";
+import { useCreateSubscription } from "../create-subscription/hooks";
+import type { CreateManualSubscriptionRequest } from "../create-subscription/model/subscription.types";
 
 export const SubscriptionsPage = () => {
   const {
@@ -28,6 +32,16 @@ export const SubscriptionsPage = () => {
     goToPage,
     setPageSize,
   } = useSubscriptionsTable();
+  const [openDialog, setOpenDialog] = useState(false);
+  const { createSubscription, isLoading, errorMessage } =
+    useCreateSubscription();
+
+  const handleCreateSubscription = async (
+    payload: CreateManualSubscriptionRequest,
+  ) => {
+    await createSubscription(payload).unwrap();
+    setOpenDialog(false);
+  };
 
   useTableExport({
     fileName: "abonnements",
@@ -51,7 +65,19 @@ export const SubscriptionsPage = () => {
         onSearchChange={setSearchTerm}
         filters={SUBSCRIPTIONS_FILTERS}
         onFilterChange={setFilter}
-        actions={<Button variant="secondary">Créer un abonnement</Button>}
+        actions={
+          <Button variant="secondary" onClick={() => setOpenDialog(true)}>
+            Créer un abonnement
+          </Button>
+        }
+      />
+
+      <CreateSubscriptionDialog
+        open={openDialog}
+        onOpenChange={setOpenDialog}
+        onSubmit={handleCreateSubscription}
+        loading={isLoading}
+        errorMessage={errorMessage}
       />
 
       <DataTable
