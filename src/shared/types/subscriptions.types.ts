@@ -16,6 +16,7 @@ export type SubscriptionsResponse = PaginatedResponse<Subscription>;
  * Query parameters for subscriptions endpoint
  */
 export interface SubscriptionsQueryParams extends PaginationParams {
+  fields?: string[];
   orderId?: string;
   active?: boolean;
   status?: string;

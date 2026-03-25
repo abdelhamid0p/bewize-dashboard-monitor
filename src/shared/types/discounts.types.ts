@@ -17,6 +17,7 @@ export type DiscountsResponse = PaginatedResponse<Discount>;
  * Query parameters for discounts endpoint
  */
 export interface DiscountsQueryParams extends PaginationParams {
+  fields?: string[];
   active?: boolean;
   code?: string;
   percentage?: string;

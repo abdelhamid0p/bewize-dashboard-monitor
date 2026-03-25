@@ -17,7 +17,8 @@ export const mapSubscriptionToUI = (backend: SubscriptionBackend): SubscriptionU
   cne: backend.cne || "—",
   startDate: new Date(backend.startDate).toLocaleDateString("fr-FR"),
   endDate: new Date(backend.endDate).toLocaleDateString("fr-FR"),
-  planType: "Annuel", // Default - would come from backend
-  subscriptionType: "Premium", // Default - would come from backend
-  status: getStatus(backend.endDate),
+  planType: (backend as unknown as { planType?: string }).planType || "N/A",
+  subscriptionType:
+    (backend as unknown as { subscriptionType?: string }).subscriptionType || "N/A",
+  status: (backend as unknown as { status?: "active" | "inactive" }).status ?? getStatus(backend.endDate),
 });

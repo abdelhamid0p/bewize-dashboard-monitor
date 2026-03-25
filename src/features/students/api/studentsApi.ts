@@ -1,5 +1,8 @@
 import { baseApi } from '@/shared/services/baseApi';
 import type { StudentsResponse, StudentsQueryParams } from '@/shared/types/students.types';
+import { STUDENTS_COLUMNS } from '../config';
+
+const STUDENT_FIELDS = STUDENTS_COLUMNS.map((column) => column.key).filter((key) => key !== 'actions');
 
 /**
  * Students API - handles all students-related endpoints
@@ -22,8 +25,10 @@ export const studentsApi = baseApi.injectEndpoints({
         if (params.level) queryParams.append('level', params.level);
         if (params.type) queryParams.append('type', params.type);
         if (params.planType) queryParams.append('planType', params.planType);
+        const requestedFields = params.fields?.length ? params.fields : STUDENT_FIELDS;
+        requestedFields.forEach((field) => queryParams.append('fields', field));
 
-        return `/students?${queryParams.toString()}`;
+        return `/datatable/students?${queryParams.toString()}`;
       },
       providesTags: ['Student'],
     }),

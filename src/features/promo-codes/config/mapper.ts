@@ -18,5 +18,5 @@ export const mapPromoCodeToUI = (backend: PromoCodeBackend): PromoCodeUI => ({
   startDate: new Date(backend.startDate).toLocaleDateString("fr-FR"),
   endDate: new Date(backend.endDate).toLocaleDateString("fr-FR"),
   percentage: backend.percentage,
-  status: getStatus(backend.endDate),
+  status: (backend as unknown as { status?: "active" | "expired" }).status ?? getStatus(backend.endDate),
 });

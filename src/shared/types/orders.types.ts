@@ -35,6 +35,7 @@ export type OrdersResponse = PaginatedResponse<Order>;
  * Query parameters for orders endpoint
  */
 export interface OrdersQueryParams extends PaginationParams {
+  fields?: string[];
   status?: string;
   planType?: string;
   search?: string;

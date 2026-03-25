@@ -1,4 +1,4 @@
-import type { SubscriptionBackendResponse } from "../model";
+import type { SubscriptionBackend } from "../model";
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8083";
@@ -11,7 +11,7 @@ const API_BASE_URL =
 export async function fetchSubscriptions(
   page: number = 0,
   size: number = 20,
-): Promise<SubscriptionBackendResponse> {
+): Promise<SubscriptionBackend> {
   const params = new URLSearchParams({
     page: page.toString(),
     size: size.toString(),

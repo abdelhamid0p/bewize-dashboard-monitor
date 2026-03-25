@@ -3,6 +3,9 @@ import type {
   OrdersResponse,
   OrdersQueryParams,
 } from "@/shared/types/orders.types";
+import { ORDERS_COLUMNS } from "../config";
+
+const ORDER_FIELDS = ORDERS_COLUMNS.map((column) => column.key).filter((key) => key !== "actions");
 
 /**
  * Orders API - handles all order-related endpoints
@@ -23,8 +26,10 @@ export const ordersApi = baseApi.injectEndpoints({
         if (params.status) queryParams.append("status", params.status);
         if (params.planType) queryParams.append("planType", params.planType);
         if (params.search) queryParams.append("search", params.search);
+        const requestedFields = params.fields?.length ? params.fields : ORDER_FIELDS;
+        requestedFields.forEach((field) => queryParams.append("fields", field));
 
-        return `/orders?${queryParams.toString()}`;
+        return `/datatable/orders?${queryParams.toString()}`;
       },
       providesTags: ["Order"],
     }),

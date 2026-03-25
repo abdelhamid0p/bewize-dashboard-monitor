@@ -26,13 +26,13 @@ export const DashboardNavbar = ({}: DashboardNavbarProps) => {
     pathname === "/" || pathname === "/home" || pathname === "/dashboard";
 
   // Récupérer le titre de la page actuelle
-  const pageTitle = PAGE_TITLES[pathname] || "Dashboard";
+  const pageTitle = PAGE_TITLES[pathname];
 
   return (
     <div className="flex items-center justify-between w-full py-2 md:py-3 lg:py-4 bg-gray-50">
       {/* Left - Title */}
       <h1 className="text-sm md:text-base lg:text-lg xl:text-xl font-medium text-gray-900">
-        {isHomePage ? "Bon retour" : pageTitle}
+        {isHomePage ? "Bon retour Mohammed" : pageTitle}
       </h1>
 
       {/* Right - Actions */}

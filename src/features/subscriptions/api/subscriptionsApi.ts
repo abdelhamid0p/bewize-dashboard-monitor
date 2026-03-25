@@ -1,5 +1,8 @@
 import { baseApi } from '@/shared/services/baseApi';
 import type { SubscriptionsResponse, SubscriptionsQueryParams } from '@/shared/types/subscriptions.types';
+import { SUBSCRIPTIONS_COLUMNS } from '../config';
+
+const SUBSCRIPTION_FIELDS = SUBSCRIPTIONS_COLUMNS.map((column) => column.key).filter((key) => key !== 'actions');
 
 /**
  * Subscriptions API - handles all subscriptions endpoints
@@ -24,8 +27,10 @@ export const subscriptionsApi = baseApi.injectEndpoints({
         if (params.startDate) queryParams.append('startDate', params.startDate);
         if (params.endDate) queryParams.append('endDate', params.endDate);
         if (params.search) queryParams.append('search', params.search);
+        const requestedFields = params.fields?.length ? params.fields : SUBSCRIPTION_FIELDS;
+        requestedFields.forEach((field) => queryParams.append('fields', field));
 
-        return `/subscriptions?${queryParams.toString()}`;
+        return `/datatable/subscriptions?${queryParams.toString()}`;
       },
       providesTags: ['Subscription'],
     }),

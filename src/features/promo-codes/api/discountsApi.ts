@@ -1,5 +1,8 @@
 import { baseApi } from '@/shared/services/baseApi';
 import type { DiscountsResponse, DiscountsQueryParams } from '@/shared/types/discounts.types';
+import { PROMO_CODES_COLUMNS } from '../config';
+
+const DISCOUNT_FIELDS = PROMO_CODES_COLUMNS.map((column) => column.key).filter((key) => key !== 'actions');
 
 /**
  * Discounts API - handles all discount/promo code endpoints
@@ -21,8 +24,10 @@ export const discountsApi = baseApi.injectEndpoints({
         if (params.startDate) queryParams.append('startDate', params.startDate);
         if (params.endDate) queryParams.append('endDate', params.endDate);
         if (params.search) queryParams.append('search', params.search);
+        const requestedFields = params.fields?.length ? params.fields : DISCOUNT_FIELDS;
+        requestedFields.forEach((field) => queryParams.append('fields', field));
 
-        return `/discounts?${queryParams.toString()}`;
+        return `/datatable/discounts?${queryParams.toString()}`;
       },
       providesTags: ['PromoCode'],
     }),

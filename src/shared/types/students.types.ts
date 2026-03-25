@@ -24,6 +24,7 @@ export type StudentsResponse = PaginatedResponse<Student>;
  * Query parameters for students endpoint
  */
 export interface StudentsQueryParams extends PaginationParams {
+  fields?: string[];
   search?: string;
   gender?: string;
   cycle?: string;
