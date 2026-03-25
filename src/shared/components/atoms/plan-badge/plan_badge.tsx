@@ -13,7 +13,7 @@ export const PlanBadge = ({ plan }: PlanBadgeProps) => {
   const styles: Record<string, string> = {
     YEAR: "bg-green-200 text-green-card",
     TRIMESTER: "bg-orange-200 text-orange-card",
-    SEMESTER: "bg-red-200 text-red-100",
+    SEMESTER: "bg-red-200 text-red-card",
     MONTH: "bg-blue-200 text-blue-card",
   };
 
