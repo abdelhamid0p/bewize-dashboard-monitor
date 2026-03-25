@@ -9,8 +9,8 @@ import {
 } from "@/shared/components/molecules/dialog";
 import { Button } from "@/shared/components/atoms/button";
 import { FormField } from "@/shared/components/molecules/form-field/Form_Field";
-import { useGetStudentsQuery } from "@/features/students/api/studentsApi";
 import { useCreateSubscriptionForm } from "../hooks/useCreateSubscriptionForm";
+import { useGetManualSubscriptionStudentsQuery } from "../api/createSubscriptionApi";
 import {
   PLAN_DURATION_OPTIONS,
   type CreateManualSubscriptionRequest,
@@ -30,19 +30,10 @@ export const CreateSubscriptionDialog: React.FC<
   const { form, transformPayload, resetForm } = useCreateSubscriptionForm();
   const { register, handleSubmit, watch } = form;
 
-  const { data: studentsData, isLoading: studentsLoading } =
-    useGetStudentsQuery(
-      {
-        page: 0,
-        size: 1000,
-        sort: ["firstName,asc"],
-      },
-      {
-        skip: !open,
-      },
-    );
-
-  const students = studentsData?.data ?? [];
+  const { data: students = [], isLoading: studentsLoading } =
+    useGetManualSubscriptionStudentsQuery(undefined, {
+      skip: !open,
+    });
   const selectedStudentId = watch("studentId");
 
   const handleClose = () => {
@@ -81,7 +72,7 @@ export const CreateSubscriptionDialog: React.FC<
                 <option value="">Selectionner un etudiant</option>
                 {students.map((student) => (
                   <option key={student.id} value={student.id}>
-                    {`${student.firstName} ${student.lastName} (${student.cne})`}
+                    {student.name}
                   </option>
                 ))}
               </select>

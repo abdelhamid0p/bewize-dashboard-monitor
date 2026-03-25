@@ -4,8 +4,21 @@ import type {
   ManualSubscriptionResponse,
 } from "../model/subscription.types";
 
+export interface ManualSubscriptionStudentOption {
+  id: string;
+  name: string;
+}
+
 export const createSubscriptionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getManualSubscriptionStudents: builder.query<
+      ManualSubscriptionStudentOption[],
+      void
+    >({
+      query: () => "/subscriptions/manual/students",
+      providesTags: ["Student"],
+    }),
+
     createManualSubscription: builder.mutation<
       ManualSubscriptionResponse,
       CreateManualSubscriptionRequest
@@ -20,4 +33,7 @@ export const createSubscriptionApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateManualSubscriptionMutation } = createSubscriptionApi;
+export const {
+  useGetManualSubscriptionStudentsQuery,
+  useCreateManualSubscriptionMutation,
+} = createSubscriptionApi;
