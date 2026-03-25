@@ -12,11 +12,14 @@ import {
   Pagination,
   Toolbar,
 } from "@/shared/components/organisms/data-table";
+import { useMemo } from "react";
 import { useTableExport } from "@/shared/hooks/useTableExport";
 import { useOrdersTable } from "../hooks/useOrdersTable";
 import { ORDERS_COLUMNS, ORDERS_FILTERS, renderOrderCell } from "../config";
+import { useGetOrderFilterOptionsQuery } from "../api/ordersApi";
 
 export const OrdersPage = () => {
+  const { data: backendFilters } = useGetOrderFilterOptionsQuery();
   const {
     data,
     loading,
@@ -28,6 +31,15 @@ export const OrdersPage = () => {
     goToPage,
     setPageSize,
   } = useOrdersTable();
+
+  const mergedFilters = useMemo(
+    () =>
+      ORDERS_FILTERS.map((filter) => ({
+        ...filter,
+        options: backendFilters?.[filter.key] ?? filter.options ?? [],
+      })),
+    [backendFilters],
+  );
 
   useTableExport({
     fileName: "commandes",
@@ -49,7 +61,7 @@ export const OrdersPage = () => {
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}
-        filters={ORDERS_FILTERS}
+        filters={mergedFilters}
         onFilterChange={setFilter}
       />
 

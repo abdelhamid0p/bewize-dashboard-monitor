@@ -3,6 +3,9 @@ import type { DiscountsResponse, DiscountsQueryParams } from '@/shared/types/dis
 import { PROMO_CODES_COLUMNS } from '../config';
 
 const DISCOUNT_FIELDS = PROMO_CODES_COLUMNS.map((column) => column.key).filter((key) => key !== 'actions');
+const DISCOUNT_REQUIRED_FIELDS = ['id'];
+
+type FilterOptionsResponse = Record<string, Array<{ label: string; value: string }>>;
 
 /**
  * Discounts API - handles all discount/promo code endpoints
@@ -24,11 +27,18 @@ export const discountsApi = baseApi.injectEndpoints({
         if (params.startDate) queryParams.append('startDate', params.startDate);
         if (params.endDate) queryParams.append('endDate', params.endDate);
         if (params.search) queryParams.append('search', params.search);
-        const requestedFields = params.fields?.length ? params.fields : DISCOUNT_FIELDS;
+        const requestedFields = Array.from(
+          new Set([...(params.fields?.length ? params.fields : DISCOUNT_FIELDS), ...DISCOUNT_REQUIRED_FIELDS])
+        );
         requestedFields.forEach((field) => queryParams.append('fields', field));
 
         return `/datatable/discounts?${queryParams.toString()}`;
       },
+      providesTags: ['PromoCode'],
+    }),
+
+    getDiscountFilterOptions: builder.query<FilterOptionsResponse, void>({
+      query: () => '/datatable/discounts/filters',
       providesTags: ['PromoCode'],
     }),
 
@@ -39,4 +49,4 @@ export const discountsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetDiscountsQuery, useGetDiscountByIdQuery } = discountsApi;
+export const { useGetDiscountsQuery, useGetDiscountFilterOptionsQuery, useGetDiscountByIdQuery } = discountsApi;

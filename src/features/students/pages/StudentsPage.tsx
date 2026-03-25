@@ -20,8 +20,11 @@ import {
   renderStudentCell,
 } from "../config";
 import { FIXED_PAGE_SIZE } from "@/shared/components/organisms/data-table/Pagination";
+import { useMemo } from "react";
+import { useGetStudentFilterOptionsQuery } from "../api/studentsApi";
 
 export const StudentsPage = () => {
+  const { data: backendFilters } = useGetStudentFilterOptionsQuery();
   const {
     data,
     loading,
@@ -33,6 +36,19 @@ export const StudentsPage = () => {
     goToPage,
     setPageSize,
   } = useStudentsTable({ pageSize: FIXED_PAGE_SIZE });
+
+  const mergedFilters = useMemo(
+    () =>
+      STUDENTS_FILTERS.map((filter) =>
+        filter.type === "date-range"
+          ? filter
+          : {
+              ...filter,
+              options: backendFilters?.[filter.key] ?? filter.options ?? [],
+            },
+      ),
+    [backendFilters],
+  );
 
   useTableExport({
     fileName: "etudiants",
@@ -54,7 +70,7 @@ export const StudentsPage = () => {
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}
-        filters={STUDENTS_FILTERS}
+        filters={mergedFilters}
         onFilterChange={setFilter}
       />
 

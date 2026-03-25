@@ -15,12 +15,14 @@ import {
   PROMO_CODES_FILTERS,
   renderPromoCodeCell,
 } from "../config";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CreateDiscountDialog } from "../create-discount";
 import { useCreateDiscount } from "../create-discount/hooks";
 import type { CreateDiscountRequest } from "../create-discount/model/discount.types";
+import { useGetDiscountFilterOptionsQuery } from "../api/discountsApi";
 
 export const PromoCodesPage = () => {
+  const { data: backendFilters } = useGetDiscountFilterOptionsQuery();
   const {
     data,
     loading,
@@ -34,6 +36,19 @@ export const PromoCodesPage = () => {
   } = usePromoCodesTable();
   const [openDialog, setOpenDialog] = useState(false);
   const { createDiscount, isLoading } = useCreateDiscount();
+
+  const mergedFilters = useMemo(
+    () =>
+      PROMO_CODES_FILTERS.map((filter) =>
+        filter.type === "date-range"
+          ? filter
+          : {
+              ...filter,
+              options: backendFilters?.[filter.key] ?? filter.options ?? [],
+            },
+      ),
+    [backendFilters],
+  );
 
   const handleCreateDiscount = async (data: CreateDiscountRequest) => {
     await createDiscount(data);
@@ -60,7 +75,7 @@ export const PromoCodesPage = () => {
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}
-        filters={PROMO_CODES_FILTERS}
+        filters={mergedFilters}
         onFilterChange={setFilter}
         actions={
           <Button variant="secondary" onClick={() => setOpenDialog(true)}>

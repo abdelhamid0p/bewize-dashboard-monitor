@@ -15,12 +15,14 @@ import {
   SUBSCRIPTIONS_FILTERS,
   renderSubscriptionCell,
 } from "../config";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CreateSubscriptionDialog } from "../create-subscription";
 import { useCreateSubscription } from "../create-subscription/hooks";
 import type { CreateManualSubscriptionRequest } from "../create-subscription/model/subscription.types";
+import { useGetSubscriptionFilterOptionsQuery } from "../api/subscriptionsApi";
 
 export const SubscriptionsPage = () => {
+  const { data: backendFilters } = useGetSubscriptionFilterOptionsQuery();
   const {
     data,
     loading,
@@ -35,6 +37,19 @@ export const SubscriptionsPage = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const { createSubscription, isLoading, errorMessage } =
     useCreateSubscription();
+
+  const mergedFilters = useMemo(
+    () =>
+      SUBSCRIPTIONS_FILTERS.map((filter) =>
+        filter.type === "date-range"
+          ? filter
+          : {
+              ...filter,
+              options: backendFilters?.[filter.key] ?? filter.options ?? [],
+            },
+      ),
+    [backendFilters],
+  );
 
   const handleCreateSubscription = async (
     payload: CreateManualSubscriptionRequest,
@@ -63,7 +78,7 @@ export const SubscriptionsPage = () => {
       <Toolbar
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}
-        filters={SUBSCRIPTIONS_FILTERS}
+        filters={mergedFilters}
         onFilterChange={setFilter}
         actions={
           <Button variant="secondary" onClick={() => setOpenDialog(true)}>

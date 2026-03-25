@@ -3,6 +3,9 @@ import type { StudentsResponse, StudentsQueryParams } from '@/shared/types/stude
 import { STUDENTS_COLUMNS } from '../config';
 
 const STUDENT_FIELDS = STUDENTS_COLUMNS.map((column) => column.key).filter((key) => key !== 'actions');
+const STUDENT_REQUIRED_FIELDS = ['id'];
+
+type FilterOptionsResponse = Record<string, Array<{ label: string; value: string }>>;
 
 /**
  * Students API - handles all students-related endpoints
@@ -25,11 +28,18 @@ export const studentsApi = baseApi.injectEndpoints({
         if (params.level) queryParams.append('level', params.level);
         if (params.type) queryParams.append('type', params.type);
         if (params.planType) queryParams.append('planType', params.planType);
-        const requestedFields = params.fields?.length ? params.fields : STUDENT_FIELDS;
+        const requestedFields = Array.from(
+          new Set([...(params.fields?.length ? params.fields : STUDENT_FIELDS), ...STUDENT_REQUIRED_FIELDS])
+        );
         requestedFields.forEach((field) => queryParams.append('fields', field));
 
         return `/datatable/students?${queryParams.toString()}`;
       },
+      providesTags: ['Student'],
+    }),
+
+    getStudentFilterOptions: builder.query<FilterOptionsResponse, void>({
+      query: () => '/datatable/students/filters',
       providesTags: ['Student'],
     }),
 
@@ -40,4 +50,4 @@ export const studentsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetStudentsQuery, useGetStudentByIdQuery } = studentsApi;
+export const { useGetStudentsQuery, useGetStudentFilterOptionsQuery, useGetStudentByIdQuery } = studentsApi;

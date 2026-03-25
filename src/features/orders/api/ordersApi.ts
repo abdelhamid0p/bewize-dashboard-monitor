@@ -7,6 +7,8 @@ import { ORDERS_COLUMNS } from "../config";
 
 const ORDER_FIELDS = ORDERS_COLUMNS.map((column) => column.key).filter((key) => key !== "actions");
 
+type FilterOptionsResponse = Record<string, Array<{ label: string; value: string }>>;
+
 /**
  * Orders API - handles all order-related endpoints
  * Manages filtering, pagination, and sorting
@@ -33,7 +35,11 @@ export const ordersApi = baseApi.injectEndpoints({
       },
       providesTags: ["Order"],
     }),
+    getOrderFilterOptions: builder.query<FilterOptionsResponse, void>({
+      query: () => "/datatable/orders/filters",
+      providesTags: ["Order"],
+    }),
   }),
 });
 
-export const { useGetOrdersQuery } = ordersApi;
+export const { useGetOrdersQuery, useGetOrderFilterOptionsQuery } = ordersApi;

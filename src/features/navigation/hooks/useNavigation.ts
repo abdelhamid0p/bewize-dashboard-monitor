@@ -12,7 +12,11 @@ export const useNavigation = () => {
   }
 
   const isActive = (path: string) => {
-    return activeItem === path || location.pathname === path
+    // Pour l'item students, actif aussi sur les sous-routes (détail)
+    if (path === "/dashboard/students") {
+      return location.pathname.startsWith("/dashboard/students");
+    }
+    return activeItem === path || location.pathname === path;
   }
 
   return {

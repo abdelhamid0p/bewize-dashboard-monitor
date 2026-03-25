@@ -15,8 +15,8 @@ export const GENDER_COLORS: Record<string, "blue" | "red"> = {
 
 // Colors keyed by label for use after mapping
 export const GENDER_LABEL_COLORS: Record<string, "blue" | "red"> = {
-  "Fille": "red",
-  "Garçon": "blue",
+  "FEMALE": "red",
+  "MALE": "blue",
 };
 
 export const CYCLE_LABELS: Record<string, string> = {

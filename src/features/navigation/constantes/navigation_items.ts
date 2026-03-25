@@ -98,6 +98,10 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
 
 /** Get navbar config for the current path */
 export const getNavbarConfig = (pathname: string): NavbarConfig => {
+  // Si on est sur la page de détail étudiant, masquer le titre
+  if (/^\/dashboard\/students\/[\w-]+$/.test(pathname)) {
+    return { title: "", showExportButton: false, showSettingsButton: false };
+  }
   const item = NAVIGATION_ITEMS.find((item) => item.path === pathname)
   return item?.navbar ?? { title: "Dashboard", showExportButton: true, showSettingsButton: true }
 }

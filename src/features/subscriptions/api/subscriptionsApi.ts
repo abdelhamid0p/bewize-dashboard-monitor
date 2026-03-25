@@ -3,6 +3,9 @@ import type { SubscriptionsResponse, SubscriptionsQueryParams } from '@/shared/t
 import { SUBSCRIPTIONS_COLUMNS } from '../config';
 
 const SUBSCRIPTION_FIELDS = SUBSCRIPTIONS_COLUMNS.map((column) => column.key).filter((key) => key !== 'actions');
+const SUBSCRIPTION_REQUIRED_FIELDS = ['id'];
+
+type FilterOptionsResponse = Record<string, Array<{ label: string; value: string }>>;
 
 /**
  * Subscriptions API - handles all subscriptions endpoints
@@ -27,11 +30,21 @@ export const subscriptionsApi = baseApi.injectEndpoints({
         if (params.startDate) queryParams.append('startDate', params.startDate);
         if (params.endDate) queryParams.append('endDate', params.endDate);
         if (params.search) queryParams.append('search', params.search);
-        const requestedFields = params.fields?.length ? params.fields : SUBSCRIPTION_FIELDS;
+        const requestedFields = Array.from(
+          new Set([
+            ...(params.fields?.length ? params.fields : SUBSCRIPTION_FIELDS),
+            ...SUBSCRIPTION_REQUIRED_FIELDS,
+          ])
+        );
         requestedFields.forEach((field) => queryParams.append('fields', field));
 
         return `/datatable/subscriptions?${queryParams.toString()}`;
       },
+      providesTags: ['Subscription'],
+    }),
+
+    getSubscriptionFilterOptions: builder.query<FilterOptionsResponse, void>({
+      query: () => '/datatable/subscriptions/filters',
       providesTags: ['Subscription'],
     }),
 
@@ -42,4 +55,4 @@ export const subscriptionsApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetSubscriptionsQuery, useGetSubscriptionByIdQuery } = subscriptionsApi;
+export const { useGetSubscriptionsQuery, useGetSubscriptionFilterOptionsQuery, useGetSubscriptionByIdQuery } = subscriptionsApi;
